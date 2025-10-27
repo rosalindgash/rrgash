@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rosalind - Researcher × Founder</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        // Lucide icon components as inline SVG
+        const BookOpen = ({ className }) => (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+        );
+
+        const Code = ({ className }) => (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+            </svg>
+        );
+
+        const Mail = ({ className }) => (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+        );
+
+        const Linkedin = ({ className }) => (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" />
+                <circle cx="4" cy="4" r="2" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
+            </svg>
+        );
+
+        const Github = ({ className }) => (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22" />
+            </svg>
+        );
+
+        const Award = ({ className }) => (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        );
+
+        const Briefcase = ({ className }) => (
+            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+        );
+
+        function PersonalBrandPage() {
+            const [activeSection, setActiveSection] = useState('overview');
+
+            return (
+                <div className="min-h-screen bg-gradient-to-br from-slate-50 to-amber-50">
+                    {/* Header */}
+                    <header className="bg-white shadow-sm sticky top-0 z-10">
+                        <div className="max-w-6xl mx-auto px-6 py-4">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <h1 className="text-2xl font-bold text-slate-900">Rosalind</h1>
+                                    <p className="text-sm text-slate-600">Researcher × Founder</p>
+                                </div>
+                                <nav className="hidden md:flex gap-6">
+                                    <button 
+                                        onClick={() => setActiveSection('overview')}
+                                        className={`text-sm font-medium transition-colors ${activeSection === 'overview' ? 'text-amber-600' : 'text-slate-600 hover:text-slate-900'}`}
+                                    >
+                                        Overview
+                                    </button>
+                                    <button 
+                                        onClick={() => setActiveSection('research')}
+                                        className={`text-sm font-medium transition-colors ${activeSection === 'research' ? 'text-amber-600' : 'text-slate-600 hover:text-slate-900'}`}
+                                    >
+                                        Research
+                                    </button>
+                                    <button 
+                                        onClick={() => setActiveSection('tech')}
+                                        className={`text-sm font-medium transition-colors ${activeSection === 'tech' ? 'text-amber-600' : 'text-slate-600 hover:text-slate-900'}`}
+                                    >
+                                        Tech
+                                    </button>
+                                    <button 
+                                        onClick={() => setActiveSection('contact')}
+                                        className={`text-sm font-medium transition-colors ${activeSection === 'contact' ? 'text-amber-600' : 'text-slate-600 hover:text-slate-900'}`}
+                                    >
+                                        Contact
+                                    </button>
+                                </nav>
+                            </div>
+                        </div>
+                    </header>
+
+                    <main className="max-w-6xl mx-auto px-6 py-12">
+                        {/* Hero Section */}
+                        {activeSection === 'overview' && (
+                            <div className="space-y-12">
+                                <section className="text-center max-w-3xl mx-auto">
+                                    <img 
+                                        src="cartoon-me.jpg" 
+                                        alt="Rosalind" 
+                                        className="w-32 h-32 rounded-full mx-auto mb-6 object-cover border-4 border-amber-200 shadow-lg"
+                                    />
+                                    <h2 className="text-4xl font-bold text-slate-900 mb-4">
+                                        Building Accessible Technology Through Research
+                                    </h2>
+                                    <p className="text-xl text-slate-600 mb-8">
+                                        Academic Researcher in Adaptive Digital Technologies | Founder of PingBuoy | 
+                                        Exploring how AI tools reshape academic work and entrepreneurship
+                                    </p>
+                                    <div className="flex justify-center gap-4 flex-wrap">
+                                        <a 
+                                            href="mailto:rrgash@protonmail.com"
+                                            className="flex items-center gap-2 px-6 py-3 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors"
+                                        >
+                                            <Mail className="w-4 h-4" />
+                                            Get in Touch
+                                        </a>
+                                        <a 
+                                            href="https://github.com/rosalindgash"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center gap-2 px-6 py-3 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors"
+                                        >
+                                            <Github className="w-4 h-4" />
+                                            View Projects
+                                        </a>
+                                    </div>
+                                </section>
+
+                                {/* At the Intersection */}
+                                <section className="bg-white rounded-2xl shadow-lg p-8 border border-slate-200">
+                                    <h3 className="text-2xl font-bold text-slate-900 mb-6 text-center">
+                                        At the Intersection
+                                    </h3>
+                                    <div className="grid md:grid-cols-2 gap-8">
+                                        <div className="space-y-4">
+                                            <div className="flex items-start gap-3">
+                                                <BookOpen className="w-6 h-6 text-amber-600 flex-shrink-0 mt-1" />
+                                                <div>
+                                                    <h4 className="font-semibold text-slate-900 mb-1">Academic Research</h4>
+                                                    <p className="text-slate-600 text-sm">
+                                                        Examining how scholars with personal circumstances navigate 
+                                                        academia using AI tools. Member of the Society for Disability Studies.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-start gap-3">
+                                                <Award className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" />
+                                                <div>
+                                                    <h4 className="font-semibold text-slate-900 mb-1">Methodology Innovation</h4>
+                                                    <p className="text-slate-600 text-sm">
+                                                        Developing frameworks for energy-conscious qualitative analysis and 
+                                                        accessible academic practices.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="space-y-4">
+                                            <div className="flex items-start gap-3">
+                                                <Code className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
+                                                <div>
+                                                    <h4 className="font-semibold text-slate-900 mb-1">Tech Entrepreneurship</h4>
+                                                    <p className="text-slate-600 text-sm">
+                                                        Solo founder of PingBuoy, a website monitoring SaaS built through 
+                                                        AI-assisted development. From concept to production deployment.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-start gap-3">
+                                                <Briefcase className="w-6 h-6 text-orange-600 flex-shrink-0 mt-1" />
+                                                <div>
+                                                    <h4 className="font-semibold text-slate-900 mb-1">Technical Expertise</h4>
+                                                    <p className="text-slate-600 text-sm">
+                                                        Full-stack development experience building scalable SaaS applications 
+                                                        with modern tech stacks.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                {/* Current Focus */}
+                                <section className="grid md:grid-cols-3 gap-6">
+                                    <div className="bg-gradient-to-br from-amber-50 to-amber-100 rounded-xl p-6 border border-amber-200">
+                                        <h4 className="font-bold text-amber-900 mb-2">Research</h4>
+                                        <p className="text-sm text-amber-800">
+                                            Writing articles on energy-conscious qualitative analysis for peer-reviewed journals
+                                        </p>
+                                    </div>
+                                    <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border border-purple-200">
+                                        <h4 className="font-bold text-purple-900 mb-2">Building</h4>
+                                        <p className="text-sm text-purple-800">
+                                            Scaling PingBuoy for solopreneurs and small businesses
+                                        </p>
+                                    </div>
+                                    <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 border border-green-200">
+                                        <h4 className="font-bold text-green-900 mb-2">Exploring</h4>
+                                        <p className="text-sm text-green-800">
+                                            AI-powered development workflows and methodologies
+                                        </p>
+                                    </div>
+                                </section>
+                            </div>
+                        )}
+
+                        {/* Research Section */}
+                        {activeSection === 'research' && (
+                            <div className="space-y-8">
+                                <div>
+                                    <h2 className="text-3xl font-bold text-slate-900 mb-2">Research</h2>
+                                    <p className="text-slate-600">
+                                        Exploring adaptive digital technologies and accessible academic practices
+                                    </p>
+                                </div>
+
+                                <div className="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
+                                    <h3 className="text-xl font-bold text-slate-900 mb-4">Current Work</h3>
+                                    <div className="space-y-6">
+                                        <div>
+                                            <h4 className="font-semibold text-slate-900 mb-2">
+                                                Adaptive Digital Technologies Research
+                                            </h4>
+                                            <p className="text-slate-600 mb-2">
+                                                My research investigates how scholars with personal circumstances navigate 
+                                                academia using AI tools, with a focus on developing accessible and sustainable 
+                                                research methodologies. I'm currently writing a series of articles for 
+                                                submission to peer-reviewed journals, examining the intersection of adaptive 
+                                                technologies, disability studies, and academic practice.
+                                            </p>
+                                            <div className="flex flex-wrap gap-2">
+                                                <span className="px-3 py-1 bg-amber-100 text-amber-700 text-xs rounded-full">
+                                                    AI Tools
+                                                </span>
+                                                <span className="px-3 py-1 bg-amber-100 text-amber-700 text-xs rounded-full">
+                                                    Disability Studies
+                                                </span>
+                                                <span className="px-3 py-1 bg-amber-100 text-amber-700 text-xs rounded-full">
+                                                    Qualitative Analysis
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <h4 className="font-semibold text-slate-900 mb-2">
+                                                Methodology Paper: Energy-Conscious Academic Work
+                                            </h4>
+                                            <p className="text-slate-600 mb-2">
+                                                Developing frameworks for sustainable research practices that account for 
+                                                researchers' energy limitations and personal circumstances.
+                                            </p>
+                                            <span className="text-sm text-slate-500">In preparation for publication</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
+                                    <h3 className="text-xl font-bold text-slate-900 mb-4">Research Interests</h3>
+                                    <ul className="space-y-3 text-slate-600">
+                                        <li className="flex items-start gap-2">
+                                            <span className="text-amber-600 mt-1">•</span>
+                                            <span>AI-assisted academic research methodologies</span>
+                                        </li>
+                                        <li className="flex items-start gap-2">
+                                            <span className="text-amber-600 mt-1">•</span>
+                                            <span>Applying ADAP (Adaptive Digital Academic Practice) frameworks</span>
+                                        </li>
+                                        <li className="flex items-start gap-2">
+                                            <span className="text-amber-600 mt-1">•</span>
+                                            <span>Accessibility in digital technologies</span>
+                                        </li>
+                                        <li className="flex items-start gap-2">
+                                            <span className="text-amber-600 mt-1">•</span>
+                                            <span>Energy-conscious research frameworks</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div className="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
+                                    <h3 className="text-xl font-bold text-slate-900 mb-4">Affiliations</h3>
+                                    <div className="space-y-3">
+                                        <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+                                            <Award className="w-5 h-5 text-slate-600" />
+                                            <span className="text-slate-700">Society for Disability Studies</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Tech Section */}
+                        {activeSection === 'tech' && (
+                            <div className="space-y-8">
+                                <div>
+                                    <h2 className="text-3xl font-bold text-slate-900 mb-2">Technology</h2>
+                                    <p className="text-slate-600">
+                                        Building accessible, practical tools for underserved markets
+                                    </p>
+                                </div>
+
+                                <div className="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
+                                    <div className="flex items-start justify-between mb-4 flex-wrap gap-4">
+                                        <div>
+                                            <h3 className="text-2xl font-bold text-slate-900 mb-2">PingBuoy</h3>
+                                            <p className="text-slate-600 mb-4">
+                                                Website monitoring SaaS for solopreneurs and small businesses
+                                            </p>
+                                        </div>
+                                        <span className="px-3 py-1 bg-green-100 text-green-700 text-sm rounded-full">
+                                            Live in Production
+                                        </span>
+                                    </div>
+                                    
+                                    <div className="space-y-4 mb-6">
+                                        <p className="text-slate-600">
+                                            Built through AI-assisted development, PingBuoy provides uptime monitoring, 
+                                            SSL certificate checking, and automated alerts for website owners who need 
+                                            reliable monitoring without enterprise complexity.
+                                        </p>
+                                        
+                                        <div>
+                                            <h4 className="font-semibold text-slate-900 mb-2">Tech Stack</h4>
+                                            <div className="flex flex-wrap gap-2">
+                                                <span className="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-lg">React</span>
+                                                <span className="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-lg">TypeScript</span>
+                                                <span className="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-lg">Supabase</span>
+                                                <span className="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-lg">Stripe</span>
+                                                <span className="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-lg">TailwindCSS</span>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <h4 className="font-semibold text-slate-900 mb-2">Key Features</h4>
+                                            <ul className="grid md:grid-cols-2 gap-2 text-slate-600">
+                                                <li className="flex items-start gap-2">
+                                                    <span className="text-green-600 mt-1">✓</span>
+                                                    <span>24/7 uptime monitoring</span>
+                                                </li>
+                                                <li className="flex items-start gap-2">
+                                                    <span className="text-green-600 mt-1">✓</span>
+                                                    <span>SSL certificate tracking</span>
+                                                </li>
+                                                <li className="flex items-start gap-2">
+                                                    <span className="text-green-600 mt-1">✓</span>
+                                                    <span>Automated alert system</span>
+                                                </li>
+                                                <li className="flex items-start gap-2">
+                                                    <span className="text-green-600 mt-1">✓</span>
+                                                    <span>Stripe payment integration</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
+                                    <h3 className="text-xl font-bold text-slate-900 mb-4">Previous Projects</h3>
+                                    <div className="space-y-4">
+                                        <div>
+                                            <h4 className="font-semibold text-slate-900 mb-1">SlickInvoices</h4>
+                                            <p className="text-slate-600 text-sm mb-2">
+                                                Invoice generation application built with React, Supabase, and Stripe integration. 
+                                                Developed comprehensive features including user authentication, database management, 
+                                                and payment processing for streamlined invoicing workflows.
+                                            </p>
+                                            <div className="flex flex-wrap gap-2">
+                                                <span className="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded">React</span>
+                                                <span className="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded">Supabase</span>
+                                                <span className="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded">Stripe</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="bg-gradient-to-br from-purple-50 to-amber-50 rounded-xl p-8 border border-purple-200">
+                                    <h3 className="text-xl font-bold text-slate-900 mb-3">Development Approach</h3>
+                                    <p className="text-slate-700 mb-4">
+                                        Focused on practical, accessible solutions for underserved markets using modern 
+                                        tech stacks and AI-powered development workflows.
+                                    </p>
+                                    <p className="text-slate-600 text-sm">
+                                        Emphasizing rapid iteration, user-centered design, and sustainable development 
+                                        practices that align with real-world constraints and user needs.
+                                    </p>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Contact Section */}
+                        {activeSection === 'contact' && (
+                            <div className="space-y-8">
+                                <div>
+                                    <h2 className="text-3xl font-bold text-slate-900 mb-2">Get in Touch</h2>
+                                    <p className="text-slate-600">
+                                        Interested in collaboration, speaking engagements, or discussing research?
+                                    </p>
+                                </div>
+
+                                <div className="grid md:grid-cols-2 gap-8">
+                                    <div className="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
+                                        <h3 className="text-xl font-bold text-slate-900 mb-4">Connect</h3>
+                                        <div className="space-y-4">
+                                            <a 
+                                                href="mailto:rrgash@protonmail.com"
+                                                className="w-full flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors"
+                                            >
+                                                <Mail className="w-5 h-5 text-slate-600" />
+                                                <div>
+                                                    <div className="font-medium text-slate-900">Email</div>
+                                                    <div className="text-sm text-slate-500">rrgash@protonmail.com</div>
+                                                </div>
+                                            </a>
+                                            <a 
+                                                href="https://www.linkedin.com/in/rosalindgash"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="w-full flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors"
+                                            >
+                                                <Linkedin className="w-5 h-5 text-slate-600" />
+                                                <div>
+                                                    <div className="font-medium text-slate-900">LinkedIn</div>
+                                                    <div className="text-sm text-slate-500">Connect professionally</div>
+                                                </div>
+                                            </a>
+                                            <a 
+                                                href="https://github.com/rosalindgash"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="w-full flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors"
+                                            >
+                                                <Github className="w-5 h-5 text-slate-600" />
+                                                <div>
+                                                    <div className="font-medium text-slate-900">GitHub</div>
+                                                    <div className="text-sm text-slate-500">View my code</div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div className="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
+                                        <h3 className="text-xl font-bold text-slate-900 mb-4">Areas of Interest</h3>
+                                        <ul className="space-y-3 text-slate-600">
+                                            <li className="flex items-start gap-2">
+                                                <span className="text-amber-600 mt-1">•</span>
+                                                <span>Research collaboration in adaptive technologies</span>
+                                            </li>
+                                            <li className="flex items-start gap-2">
+                                                <span className="text-amber-600 mt-1">•</span>
+                                                <span>Speaking engagements on AI-assisted development</span>
+                                            </li>
+                                            <li className="flex items-start gap-2">
+                                                <span className="text-amber-600 mt-1">•</span>
+                                                <span>Disability studies and accessibility consulting</span>
+                                            </li>
+                                            <li className="flex items-start gap-2">
+                                                <span className="text-amber-600 mt-1">•</span>
+                                                <span>SaaS development for underserved markets</span>
+                                            </li>
+                                            <li className="flex items-start gap-2">
+                                                <span className="text-amber-600 mt-1">•</span>
+                                                <span>Academic-entrepreneurship intersections</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div className="bg-gradient-to-br from-amber-50 to-purple-50 rounded-xl p-8 border border-amber-200 text-center">
+                                    <h3 className="text-xl font-bold text-slate-900 mb-3">
+                                        Building at the intersection of research and technology
+                                    </h3>
+                                    <p className="text-slate-700 max-w-2xl mx-auto">
+                                        Whether you're interested in discussing adaptive technologies, exploring AI-assisted 
+                                        development methodologies, or collaborating on accessible software solutions, I'd love 
+                                        to hear from you.
+                                    </p>
+                                </div>
+                            </div>
+                        )}
+                    </main>
+
+                    {/* Footer */}
+                    <footer className="bg-white border-t border-slate-200 mt-16">
+                        <div className="max-w-6xl mx-auto px-6 py-8 text-center text-slate-600 text-sm">
+                            <p>© 2025 Rosalind. Bridging academia and entrepreneurship through accessible technology.</p>
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<PersonalBrandPage />);
+    </script>
+</body>
+</html>
