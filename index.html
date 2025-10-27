@@ -79,7 +79,12 @@
                         <div className="max-w-6xl mx-auto px-6 py-4">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <h1 className="text-2xl font-bold text-slate-900">Rosalind</h1>
+                                    <h1 
+                                        onClick={() => setActiveSection('overview')}
+                                        className="text-2xl font-bold text-slate-900 hover:text-amber-600 transition-colors cursor-pointer"
+                                    >
+                                        Rosalind
+                                    </h1>
                                     <p className="text-sm text-slate-600">Researcher × Founder</p>
                                 </div>
                                 <nav className="hidden md:flex gap-6">
