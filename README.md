@@ -27,12 +27,17 @@ This site presents my dual identity as both an academic researcher and technolog
 - **Babel Standalone** - JSX transformation in the browser
 - **Vanilla JavaScript** - No build tools needed
 
-## Structure
+## Project Structure
 
 ```
-├── index.html          # Main application file (contains all React code)
-├── cartoon-me.jpg      # Profile image
-└── README.md          # This file
+├── index.html               # Main application file (contains all React code)
+├── assets/
+│   └── images/
+│       └── cartoon-me.jpg   # Profile image
+├── docs/
+│   └── screenshots/
+│       └── home.png         # Homepage screenshot
+└── README.md                # This file
 ```
 
 ## Local Development
