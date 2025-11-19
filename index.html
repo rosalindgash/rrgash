@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rosalind - Researcher × Founder</title>
+    <title>Rosalind Gash - Founder × Researcher</title>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -16,6 +16,28 @@
                 sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Accessible focus indicators */
+        *:focus-visible {
+            outline: 3px solid #2563eb;
+            outline-offset: 2px;
+        }
+
+        /* Skip to main content link for keyboard users */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #2563eb;
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
         }
     </style>
 </head>
@@ -73,54 +95,61 @@
             const [activeSection, setActiveSection] = useState('overview');
 
             return (
-                <div className="min-h-screen bg-gradient-to-br from-slate-50 to-amber-50">
+                <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+                    {/* Skip to main content link for keyboard accessibility */}
+                    <a href="#main-content" className="skip-link">Skip to main content</a>
+
                     {/* Header */}
-                    <header className="bg-white shadow-sm sticky top-0 z-10">
+                    <header className="bg-white shadow-sm sticky top-0 z-10" role="banner">
                         <div className="max-w-6xl mx-auto px-6 py-4">
                             <div className="flex items-center justify-between">
                                 <div>
-                                    <h1 
+                                    <h1
                                         onClick={() => setActiveSection('overview')}
-                                        className="text-2xl font-bold text-slate-900 hover:text-amber-600 transition-colors cursor-pointer"
+                                        className="text-2xl font-bold text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
+                                        tabIndex="0"
+                                        onKeyPress={(e) => e.key === 'Enter' && setActiveSection('overview')}
+                                        role="button"
+                                        aria-label="Go to overview section"
                                     >
-                                        Rosalind
+                                        Rosalind Gash
                                     </h1>
-                                    <p className="text-sm text-slate-600">Researcher × Founder</p>
+                                    <p className="text-sm text-blue-600">Founder × Researcher</p>
                                 </div>
-                                <nav className="hidden md:flex gap-6">
-                                    <button 
+                                <nav className="hidden md:flex gap-6" aria-label="Main navigation">
+                                    <button
                                         onClick={() => setActiveSection('overview')}
-                                        className={`text-sm font-medium transition-colors ${activeSection === 'overview' ? 'text-amber-600' : 'text-slate-600 hover:text-slate-900'}`}
+                                        className={`text-sm font-medium transition-colors ${activeSection === 'overview' ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}
                                     >
                                         Overview
                                     </button>
-                                    <button 
+                                    <button
                                         onClick={() => setActiveSection('research')}
-                                        className={`text-sm font-medium transition-colors ${activeSection === 'research' ? 'text-amber-600' : 'text-slate-600 hover:text-slate-900'}`}
+                                        className={`text-sm font-medium transition-colors ${activeSection === 'research' ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}
                                     >
                                         Research
                                     </button>
-                                    <button 
+                                    <button
                                         onClick={() => setActiveSection('tech')}
-                                        className={`text-sm font-medium transition-colors ${activeSection === 'tech' ? 'text-amber-600' : 'text-slate-600 hover:text-slate-900'}`}
+                                        className={`text-sm font-medium transition-colors ${activeSection === 'tech' ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}
                                     >
                                         Tech
                                     </button>
-                                    <a 
+                                    <a
                                         href="https://blog.rosalindgash.org"
                                         className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
                                     >
                                         Blog
                                     </a>
-                                    <button 
+                                    <button
                                         onClick={() => setActiveSection('resume')}
-                                        className={`text-sm font-medium transition-colors ${activeSection === 'resume' ? 'text-amber-600' : 'text-slate-600 hover:text-slate-900'}`}
+                                        className={`text-sm font-medium transition-colors ${activeSection === 'resume' ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}
                                     >
                                         Resume
                                     </button>
-                                    <button 
+                                    <button
                                         onClick={() => setActiveSection('contact')}
-                                        className={`text-sm font-medium transition-colors ${activeSection === 'contact' ? 'text-amber-600' : 'text-slate-600 hover:text-slate-900'}`}
+                                        className={`text-sm font-medium transition-colors ${activeSection === 'contact' ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}
                                     >
                                         Contact
                                     </button>
@@ -129,33 +158,32 @@
                         </div>
                     </header>
 
-                    <main className="max-w-6xl mx-auto px-6 py-12">
+                    <main id="main-content" className="max-w-6xl mx-auto px-6 py-12" role="main">
                         {/* Hero Section */}
                         {activeSection === 'overview' && (
                             <div className="space-y-12">
                                 <section className="text-center max-w-3xl mx-auto">
                                     <img
-                                        src="assets/images/cartoon-me.jpg"
-                                        alt="Rosalind"
-                                        className="w-32 h-32 rounded-full mx-auto mb-6 object-cover border-4 border-amber-200 shadow-lg"
-                                        style={{objectPosition: 'center 35%'}}
+                                        src="assets/images/headshot.png"
+                                        alt="Professional headshot of Rosalind Gash"
+                                        className="w-32 h-32 rounded-full mx-auto mb-6 object-cover border-4 border-blue-200 shadow-lg"
                                     />
                                     <h2 className="text-4xl font-bold text-slate-900 mb-4">
                                         Building Accessible Technology Through Research
                                     </h2>
                                     <p className="text-xl text-slate-600 mb-8">
-                                        Academic Researcher in Adaptive Digital Technologies | Founder of PingBuoy | 
+                                        Founder of PingBuoy | Academic Researcher in Adaptive Digital Technologies |
                                         Exploring how AI tools reshape academic work and entrepreneurship
                                     </p>
                                     <div className="flex justify-center gap-4 flex-wrap">
-                                        <a 
+                                        <a
                                             href="mailto:rrgash@protonmail.com"
-                                            className="flex items-center gap-2 px-6 py-3 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors"
+                                            className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                                         >
                                             <Mail className="w-4 h-4" />
                                             Get in Touch
                                         </a>
-                                        <a 
+                                        <a
                                             href="https://github.com/rosalindgash"
                                             target="_blank"
                                             rel="noopener noreferrer"
@@ -175,11 +203,11 @@
                                     <div className="grid md:grid-cols-2 gap-8">
                                         <div className="space-y-4">
                                             <div className="flex items-start gap-3">
-                                                <BookOpen className="w-6 h-6 text-amber-600 flex-shrink-0 mt-1" />
+                                                <BookOpen className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                                                 <div>
                                                     <h4 className="font-semibold text-slate-900 mb-1">Academic Research</h4>
                                                     <p className="text-slate-600 text-sm">
-                                                        Examining how scholars with disabilities navigate 
+                                                        Examining how scholars with disabilities navigate
                                                         academia using AI tools. Member of the Society for Disability Studies.
                                                     </p>
                                                 </div>
@@ -189,7 +217,7 @@
                                                 <div>
                                                     <h4 className="font-semibold text-slate-900 mb-1">Methodology Innovation</h4>
                                                     <p className="text-slate-600 text-sm">
-                                                        Developing frameworks for energy-conscious qualitative analysis and 
+                                                        Developing frameworks for energy-conscious qualitative analysis and
                                                         accessible academic practices.
                                                     </p>
                                                 </div>
@@ -201,7 +229,7 @@
                                                 <div>
                                                     <h4 className="font-semibold text-slate-900 mb-1">Tech Entrepreneurship</h4>
                                                     <p className="text-slate-600 text-sm">
-                                                        Solo founder of PingBuoy, a website monitoring SaaS built through 
+                                                        Solo founder of PingBuoy, a website monitoring SaaS built through
                                                         AI-assisted development. From concept to production deployment.
                                                     </p>
                                                 </div>
@@ -211,7 +239,7 @@
                                                 <div>
                                                     <h4 className="font-semibold text-slate-900 mb-1">Technical Expertise</h4>
                                                     <p className="text-slate-600 text-sm">
-                                                        Full-stack development experience building scalable SaaS applications 
+                                                        Full-stack development experience building scalable SaaS applications
                                                         with modern tech stacks.
                                                     </p>
                                                 </div>
@@ -222,9 +250,9 @@
 
                                 {/* Current Focus */}
                                 <section className="grid md:grid-cols-3 gap-6">
-                                    <div className="bg-gradient-to-br from-amber-50 to-amber-100 rounded-xl p-6 border border-amber-200">
-                                        <h4 className="font-bold text-amber-900 mb-2">Research</h4>
-                                        <p className="text-sm text-amber-800">
+                                    <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border border-blue-200">
+                                        <h4 className="font-bold text-blue-900 mb-2">Research</h4>
+                                        <p className="text-sm text-blue-800">
                                             Writing articles on energy-conscious qualitative analysis for peer-reviewed journals
                                         </p>
                                     </div>
@@ -269,13 +297,13 @@
                                                 technologies, disability studies, and academic practice.
                                             </p>
                                             <div className="flex flex-wrap gap-2">
-                                                <span className="px-3 py-1 bg-amber-100 text-amber-700 text-xs rounded-full">
+                                                <span className="px-3 py-1 bg-blue-100 text-blue-600 text-xs rounded-full">
                                                     AI Tools
                                                 </span>
-                                                <span className="px-3 py-1 bg-amber-100 text-amber-700 text-xs rounded-full">
+                                                <span className="px-3 py-1 bg-blue-100 text-blue-600 text-xs rounded-full">
                                                     Disability Studies
                                                 </span>
-                                                <span className="px-3 py-1 bg-amber-100 text-amber-700 text-xs rounded-full">
+                                                <span className="px-3 py-1 bg-blue-100 text-blue-600 text-xs rounded-full">
                                                     Qualitative Analysis
                                                 </span>
                                             </div>
@@ -286,10 +314,10 @@
                                                 Methodology Paper: Energy-Conscious Qualitative Analysis: Automation as Accessibility in Adaptive Digital Academic Practice for Disabled Researchers
                                             </h4>
                                             <p className="text-slate-600 mb-2">
-                                                Developing frameworks for sustainable research practices that account for 
+                                                Developing frameworks for sustainable research practices that account for
                                                 researchers' energy limitations and disabilities.
                                             </p>
-                                            <span className="text-sm text-slate-500">In preparation for publication</span>
+                                            <span className="text-sm text-slate-600 italic">In preparation for publication</span>
                                         </div>
                                     </div>
                                 </div>
@@ -298,19 +326,19 @@
                                     <h3 className="text-xl font-bold text-slate-900 mb-4">Research Interests</h3>
                                     <ul className="space-y-3 text-slate-600">
                                         <li className="flex items-start gap-2">
-                                            <span className="text-amber-600 mt-1">•</span>
+                                            <span className="text-blue-600 mt-1">•</span>
                                             <span>AI-assisted academic research methodologies</span>
                                         </li>
                                         <li className="flex items-start gap-2">
-                                            <span className="text-amber-600 mt-1">•</span>
+                                            <span className="text-blue-600 mt-1">•</span>
                                             <span>Applying ADAP (Adaptive Digital Academic Practice) frameworks</span>
                                         </li>
                                         <li className="flex items-start gap-2">
-                                            <span className="text-amber-600 mt-1">•</span>
+                                            <span className="text-blue-600 mt-1">•</span>
                                             <span>Accessibility in digital technologies</span>
                                         </li>
                                         <li className="flex items-start gap-2">
-                                            <span className="text-amber-600 mt-1">•</span>
+                                            <span className="text-blue-600 mt-1">•</span>
                                             <span>Energy-conscious research frameworks</span>
                                         </li>
                                     </ul>
@@ -334,7 +362,7 @@
                                 <div>
                                     <h2 className="text-3xl font-bold text-slate-900 mb-2">Technology</h2>
                                     <p className="text-slate-600">
-                                        Exploring modern development through hands-on engineering projects 
+                                        Exploring modern development through hands-on engineering projects
                                     </p>
                                 </div>
 
@@ -353,11 +381,11 @@
                                     
                                     <div className="space-y-4 mb-6">
                                         <p className="text-slate-600">
-                                            Built through AI-assisted development, PingBuoy provides uptime monitoring, 
-                                            SSL certificate checking, and automated alerts for website owners who need 
+                                            Built through AI-assisted development, PingBuoy provides uptime monitoring,
+                                            SSL certificate checking, and automated alerts for website owners who need
                                             reliable monitoring without enterprise complexity.
                                         </p>
-                                        
+
                                         <div>
                                             <h4 className="font-semibold text-slate-900 mb-2">Tech Stack</h4>
                                             <div className="flex flex-wrap gap-2">
@@ -435,7 +463,7 @@
                                     </div>
                                 </div>
 
-                                <div className="bg-gradient-to-br from-purple-50 to-amber-50 rounded-xl p-8 border border-purple-200">
+                                <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl p-8 border border-purple-200">
                                     <h3 className="text-xl font-bold text-slate-900 mb-3">Development Approach</h3>
                                     <p className="text-slate-700 mb-4">
                                         Combining modern frameworks and AI-enhanced workflows to build efficient, maintainable systems.
@@ -483,14 +511,14 @@
                                 {/* Professional Experience */}
                                 <div className="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                                     <h3 className="text-xl font-bold text-slate-900 mb-6">Professional Experience</h3>
-                                    
+
                                     <div className="space-y-6">
                                         {/* PingBuoy */}
-                                        <div className="border-l-4 border-amber-500 pl-4">
+                                        <div className="border-l-4 border-blue-600 pl-4">
                                             <div className="flex justify-between items-start mb-2">
                                                 <div>
                                                     <h4 className="font-bold text-slate-900">Founder & Developer</h4>
-                                                    <p className="text-amber-600 font-medium">PingBuoy</p>
+                                                    <p className="text-blue-600 font-medium">PingBuoy</p>
                                                 </div>
                                                 <span className="text-slate-600 text-sm">2025 - Present</span>
                                             </div>
@@ -503,7 +531,7 @@
                                                 <li>• Managed full deployment pipeline, database optimization, and production incident response</li>
                                                 <li>• Used AI tools collaboratively to accelerate development while making all architectural and technical decisions independently</li>
                                             </ul>
-                                            <p className="text-slate-500 text-sm mt-2"><strong>Tech Stack:</strong> Next.js, React, TypeScript, Supabase (PostgreSQL), Vercel, Stripe API</p>
+                                            <p className="text-slate-600 text-sm mt-2"><strong>Tech Stack:</strong> Next.js, React, TypeScript, Supabase (PostgreSQL), Vercel, Stripe API</p>
                                         </div>
 
                                         {/* Freelance Web Development */}
@@ -527,7 +555,7 @@
                                                 <li>• Test and ensure cross-browser compatibility and optimal usability</li>
                                                 <li>• Provide ongoing maintenance and updates for client websites</li>
                                             </ul>
-                                            <p className="text-slate-500 text-sm mt-2"><strong>Tech Stack:</strong> HTML, CSS, JavaScript, PHP, Apache, Linux, MySQL, CMS platforms, Google Analytics</p>
+                                            <p className="text-slate-600 text-sm mt-2"><strong>Tech Stack:</strong> HTML, CSS, JavaScript, PHP, Apache, Linux, MySQL, CMS platforms, Google Analytics</p>
                                         </div>
 
                                     </div>
@@ -541,13 +569,13 @@
                                         <div className="border-l-4 border-purple-500 pl-4">
                                             <h4 className="font-bold text-slate-900 mb-1">Final (MVP)</h4>
                                             <p className="text-slate-600 text-sm mb-2">End-of-life planning application for secure document storage with role-based access control for trusted contacts.</p>
-                                            <p className="text-slate-500 text-sm"><em>Python, Flask, Django, PostgreSQL</em></p>
+                                            <p className="text-slate-600 text-sm"><em>Python, Flask, Django, PostgreSQL</em></p>
                                         </div>
 
                                         <div className="border-l-4 border-blue-500 pl-4">
                                             <h4 className="font-bold text-slate-900 mb-1">Custom Flask CMS</h4>
                                             <p className="text-slate-600 text-sm mb-2">Content management system architected and built from scratch through mentored development with ChatGPT. Deliberately implemented each component independently to demonstrate understanding of full-stack architecture, CRUD operations, authentication, and database design.</p>
-                                            <p className="text-slate-500 text-sm"><em>Python, Flask, SQLite/PostgreSQL</em></p>
+                                            <p className="text-slate-600 text-sm"><em>Python, Flask, SQLite/PostgreSQL</em></p>
                                         </div>
                                     </div>
                                 </div>
@@ -555,7 +583,7 @@
                                 {/* Education */}
                                 <div className="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                                     <h3 className="text-xl font-bold text-slate-900 mb-6">Education</h3>
-                                    
+
                                     <div className="space-y-4">
                                         <div>
                                             <h4 className="font-bold text-slate-900">MBA</h4>
@@ -575,9 +603,9 @@
                                 </div>
 
                                 {/* Download Link */}
-                                <div className="bg-gradient-to-br from-amber-50 to-purple-50 rounded-xl p-6 border border-amber-200 text-center">
+                                <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-200 text-center">
                                     <p className="text-slate-700">
-                                        <a href="/resume/Rosalind_Gash_Resume.pdf" download className="text-amber-600 hover:text-amber-700 font-medium">Download My Résumé (PDF)</a>
+                                        <a href="/resume/Rosalind_Gash_Resume.pdf" download className="text-blue-600 hover:text-blue-700 font-medium">Download My Résumé (PDF)</a>
                                     </p>
                                 </div>
                             </div>
@@ -597,38 +625,41 @@
                                     <div className="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                                         <h3 className="text-xl font-bold text-slate-900 mb-4">Connect</h3>
                                         <div className="space-y-4">
-                                            <a 
+                                            <a
                                                 href="mailto:rrgash@protonmail.com"
                                                 className="w-full flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors"
+                                                aria-label="Email Rosalind Gash"
                                             >
-                                                <Mail className="w-5 h-5 text-slate-600" />
+                                                <Mail className="w-5 h-5 text-slate-600" aria-hidden="true" />
                                                 <div>
                                                     <div className="font-medium text-slate-900">Email</div>
-                                                    <div className="text-sm text-slate-500">rrgash@protonmail.com</div>
+                                                    <div className="text-sm text-slate-600">rrgash@protonmail.com</div>
                                                 </div>
                                             </a>
-                                            <a 
+                                            <a
                                                 href="https://www.linkedin.com/in/rosalindgash"
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="w-full flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors"
+                                                aria-label="Connect with Rosalind Gash on LinkedIn (opens in new tab)"
                                             >
-                                                <Linkedin className="w-5 h-5 text-slate-600" />
+                                                <Linkedin className="w-5 h-5 text-slate-600" aria-hidden="true" />
                                                 <div>
                                                     <div className="font-medium text-slate-900">LinkedIn</div>
-                                                    <div className="text-sm text-slate-500">Connect professionally</div>
+                                                    <div className="text-sm text-slate-600">Connect professionally</div>
                                                 </div>
                                             </a>
-                                            <a 
+                                            <a
                                                 href="https://github.com/rosalindgash"
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="w-full flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors"
+                                                aria-label="View Rosalind Gash's code on GitHub (opens in new tab)"
                                             >
-                                                <Github className="w-5 h-5 text-slate-600" />
+                                                <Github className="w-5 h-5 text-slate-600" aria-hidden="true" />
                                                 <div>
                                                     <div className="font-medium text-slate-900">GitHub</div>
-                                                    <div className="text-sm text-slate-500">View my code</div>
+                                                    <div className="text-sm text-slate-600">View my code</div>
                                                 </div>
                                             </a>
                                         </div>
@@ -638,36 +669,36 @@
                                         <h3 className="text-xl font-bold text-slate-900 mb-4">Areas of Interest</h3>
                                         <ul className="space-y-3 text-slate-600">
                                             <li className="flex items-start gap-2">
-                                                <span className="text-amber-600 mt-1">•</span>
+                                                <span className="text-blue-700 mt-1">•</span>
                                                 <span>Research collaboration in adaptive technologies</span>
                                             </li>
                                             <li className="flex items-start gap-2">
-                                                <span className="text-amber-600 mt-1">•</span>
+                                                <span className="text-blue-700 mt-1">•</span>
                                                 <span>Speaking engagements on AI-assisted development</span>
                                             </li>
                                             <li className="flex items-start gap-2">
-                                                <span className="text-amber-600 mt-1">•</span>
+                                                <span className="text-blue-700 mt-1">•</span>
                                                 <span>Disability studies and accessibility consulting</span>
                                             </li>
                                             <li className="flex items-start gap-2">
-                                                <span className="text-amber-600 mt-1">•</span>
+                                                <span className="text-blue-700 mt-1">•</span>
                                                 <span>SaaS development for underserved markets</span>
                                             </li>
                                             <li className="flex items-start gap-2">
-                                                <span className="text-amber-600 mt-1">•</span>
+                                                <span className="text-blue-700 mt-1">•</span>
                                                 <span>Academic-entrepreneurship intersections</span>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
 
-                                <div className="bg-gradient-to-br from-amber-50 to-purple-50 rounded-xl p-8 border border-amber-200 text-center">
+                                <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-8 border border-blue-200 text-center">
                                     <h3 className="text-xl font-bold text-slate-900 mb-3">
                                         Building at the intersection of research and technology
                                     </h3>
                                     <p className="text-slate-700 max-w-2xl mx-auto">
-                                        Whether you're interested in discussing adaptive technologies, exploring AI-assisted 
-                                        development methodologies, or collaborating on accessible software solutions, I'd love 
+                                        Whether you're interested in discussing adaptive technologies, exploring AI-assisted
+                                        development methodologies, or collaborating on accessible software solutions, I'd love
                                         to hear from you.
                                     </p>
                                 </div>
