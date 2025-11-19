@@ -124,16 +124,16 @@
                                         Overview
                                     </button>
                                     <button
-                                        onClick={() => setActiveSection('research')}
-                                        className={`text-sm font-medium transition-colors ${activeSection === 'research' ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}
-                                    >
-                                        Research
-                                    </button>
-                                    <button
                                         onClick={() => setActiveSection('tech')}
                                         className={`text-sm font-medium transition-colors ${activeSection === 'tech' ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}
                                     >
                                         Tech
+                                    </button>
+                                    <button
+                                        onClick={() => setActiveSection('research')}
+                                        className={`text-sm font-medium transition-colors ${activeSection === 'research' ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}
+                                    >
+                                        Research
                                     </button>
                                     <a
                                         href="https://blog.rosalindgash.org"
@@ -169,7 +169,7 @@
                                         className="w-32 h-32 rounded-full mx-auto mb-6 object-cover border-4 border-blue-200 shadow-lg"
                                     />
                                     <h2 className="text-4xl font-bold text-slate-900 mb-4">
-                                        Building Accessible Technology Through Research
+                                        Full-Stack Developer & Academic Researcher
                                     </h2>
                                     <p className="text-xl text-slate-600 mb-8">
                                         Founder of PingBuoy | Academic Researcher in Adaptive Digital Technologies |
@@ -203,28 +203,6 @@
                                     <div className="grid md:grid-cols-2 gap-8">
                                         <div className="space-y-4">
                                             <div className="flex items-start gap-3">
-                                                <BookOpen className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
-                                                <div>
-                                                    <h4 className="font-semibold text-slate-900 mb-1">Academic Research</h4>
-                                                    <p className="text-slate-600 text-sm">
-                                                        Examining how scholars with disabilities navigate
-                                                        academia using AI tools. Member of the Society for Disability Studies.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div className="flex items-start gap-3">
-                                                <Award className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" />
-                                                <div>
-                                                    <h4 className="font-semibold text-slate-900 mb-1">Methodology Innovation</h4>
-                                                    <p className="text-slate-600 text-sm">
-                                                        Developing frameworks for energy-conscious qualitative analysis and
-                                                        accessible academic practices.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="space-y-4">
-                                            <div className="flex items-start gap-3">
                                                 <Code className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
                                                 <div>
                                                     <h4 className="font-semibold text-slate-900 mb-1">Tech Entrepreneurship</h4>
@@ -245,17 +223,33 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div className="space-y-4">
+                                            <div className="flex items-start gap-3">
+                                                <BookOpen className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
+                                                <div>
+                                                    <h4 className="font-semibold text-slate-900 mb-1">Academic Research</h4>
+                                                    <p className="text-slate-600 text-sm">
+                                                        Examining how scholars with disabilities navigate
+                                                        academia using AI tools. Member of the Society for Disability Studies.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-start gap-3">
+                                                <Award className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" />
+                                                <div>
+                                                    <h4 className="font-semibold text-slate-900 mb-1">Methodology Innovation</h4>
+                                                    <p className="text-slate-600 text-sm">
+                                                        Developing frameworks for energy-conscious qualitative analysis and
+                                                        accessible academic practices.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </section>
 
                                 {/* Current Focus */}
                                 <section className="grid md:grid-cols-3 gap-6">
-                                    <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border border-blue-200">
-                                        <h4 className="font-bold text-blue-900 mb-2">Research</h4>
-                                        <p className="text-sm text-blue-800">
-                                            Writing articles on energy-conscious qualitative analysis for peer-reviewed journals
-                                        </p>
-                                    </div>
                                     <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border border-purple-200">
                                         <h4 className="font-bold text-purple-900 mb-2">Building</h4>
                                         <p className="text-sm text-purple-800">
@@ -266,6 +260,12 @@
                                         <h4 className="font-bold text-green-900 mb-2">Exploring</h4>
                                         <p className="text-sm text-green-800">
                                             AI-powered development workflows and methodologies
+                                        </p>
+                                    </div>
+                                    <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border border-blue-200">
+                                        <h4 className="font-bold text-blue-900 mb-2">Research</h4>
+                                        <p className="text-sm text-blue-800">
+                                            Writing articles on energy-conscious qualitative analysis for peer-reviewed journals
                                         </p>
                                     </div>
                                 </section>
