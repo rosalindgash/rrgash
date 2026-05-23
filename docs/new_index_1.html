@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rosalind Gash | Research & Development</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/tabler-icons.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            color: #1f2937;
+            background-color: #fafaf9;
+            line-height: 1.6;
+        }
+
+        /* Light mode */
+        :root {
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-light: #9ca3af;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --bg-tertiary: #f3f4f6;
+            --border-color: #e5e7eb;
+            --accent-primary: #1e40af;
+            --accent-secondary: #3b82f6;
+            --accent-light: #dbeafe;
+        }
+
+        /* Dark mode */
+        @media (prefers-color-scheme: dark) {
+            body {
+                color: #e5e7eb;
+                background-color: #111827;
+            }
+
+            :root {
+                --text-primary: #f3f4f6;
+                --text-secondary: #d1d5db;
+                --text-light: #9ca3af;
+                --bg-primary: #1f2937;
+                --bg-secondary: #111827;
+                --bg-tertiary: #374151;
+                --border-color: #4b5563;
+                --accent-primary: #60a5fa;
+                --accent-secondary: #93c5fd;
+                --accent-light: #1e3a8a;
+            }
+        }
+
+        /* Layout */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            background-color: var(--bg-primary);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 10;
+        }
+
+        header .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .logo:hover {
+            color: var(--accent-primary);
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--accent-primary);
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+        }
+
+        main {
+            flex: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            width: 100%;
+        }
+
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 2rem 1.5rem;
+            margin-top: 4rem;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            margin-bottom: 2rem;
+        }
+
+        .lead {
+            font-size: 1.0625rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent-light);
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: var(--accent-secondary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 3rem 0 2rem 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 3rem;
+        }
+
+        .hero-tagline {
+            color: var(--accent-primary);
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card.highlighted {
+            background: var(--accent-light);
+            border-color: var(--accent-primary);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--text-primary);
+        }
+
+        .card p {
+            margin-bottom: 0;
+        }
+
+        /* Section Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Framework Box */
+        .framework-box {
+            background: var(--bg-secondary);
+            border-left: 4px solid var(--accent-primary);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .framework-box h4 {
+            color: var(--accent-primary);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .framework-box p {
+            margin-bottom: 0;
+        }
+
+        /* Publication List */
+        .publication {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .publication:last-child {
+            border-bottom: none;
+        }
+
+        .publication-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+            font-size: 1.05rem;
+        }
+
+        .publication-meta {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-bottom: 0.75rem;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+        }
+
+        .timeline-item strong {
+            display: block;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-item .date {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item p {
+            margin-top: 0.5rem;
+            margin-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            border: 3px solid var(--bg-primary);
+        }
+
+        .timeline-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: -1.94rem;
+            top: 2rem;
+            width: 2px;
+            height: 2rem;
+            background: var(--border-color);
+        }
+
+        /* Button */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            margin-bottom: 2rem;
+        }
+
+        .btn:hover {
+            background: var(--accent-secondary);
+        }
+
+        /* Contact Grid */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .contact-item:hover {
+            background: var(--accent-light);
+            color: var(--accent-primary);
+        }
+
+        .contact-item i {
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .contact-item-text {
+            min-width: 0;
+        }
+
+        .contact-item-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            display: block;
+        }
+
+        .contact-item-value {
+            font-weight: 500;
+            display: block;
+            color: var(--text-primary);
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            main {
+                padding: 1.5rem 1rem;
+            }
+
+            header .container {
+                padding: 1rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header role="banner">
+        <div class="container">
+            <a href="#" class="logo">Rosalind Gash</a>
+            <nav role="navigation" aria-label="Main navigation">
+                <a href="#research">Research</a>
+                <a href="#publications">Publications</a>
+                <a href="#background">Background</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main role="main">
+        <!-- Hero Section -->
+        <section class="hero" id="research">
+            <div class="hero-tagline">Adaptive Digital Academic Practice</div>
+            <h1>Rosalind Gash</h1>
+            <p class="subtitle">PhD Applicant | Researcher | Technologist</p>
+            <p class="lead">
+                I research the intersection of disability, academic constraint, and entrepreneurial knowledge production. My work applies necessity entrepreneurship theory to understand how scholars develop adaptive practices under structural constraint. Currently exploring doctoral pathways in education, disability studies, or organizational innovation.
+            </p>
+            <a href="#publications" class="btn">View Research →</a>
+        </section>
+
+        <!-- Research Focus Section -->
+        <section id="research-focus">
+            <h2>Research Focus</h2>
+
+            <div class="framework-box">
+                <h4>The ADAP Framework</h4>
+                <p>
+                    <strong>Adaptive Digital Academic Practice</strong> examines how researchers and students navigate digital tools, accessibility needs, and institutional constraints as epistemic resources rather than barriers. This framework bridges necessity entrepreneurship theory with academic knowledge production, positioning adaptive strategies as generative rather than compensatory.
+                </p>
+            </div>
+
+            <h3>Key Research Questions</h3>
+            <ul>
+                <li>How do constraints shape epistemic practices in academic work?</li>
+                <li>What role do adaptive technologies play in knowledge production?</li>
+                <li>How can institutional structures better support diverse learning and working styles?</li>
+                <li>What can entrepreneurship theory teach us about academic innovation under constraint?</li>
+            </ul>
+
+            <h3>Thematic Areas</h3>
+            <div class="grid">
+                <div class="card">
+                    <h3 style="margin-top: 0; color: var(--accent-primary);">Disability Studies</h3>
+                    <p>Social model of disability; accessibility as design principle; neurodiversity in academia.</p>
+                </div>
+                <div class="card">
+                    <h3 style="margin-top: 0; color: var(--accent-primary);">Knowledge Production</h3>
+                    <p>Epistemic justice; distributed cognition; technology-mediated learning and research practices.</p>
+                </div>
+                <div class="card">
+                    <h3 style="margin-top: 0; color: var(--accent-primary);">Organizational Innovation</h3>
+                    <p>Necessity entrepreneurship; constraint-driven design; institutional change in education.</p>
+                </div>
+                <div class="card">
+                    <h3 style="margin-top: 0; color: var(--accent-primary);">EdTech & SaaS</h3>
+                    <p>Building tools for underserved academic markets; accessible product design; inclusive education platforms.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Publications Section -->
+        <section id="publications">
+            <h2>Research & Writing</h2>
+            <p class="lead">
+                Below are my primary research outputs submitted to preprint servers and academic platforms for immediate citability and scholarly visibility.
+            </p>
+
+            <h3>Monograph</h3>
+            <div class="card highlighted">
+                <div class="publication-title">Adaptive Digital Academic Practice: Disability, Structural Constraint, and Epistemic Entrepreneurship in Graduate Research</div>
+                <div class="publication-meta">Professional Doctorate Portfolio | 2024–2025</div>
+                <p>
+                    The central work applying necessity entrepreneurship theory to academic knowledge production. Examines how structural constraints (institutional design, accessibility gaps, technological limitations) shape adaptive practices that become epistemic resources. Positions disability and constraint not as deficits but as sites of innovative problem-solving and knowledge creation.
+                </p>
+                <p>
+                    <strong>Status:</strong> Ready for submission to SSRN, SocArXiv, EdArXiv, and PPPR.
+                </p>
+            </div>
+
+            <h3>Companion Papers</h3>
+            <p>Five peer-reviewed papers that expand on specific dimensions of the ADAP framework:</p>
+
+            <div class="publication">
+                <div class="publication-title">Paper 1: Necessity Entrepreneurship in Academic Knowledge Production</div>
+                <div class="publication-meta">Journal Article | ~8,000 words</div>
+                <p>Applies necessity entrepreneurship theory directly to graduate research and academic knowledge production. Explores how resource scarcity and structural constraints drive innovation in research methodologies and dissemination strategies.</p>
+            </div>
+
+            <div class="publication">
+                <div class="publication-title">Paper 2: Digital Tools as Epistemic Scaffolding in Distributed Academic Work</div>
+                <div class="publication-meta">Journal Article | ~8,000 words</div>
+                <p>Examines how digital platforms, AI-assisted research tools, and accessible technologies shape epistemic practices. Challenges the "digital distraction" narrative by positioning technological mediation as generative for certain knowledge producers.</p>
+            </div>
+
+            <div class="publication">
+                <div class="publication-title">Paper 3: Accessibility as Institutional Design: Lessons from Neurodivergent Scholars</div>
+                <div class="publication-meta">Journal Article | ~8,000 words</div>
+                <p>Uses neurodiversity as a case study for institutional accessibility. Argues that accommodations benefiting neurodivergent scholars create systems that enhance cognitive flexibility for all researchers.</p>
+            </div>
+
+            <div class="publication">
+                <div class="publication-title">Paper 4: Constraint-Driven Entrepreneurship in Educational Technology</div>
+                <div class="publication-meta">Journal Article | ~8,000 words</div>
+                <p>Applies the ADAP framework to EdTech product development. Examines how resource constraints and market gaps drive innovation in building SaaS platforms for underserved educational segments (homeschooling, microschools, co-ops).</p>
+            </div>
+
+            <div class="publication">
+                <div class="publication-title">Paper 5: Epistemic Justice and Distributed Knowledge in Academic Communities</div>
+                <div class="publication-meta">Journal Article | ~8,000 words</div>
+                <p>Draws on epistemic justice theory to explore how constraint-driven adaptive practices create new forms of knowledge sharing, mentorship, and collaborative problem-solving in academic networks.</p>
+            </div>
+
+            <div class="card" style="margin-top: 2rem;">
+                <p style="margin-bottom: 0;">
+                    <strong>Publication Strategy:</strong> The monograph and five papers will be submitted to multiple preprint servers (SSRN, SocArXiv, EdArXiv) and PPPR to establish a citable preprint record. This approach prioritizes immediate scholarly visibility, bypasses journal gatekeeping delays, and strengthens applications to doctoral programs that recognize preprint scholarship.
+                </p>
+            </div>
+        </section>
+
+        <!-- Background Section -->
+        <section id="background">
+            <h2>Background</h2>
+
+            <h3>Education</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <strong>Nearly 2 years, Computer Science coursework</strong>
+                    <span class="date">Rust College, Full Scholarship | 2012–2014</span>
+                    <p>Foundation in CS fundamentals, algorithms, and software engineering principles.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <strong>Master of International Trade</strong>
+                    <span class="date">Universidad Isabel I, Spain (Título Propio) | 2022</span>
+                    <p>Specialized study in global trade policy, supply chain management, and international business regulations.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <strong>BS Sociology</strong>
+                    <span class="date">SUNY Oneonta | 2010</span>
+                    <p>Foundation in social theory, organizational behavior, and research methodology.</p>
+                </div>
+            </div>
+
+            <h3>Professional Experience</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <strong>Founder & Solo Developer</strong>
+                    <span class="date">Rochelle Labs | 2024–Present</span>
+                    <p>
+                        Building and operating bootstrapped SaaS products including <a href="https://pingbuoy.com">PingBuoy</a> (website monitoring), <a href="https://scholium.app">Scholium</a> (homeschool and microschool management), and <a href="https://tradefinancehq.com">Trade Finance Studio</a>. 25+ years of PHP/web development experience. Focus on accessibility, constraint-driven design, and AI-assisted development methodologies.
+                    </p>
+                </div>
+
+                <div class="timeline-item">
+                    <strong>AI/LLM Research & Evaluation</strong>
+                    <span class="date">Independent Contractor with DataAnnotation | 2024–Present</span>
+                    <p>Conduct AI model evaluation, LLM alignment assessment, and coding task evaluation. Deep hands-on experience with large language models and AI-assisted development workflows.</p>
+                </div>
+            </div>
+
+            <h3>Skills & Expertise</h3>
+            <div class="grid">
+                <div class="card">
+                    <h3 style="margin-top: 0;">Technical</h3>
+                    <p>PHP, JavaScript, Python, React, full-stack web development, API design, cloud deployment (Vercel, AWS), PDF generation, database design.</p>
+                </div>
+                <div class="card">
+                    <h3 style="margin-top: 0;">Research & Analysis</h3>
+                    <p>Qualitative research design, thematic analysis, literature review, theoretical frameworks, academic writing, peer review simulation.</p>
+                </div>
+                <div class="card">
+                    <h3 style="margin-top: 0;">Product Development</h3>
+                    <p>SaaS product design, user research, market validation, constraint-driven design, accessibility-first product thinking, bootstrapping strategy.</p>
+                </div>
+                <div class="card">
+                    <h3 style="margin-top: 0;">Languages</h3>
+                    <p>English (native), Spanish (basic, pursuing C2 proficiency), foundational exposure to French and Portuguese.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>Get in Touch</h2>
+            <p class="lead">
+                I'm interested in research collaboration, doctoral program discussions, SaaS product development, and exploring the intersection of disability, technology, and academic innovation.
+            </p>
+
+            <div class="contact-grid">
+                <a href="mailto:rrgash@protonmail.com" class="contact-item">
+                    <i class="ti ti-mail"></i>
+                    <div class="contact-item-text">
+                        <span class="contact-item-label">Email</span>
+                        <span class="contact-item-value">rrgash@protonmail.com</span>
+                    </div>
+                </a>
+                <a href="https://www.linkedin.com/in/rosalindgash" target="_blank" rel="noopener noreferrer" class="contact-item">
+                    <i class="ti ti-brand-linkedin"></i>
+                    <div class="contact-item-text">
+                        <span class="contact-item-label">LinkedIn</span>
+                        <span class="contact-item-value">Connect professionally</span>
+                    </div>
+                </a>
+                <a href="https://github.com/rosalindgash" target="_blank" rel="noopener noreferrer" class="contact-item">
+                    <i class="ti ti-brand-github"></i>
+                    <div class="contact-item-text">
+                        <span class="contact-item-label">GitHub</span>
+                        <span class="contact-item-value">Code & projects</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card" style="margin-top: 2rem; border-left: 4px solid var(--accent-primary);">
+                <h3 style="margin-top: 0;">Doctoral Program Inquiries</h3>
+                <p style="margin-bottom: 0;">
+                    I am actively pursuing a professional doctorate (DProf/EdD) pathway focusing on research with this framework. If your program specializes in education, disability studies, organizational innovation, or technology-mediated learning, I'd welcome a conversation about fit and application strategy.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <p>© 2025 Rosalind Gash. This site is open to interested parties for discussion about research, doctoral programs, and the intersection of disability, technology, and academic practice.</p>
+    </footer>
+</body>
+</html>

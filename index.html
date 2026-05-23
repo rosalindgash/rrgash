@@ -1,784 +1,632 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rosalind Gash - Founder × Researcher</title>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rosalind R. Gash | Academic Profile</title>
     <style>
-        body {
+        :root {
+            --text-primary: #1f2937;
+            --text-secondary: #5f6b76;
+            --text-light: #8a95a1;
+            --bg-primary: #ffffff;
+            --bg-secondary: #fafaf9;
+            --bg-tertiary: #f4f1ec;
+            --border-color: #e7dfd5;
+            --accent-primary: #7c3f58;
+            --accent-secondary: #0f766e;
+            --accent-light: #f3e9ee;
+        }
+
+        * {
             margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-                sans-serif;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.65;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Accessible focus indicators */
-        *:focus-visible {
-            outline: 3px solid #2563eb;
-            outline-offset: 2px;
+        a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: color 0.2s ease, border-color 0.2s ease;
         }
 
-        /* Skip to main content link for keyboard users */
+        a:hover {
+            color: var(--accent-secondary);
+            border-color: var(--accent-secondary);
+        }
+
         .skip-link {
             position: absolute;
-            top: -50px;
+            top: -48px;
             left: 0;
-            background: #0f172a;
-            color: white;
-            padding: 8px;
-            text-decoration: none;
+            background: var(--text-primary);
+            color: #ffffff;
+            padding: 0.65rem 0.85rem;
             z-index: 100;
         }
 
         .skip-link:focus {
             top: 0;
         }
+
+        *:focus-visible {
+            outline: 3px solid rgba(15, 118, 110, 0.55);
+            outline-offset: 3px;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.96);
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+        }
+
+        .container {
+            width: min(100% - 3rem, 900px);
+            margin: 0 auto;
+        }
+
+        .header-inner {
+            padding: 1rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        nav {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            text-align: center;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            border: none;
+            font-size: 0.93rem;
+            font-weight: 500;
+        }
+
+        main {
+            flex: 1;
+            padding: 2rem 0 0;
+        }
+
+        section {
+            scroll-margin-top: 5rem;
+        }
+
+        .hero {
+            padding: 2.75rem 0 2.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero-layout {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .portrait {
+            width: 150px;
+            aspect-ratio: 4 / 5;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-primary);
+        }
+
+        .hero-tagline,
+        .eyebrow {
+            color: var(--accent-primary);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin-top: 0.45rem;
+            margin-bottom: 0.35rem;
+            font-size: clamp(2rem, 5vw, 2.65rem);
+            line-height: 1.1;
+            font-weight: 720;
+            letter-spacing: -0.035em;
+            color: var(--text-primary);
+        }
+
+        .subtitle {
+            margin-bottom: 1.35rem;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+
+        .hero-email {
+            display: inline-block;
+            margin: 0 0 1.25rem;
+            color: var(--accent-primary);
+            font-size: 0.98rem;
+        }
+
+        .lead {
+            max-width: 650px;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .lead p + p {
+            margin-top: 1rem;
+        }
+
+        .contact-line {
+            margin-top: 1.35rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem 0.8rem;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .content-section {
+            padding: 2.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-heading {
+            margin-bottom: 1.35rem;
+            font-size: 1.7rem;
+            line-height: 1.2;
+            font-weight: 720;
+            letter-spacing: -0.025em;
+            color: var(--text-primary);
+        }
+
+        .section-intro {
+            max-width: 720px;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 1.02rem;
+            line-height: 1.8;
+        }
+
+        .framework-box {
+            margin: 1.4rem 0 1.8rem;
+            padding: 1.25rem 1.35rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-primary);
+            border-radius: 8px;
+        }
+
+        .framework-box h3 {
+            margin-bottom: 0.45rem;
+            color: var(--accent-primary);
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .framework-box p {
+            color: var(--text-secondary);
+        }
+
+        .question-list {
+            margin: 0.75rem 0 0;
+            padding-left: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        .question-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+            margin-top: 1.25rem;
+        }
+
+        .card {
+            padding: 1.15rem 1.2rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        .card h3 {
+            margin-bottom: 0.45rem;
+            color: var(--text-primary);
+            font-size: 1rem;
+            line-height: 1.35;
+            font-weight: 700;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.96rem;
+        }
+
+        .work-item {
+            padding-bottom: 1.4rem;
+            margin-bottom: 1.4rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .work-item:last-child {
+            padding-bottom: 0;
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+
+        .work-title {
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+            font-size: 1.08rem;
+            line-height: 1.45;
+            font-weight: 700;
+        }
+
+        .work-meta {
+            margin-bottom: 0.65rem;
+            color: var(--text-light);
+            font-size: 0.92rem;
+        }
+
+        .work-item p {
+            color: var(--text-secondary);
+        }
+
+        .status-note {
+            margin-top: 1rem;
+            padding: 1rem 1.1rem;
+            border-radius: 8px;
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .timeline {
+            position: relative;
+            margin-top: 0.5rem;
+            padding-left: 1.6rem;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 1.7rem;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -1.6rem;
+            top: 0.45rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: var(--accent-primary);
+            border: 3px solid var(--bg-secondary);
+        }
+
+        .timeline-item:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            left: -1.31rem;
+            top: 1.45rem;
+            width: 2px;
+            height: calc(100% - 1.2rem);
+            background: var(--border-color);
+        }
+
+        .timeline-item strong {
+            display: block;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .timeline-item .date {
+            display: block;
+            margin: 0.15rem 0 0.4rem;
+            color: var(--text-light);
+            font-size: 0.92rem;
+        }
+
+        .timeline-item p {
+            color: var(--text-secondary);
+        }
+
+        .small-list {
+            margin: 0.75rem 0 0;
+            padding-left: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        .small-list li {
+            margin-bottom: 0.45rem;
+        }
+
+        footer {
+            padding: 2rem 0;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .footer-links {
+            margin-top: 0.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 760px) {
+            .header-inner {
+                align-items: center;
+            }
+
+            nav {
+                justify-content: center;
+                text-align: center;
+                gap: 0.9rem;
+                flex-wrap: wrap;
+            }
+
+            .hero-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .portrait {
+                width: 140px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .container {
+                width: min(100% - 2rem, 900px);
+            }
+
+            main {
+                padding-top: 1rem;
+            }
+
+            .hero {
+                padding-top: 2rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <div id="root"></div>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <script type="text/babel">
-        const { useState } = React;
+    <header role="banner">
+        <div class="container header-inner">
+            <nav role="navigation" aria-label="Main navigation">
+                <a href="#about">About</a>
+                <a href="#research">Research Interests</a>
+                <a href="#work">Current Project</a>
+                <a href="#background">Academic Preparation</a>
+                <a href="/resume/Rosalind_Gash_Resume.pdf">Resume</a>
+                <a href="https://blog.rosalindgash.org">Blog</a>
+            </nav>
+        </div>
+    </header>
 
-        // Lucide icon components as inline SVG
-        const BookOpen = ({ className }) => (
-            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-            </svg>
-        );
+    <main id="main-content" role="main">
+        <section class="hero" id="about">
+            <div class="container hero-layout">
+                <img src="headshot.png" alt="Professional headshot of Rosalind R. Gash" class="portrait" />
 
-        const Code = ({ className }) => (
-            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-            </svg>
-        );
-
-        const Mail = ({ className }) => (
-            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-        );
-
-        const Linkedin = ({ className }) => (
-            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" />
-                <circle cx="4" cy="4" r="2" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
-            </svg>
-        );
-
-        const Github = ({ className }) => (
-            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22" />
-            </svg>
-        );
-
-        const Award = ({ className }) => (
-            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-        );
-
-        const Briefcase = ({ className }) => (
-            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-        );
-
-        function PersonalBrandPage() {
-            const [activeSection, setActiveSection] = useState('overview');
-
-            return (
-                <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-                    {/* Skip to main content link for keyboard accessibility */}
-                    <a href="#main-content" className="skip-link">Skip to main content</a>
-
-                    {/* Header */}
-                    <header className="bg-white shadow-sm sticky top-0 z-10" role="banner">
-                        <div className="max-w-6xl mx-auto px-6 py-4">
-                            <div className="flex items-center justify-between">
-                                <div>
-                                    <h1
-                                        onClick={() => setActiveSection('overview')}
-                                        className="text-2xl font-bold text-slate-900 hover:text-blue-600 transition-colors cursor-pointer"
-                                        tabIndex="0"
-                                        onKeyPress={(e) => e.key === 'Enter' && setActiveSection('overview')}
-                                        role="button"
-                                        aria-label="Go to overview section"
-                                    >
-                                        Rosalind Gash
-                                    </h1>
-                                    <p className="text-sm text-blue-600">Founder × Researcher</p>
-                                </div>
-                                <nav className="hidden md:flex gap-6" aria-label="Main navigation">
-                                    <button
-                                        onClick={() => setActiveSection('overview')}
-                                        className={`text-sm font-medium transition-colors ${activeSection === 'overview' ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}
-                                    >
-                                        Overview
-                                    </button>
-                                    <button
-                                        onClick={() => setActiveSection('tech')}
-                                        className={`text-sm font-medium transition-colors ${activeSection === 'tech' ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}
-                                    >
-                                        Tech
-                                    </button>
-                                    <button
-                                        onClick={() => setActiveSection('research')}
-                                        className={`text-sm font-medium transition-colors ${activeSection === 'research' ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}
-                                    >
-                                        Research
-                                    </button>
-                                    <a
-                                        href="https://blog.rosalindgash.org"
-                                        className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
-                                    >
-                                        Blog
-                                    </a>
-                                    <button
-                                        onClick={() => setActiveSection('resume')}
-                                        className={`text-sm font-medium transition-colors ${activeSection === 'resume' ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}
-                                    >
-                                        Resume
-                                    </button>
-                                    <button
-                                        onClick={() => setActiveSection('contact')}
-                                        className={`text-sm font-medium transition-colors ${activeSection === 'contact' ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}
-                                    >
-                                        Contact
-                                    </button>
-                                </nav>
-                            </div>
-                        </div>
-                    </header>
-
-                    <main id="main-content" className="max-w-6xl mx-auto px-6 py-12" role="main">
-                        {/* Hero Section */}
-                        {activeSection === 'overview' && (
-                            <div className="space-y-12">
-                                <section className="text-center max-w-3xl mx-auto">
-                                    <img
-                                        src="assets/images/rrgash_sm.png"
-                                        alt="Professional headshot of Rosalind Gash"
-                                        className="w-32 h-32 rounded-full mx-auto mb-6 object-cover border-4 border-blue-200 shadow-lg"
-                                    />
-                                    <h2 className="text-4xl font-bold text-slate-900 mb-4">
-                                        Full-Stack Developer & Academic Researcher
-                                    </h2>
-                                    <p className="text-xl text-slate-600 mb-8">
-                                        Founder of PingBuoy | Academic Researcher in Adaptive Digital Technologies |
-                                        Exploring how AI tools reshape academic work and entrepreneurship
-                                    </p>
-                                    <div className="flex justify-center gap-4 flex-wrap">
-                                        <a
-                                            href="mailto:rrgash@protonmail.com"
-                                            className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                                        >
-                                            <Mail className="w-4 h-4" />
-                                            Get in Touch
-                                        </a>
-                                        <a
-                                            href="https://github.com/rosalindgash"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="flex items-center gap-2 px-6 py-3 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 transition-colors"
-                                        >
-                                            <Github className="w-4 h-4" />
-                                            View Projects
-                                        </a>
-                                    </div>
-                                </section>
-
-                                {/* At the Intersection */}
-                                <section className="bg-white rounded-2xl shadow-lg p-8 border border-slate-200">
-                                    <h3 className="text-2xl font-bold text-slate-900 mb-6 text-center">
-                                        At the Intersection
-                                    </h3>
-                                    <div className="grid md:grid-cols-2 gap-8">
-                                        <div className="space-y-4">
-                                            <div className="flex items-start gap-3">
-                                                <Code className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" />
-                                                <div>
-                                                    <h4 className="font-semibold text-slate-900 mb-1">Tech Entrepreneurship</h4>
-                                                    <p className="text-slate-600 text-sm">
-                                                        Solo founder of PingBuoy, a website monitoring SaaS built through
-                                                        AI-assisted development. From concept to production deployment.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div className="flex items-start gap-3">
-                                                <Briefcase className="w-6 h-6 text-orange-600 flex-shrink-0 mt-1" />
-                                                <div>
-                                                    <h4 className="font-semibold text-slate-900 mb-1">Technical Expertise</h4>
-                                                    <p className="text-slate-600 text-sm">
-                                                        Full-stack development experience building scalable SaaS applications
-                                                        with modern tech stacks.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="space-y-4">
-                                            <div className="flex items-start gap-3">
-                                                <BookOpen className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
-                                                <div>
-                                                    <h4 className="font-semibold text-slate-900 mb-1">Academic Research</h4>
-                                                    <p className="text-slate-600 text-sm">
-                                                        Examining how scholars with disabilities navigate
-                                                        academia using AI tools. Member of the Society for Disability Studies.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div className="flex items-start gap-3">
-                                                <Award className="w-6 h-6 text-purple-600 flex-shrink-0 mt-1" />
-                                                <div>
-                                                    <h4 className="font-semibold text-slate-900 mb-1">Methodology Innovation</h4>
-                                                    <p className="text-slate-600 text-sm">
-                                                        Developing frameworks for energy-conscious qualitative analysis and
-                                                        accessible academic practices.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-
-                                {/* Current Focus */}
-                                <section className="grid md:grid-cols-3 gap-6">
-                                    <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border border-purple-200">
-                                        <h4 className="font-bold text-purple-900 mb-2">Building</h4>
-                                        <p className="text-sm text-purple-800">
-                                            Scaling PingBuoy for solopreneurs and small businesses
-                                        </p>
-                                    </div>
-                                    <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 border border-green-200">
-                                        <h4 className="font-bold text-green-900 mb-2">Exploring</h4>
-                                        <p className="text-sm text-green-800">
-                                            AI-powered development workflows and methodologies
-                                        </p>
-                                    </div>
-                                    <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border border-blue-200">
-                                        <h4 className="font-bold text-blue-900 mb-2">Research</h4>
-                                        <p className="text-sm text-blue-800">
-                                            Writing articles on energy-conscious qualitative analysis for peer-reviewed journals
-                                        </p>
-                                    </div>
-                                </section>
-                            </div>
-                        )}
-
-                        {/* Research Section */}
-                        {activeSection === 'research' && (
-                            <div className="space-y-8">
-                                <div>
-                                    <h2 className="text-3xl font-bold text-slate-900 mb-2">Research</h2>
-                                    <p className="text-slate-600">
-                                        Exploring adaptive digital technologies and accessible academic practices
-                                    </p>
-                                </div>
-
-                                <div className="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
-                                    <h3 className="text-xl font-bold text-slate-900 mb-4">Current Work</h3>
-                                    <div className="space-y-6">
-                                        <div>
-                                            <h4 className="font-semibold text-slate-900 mb-2">
-                                                Adaptive Digital Technologies Research
-                                            </h4>
-                                            <p className="text-slate-600 mb-2">
-                                                My research investigates how scholars with disabilities navigate 
-                                                academia using AI tools, with a focus on developing accessible and sustainable 
-                                                research methodologies. I'm currently writing a series of articles for 
-                                                submission to peer-reviewed journals, examining the intersection of adaptive 
-                                                technologies, disability studies, and academic practice.
-                                            </p>
-                                            <div className="flex flex-wrap gap-2">
-                                                <span className="px-3 py-1 bg-blue-100 text-blue-600 text-xs rounded-full">
-                                                    AI Tools
-                                                </span>
-                                                <span className="px-3 py-1 bg-blue-100 text-blue-600 text-xs rounded-full">
-                                                    Disability Studies
-                                                </span>
-                                                <span className="px-3 py-1 bg-blue-100 text-blue-600 text-xs rounded-full">
-                                                    Qualitative Analysis
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <h4 className="font-semibold text-slate-900 mb-2">
-                                                Methodology Paper: Energy-Conscious Qualitative Analysis: Automation as Accessibility in Adaptive Digital Academic Practice for Disabled Researchers
-                                            </h4>
-                                            <p className="text-slate-600 mb-2">
-                                                Developing frameworks for sustainable research practices that account for
-                                                researchers' energy limitations and disabilities.
-                                            </p>
-                                            <span className="text-sm text-slate-600 italic">In preparation for publication</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
-                                    <h3 className="text-xl font-bold text-slate-900 mb-4">Research Interests</h3>
-                                    <ul className="space-y-3 text-slate-600">
-                                        <li className="flex items-start gap-2">
-                                            <span className="text-blue-600 mt-1">•</span>
-                                            <span>AI-assisted academic research methodologies</span>
-                                        </li>
-                                        <li className="flex items-start gap-2">
-                                            <span className="text-blue-600 mt-1">•</span>
-                                            <span>Applying ADAP (Adaptive Digital Academic Practice) frameworks</span>
-                                        </li>
-                                        <li className="flex items-start gap-2">
-                                            <span className="text-blue-600 mt-1">•</span>
-                                            <span>Accessibility in digital technologies</span>
-                                        </li>
-                                        <li className="flex items-start gap-2">
-                                            <span className="text-blue-600 mt-1">•</span>
-                                            <span>Energy-conscious research frameworks</span>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div className="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
-                                    <h3 className="text-xl font-bold text-slate-900 mb-4">Affiliations</h3>
-                                    <div className="space-y-3">
-                                        <div className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
-                                            <Award className="w-5 h-5 text-slate-600" />
-                                            <span className="text-slate-700">Society for Disability Studies</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Tech Section */}
-                        {activeSection === 'tech' && (
-                            <div className="space-y-8">
-                                <div>
-                                    <h2 className="text-3xl font-bold text-slate-900 mb-2">Technology</h2>
-                                    <p className="text-slate-600">
-                                        Exploring modern development through hands-on engineering projects
-                                    </p>
-                                </div>
-
-                                <div className="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
-                                    <div className="flex items-start justify-between mb-4 flex-wrap gap-4">
-                                        <div>
-                                            <h3 className="text-2xl font-bold text-slate-900 mb-2">PingBuoy</h3>
-                                            <p className="text-slate-600 mb-4">
-                                                Website monitoring SaaS for solopreneurs and small businesses
-                                            </p>
-                                        </div>
-                                        <span className="px-3 py-1 bg-green-100 text-green-700 text-sm rounded-full">
-                                            Live in Production
-                                        </span>
-                                    </div>
-                                    
-                                    <div className="space-y-4 mb-6">
-                                        <p className="text-slate-600">
-                                            Built through AI-assisted development, PingBuoy provides uptime monitoring,
-                                            SSL certificate checking, and automated alerts for website owners who need
-                                            reliable monitoring without enterprise complexity.
-                                        </p>
-
-                                        <div>
-                                            <h4 className="font-semibold text-slate-900 mb-2">Tech Stack</h4>
-                                            <div className="flex flex-wrap gap-2">
-                                                <span className="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-lg">React</span>
-                                                <span className="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-lg">TypeScript</span>
-                                                <span className="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-lg">Supabase</span>
-                                                <span className="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-lg">Stripe</span>
-                                                <span className="px-3 py-1 bg-slate-100 text-slate-700 text-sm rounded-lg">TailwindCSS</span>
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <h4 className="font-semibold text-slate-900 mb-2">Key Features</h4>
-                                            <ul className="grid md:grid-cols-2 gap-2 text-slate-600">
-                                                <li className="flex items-start gap-2">
-                                                    <span className="text-green-600 mt-1">✓</span>
-                                                    <span>24/7 uptime monitoring</span>
-                                                </li>
-                                                <li className="flex items-start gap-2">
-                                                    <span className="text-green-600 mt-1">✓</span>
-                                                    <span>SSL certificate tracking</span>
-                                                </li>
-                                                <li className="flex items-start gap-2">
-                                                    <span className="text-green-600 mt-1">✓</span>
-                                                    <span>Automated alert system</span>
-                                                </li>
-                                                <li className="flex items-start gap-2">
-                                                    <span className="text-green-600 mt-1">✓</span>
-                                                    <span>Stripe payment integration</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
-                                    <h3 className="text-xl font-bold text-slate-900 mb-4">Previous Projects</h3>
-                                    <div className="space-y-6">
-                                        <div>
-                                            <h4 className="font-semibold text-slate-900 mb-1">Personal CMS</h4>
-                                            <p className="text-slate-600 text-sm mb-2">
-                                                Custom content management system built from scratch for managing blog content and pages.
-                                            </p>
-                                            <div className="flex flex-wrap gap-2">
-                                                <span className="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded">Python</span>
-                                                <span className="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded">Flask</span>
-                                                <span className="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded">SQLite</span>
-												<span className="px-2 py-2 bg-slate-100 text-slate-600 text-xs rounded">Jinja2</span>
-                                            </div>
-                                        </div>
-
-                                        <div>
-											<h4 className="font-semibold text-slate-900 mb-1">Final (MVP)</h4>
-                                            <p className="text-slate-600 text-sm mb-2">
-                                                End-of-life planning application for secure document storage with role-based access control for trusted contacts.
-                                            </p>
-                                            <div className="flex flex-wrap gap-2">
-                                                <span className="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded">Python</span>
-                                                <span className="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded">Flask</span>
-                                                <span className="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded">Django</span>
-												<span className="px-2 py-2 bg-slate-100 text-slate-600 text-xs rounded">PostgresSQL</span>
-                                            </div>
-                                        </div>
-
-                                        <div>
-											<h4 className="font-semibold text-slate-900 mb-1">Academic Research Tools</h4>
-                                            <p className="text-slate-600 text-sm mb-2">
-                                                Python automation suite for qualitative data collection and analysis.
-                                            </p>
-                                            <div className="flex flex-wrap gap-2">
-                                                <span className="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded">Python</span>
-                                                <span className="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded">data analysis</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="bg-gradient-to-br from-purple-50 to-blue-50 rounded-xl p-8 border border-purple-200">
-                                    <h3 className="text-xl font-bold text-slate-900 mb-3">Development Approach</h3>
-                                    <p className="text-slate-700 mb-4">
-                                        Combining modern frameworks and AI-enhanced workflows to build efficient, maintainable systems.
-                                    </p>
-                                    <p className="text-slate-600 text-sm italic">
-                                        Prioritizing iterative development, clear architecture, and long-term reliability in every project.
-                                    </p>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Resume Section */}
-                        {activeSection === 'resume' && (
-                            <div className="space-y-8">
-                                <div>
-                                    <h2 className="text-3xl font-bold text-slate-900 mb-2">Resume</h2>
-                                    <p className="text-slate-600">
-                                        Full-stack developer with 20 years experience building production and project applications. Available for remote positions with flexible hours.
-                                    </p>
-                                </div>
-
-                                {/* Technical Skills */}
-                                <div className="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
-                                    <h3 className="text-xl font-bold text-slate-900 mb-4">Technical Skills</h3>
-                                    <div className="grid md:grid-cols-2 gap-x-6 gap-y-4">
-                                        <div>
-                                            <h4 className="font-semibold text-slate-900 mb-2">Frontend</h4>
-                                            <p className="text-slate-600 text-sm">React, Next.js, TypeScript, JavaScript, HTML/CSS, PHP, Responsive Design</p>
-                                        </div>
-                                        <div>
-                                            <h4 className="font-semibold text-slate-900 mb-2">Backend</h4>
-                                            <p className="text-slate-600 text-sm">Node.js, Python, Django, Flask, Supabase, PostgreSQL, MySQL</p>
-                                        </div>
-                                        <div>
-                                            <h4 className="font-semibold text-slate-900 mb-2">Tools & Platforms</h4>
-                                            <p className="text-slate-600 text-sm">Git, GitHub, Vercel, Stripe Integration, SSL/TLS, CI/CD, Cloud Deployment, Linux</p>
-                                        </div>
-                                        <div>
-                                            <h4 className="font-semibold text-slate-900 mb-2">Development Approach</h4>
-                                            <p className="text-slate-600 text-sm">Collaborative AI-assisted development, architecture design, debugging, systems thinking</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Professional Experience */}
-                                <div className="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
-                                    <h3 className="text-xl font-bold text-slate-900 mb-6">Professional Experience</h3>
-
-                                    <div className="space-y-6">
-                                        {/* Scholium */}
-                                        <div className="border-l-4 border-indigo-600 pl-4">
-                                            <div className="flex justify-between items-start mb-2">
-                                                <div>
-                                                    <h4 className="font-bold text-slate-900">Founder & Developer</h4>
-                                                    <p className="text-indigo-600 font-medium">Scholium</p>
-                                                </div>
-                                                <span className="text-slate-600 text-sm">2026 - Present</span>
-                                            </div>
-                                            <p className="text-slate-600 text-sm italic mb-3">Administrative platform for homeschool co-ops and microschools</p>
-                                            <ul className="space-y-2 text-slate-600 text-sm">
-                                                <li>• Architecting and developing a SaaS platform for homeschool co-ops and learning centers, focused on enrollment, attendance, billing, and administrative workflows</li>
-                                                <li>• Designed product structure for Scholium Co-Op and Scholium Learning Center to serve distinct operational needs within the homeschool education space</li>
-                                                <li>• Planned and implemented core platform features including family billing, class management, parent portals, attendance tracking, and transcript/export workflows</li>
-                                                <li>• Researched and mapped state-specific transcript requirements, including legacy flat-file export formats for systems such as Florida FASTER and Georgia STARS</li>
-                                                <li>• Directed full product strategy, feature prioritization, and technical architecture as solo founder and developer</li>
-                                                <li>• Used AI-assisted workflows to accelerate development, documentation, and systems planning while retaining full control of product and engineering decisions</li>
-                                            </ul>
-                                            <p className="text-slate-600 text-sm mt-2"><strong>Tech Stack:</strong> Next.js, React, TypeScript, Supabase/PostgreSQL, Prisma, Clerk, Stripe, Vercel</p>
-                                        </div>
-
-                                        {/* Trade Finance Studio */}
-                                        <div className="border-l-4 border-amber-600 pl-4">
-                                            <div className="flex justify-between items-start mb-2">
-                                                <div>
-                                                    <h4 className="font-bold text-slate-900">Founder & Developer</h4>
-                                                    <p className="text-amber-600 font-medium">Trade Finance Studio</p>
-                                                </div>
-                                                <span className="text-slate-600 text-sm">2026 - Present</span>
-                                            </div>
-                                            <p className="text-slate-600 text-sm italic mb-3">Trade finance and landed cost planning platform for small importers and exporters</p>
-                                            <ul className="space-y-2 text-slate-600 text-sm">
-                                                <li>• Built a web application to help small trade businesses calculate landed costs, compare suppliers, estimate duties and tariffs, and manage purchase orders</li>
-                                                <li>• Developed import-focused planning tools with an export support layer, including quote-building logic, shipment tracking, and document checklists</li>
-                                                <li>• Implemented supplier management, HS code reference tools, duty estimation, and purchase order workflows within a shared-hosting-compatible architecture</li>
-                                                <li>• Designed the platform to be lightweight and practical for small businesses using server-rendered pages and minimal JavaScript</li>
-                                                <li>• Structured subscription tiers, feature gating, and prelaunch product positioning for a narrowly launched trade operations platform</li>
-                                                <li>• Managed product strategy, application architecture, and development as a solo founder-builder</li>
-                                            </ul>
-                                            <p className="text-slate-600 text-sm mt-2"><strong>Tech Stack:</strong> PHP, MySQL/MariaDB, PDO, JavaScript, HTML/CSS, Stripe, Resend</p>
-                                        </div>
-
-                                        {/* PingBuoy */}
-                                        <div className="border-l-4 border-blue-600 pl-4">
-                                            <div className="flex justify-between items-start mb-2">
-                                                <div>
-                                                    <h4 className="font-bold text-slate-900">Founder & Developer</h4>
-                                                    <p className="text-blue-600 font-medium">PingBuoy</p>
-                                                </div>
-                                                <span className="text-slate-600 text-sm">2025 - Present</span>
-                                            </div>
-                                            <p className="text-slate-600 text-sm italic mb-3">Website monitoring SaaS for solopreneurs and small businesses</p>
-                                            <ul className="space-y-2 text-slate-600 text-sm">
-                                                <li>• Architected and built complete SaaS application from concept to production deployment as a solo developer</li>
-                                                <li>• Implemented complete feature set: SSL certificate monitoring, uptime tracking, broken link detection, multi-channel alerting</li>
-                                                <li>• Developed secure authentication, subscription management, and Stripe payment integration</li>
-                                                <li>• Built responsive dashboard with real-time monitoring status and historical analytics</li>
-                                                <li>• Managed full deployment pipeline, database optimization, and production incident response</li>
-                                                <li>• Used AI tools collaboratively to accelerate development while making all architectural and technical decisions independently</li>
-                                            </ul>
-                                            <p className="text-slate-600 text-sm mt-2"><strong>Tech Stack:</strong> Next.js, React, TypeScript, Supabase (PostgreSQL), Vercel, Stripe API</p>
-                                        </div>
-
-                                        {/* Freelance Web Development */}
-                                        <div className="border-l-4 border-purple-500 pl-4">
-                                            <div className="flex justify-between items-start mb-2">
-                                                <div>
-                                                    <h4 className="font-bold text-slate-900">Full-Stack Web Developer</h4>
-                                                    <p className="text-purple-600 font-medium">Freelance</p>
-                                                </div>
-                                                <span className="text-slate-600 text-sm">2003 - Present</span>
-                                            </div>
-                                            <p className="text-slate-600 text-sm italic mb-3">Web development for clients and personal projects across diverse industries and requirements</p>
-                                            <ul className="space-y-2 text-slate-600 text-sm">
-                                                <li>• Design and develop websites from concept to completion using standards-compliant code</li>
-                                                <li>• Gather and refine technical specifications based on client requirements</li>
-                                                <li>• Create responsive layouts and user interfaces with HTML, CSS, and JavaScript</li>
-                                                <li>• Install, configure, and maintain web servers including Apache and Linux environments</li>
-                                                <li>• Implement SEO best practices and integrate analytics tools such as Google Analytics</li>
-                                                <li>• Manage web hosting, domain administration, and user access control</li>
-                                                <li>• Install and configure CMS platforms and discussion forums</li>
-                                                <li>• Test and ensure cross-browser compatibility and optimal usability</li>
-                                                <li>• Provide ongoing maintenance and updates for client websites</li>
-                                            </ul>
-                                            <p className="text-slate-600 text-sm mt-2"><strong>Tech Stack:</strong> HTML, CSS, JavaScript, PHP, Apache, Linux, MySQL, CMS platforms, Google Analytics</p>
-                                        </div>
-
-										{/* Participant Services Specialist */}
-										<div className="border-l-4 border-green-200 pl-4">
-											<div className="flex justify-between items-start mb-2">
-												<div>
-													<h4 className="font-bold text-slate-900">Participant Services Specialist (Remote)</h4>
-													<p className="text-green-600 font-medium">WEX Inc.</p>
-												</div>
-												<span className="text-slate-600 text-sm">2021 - 2022</span>
-											</div>
-											<p className="text-slate-600 text-sm italic mb-3">Health Benefits Division</p>
-											<ul className="space-y-2 text-slate-600 text-sm">
-												<li>• Provided customer-focused technical support for employer benefits administration platform in remote work environment</li>
-												<li>• Resolved complex account and benefits enrollment issues for corporate clients through effective stakeholder communication</li>
-												<li>• Maintained high customer satisfaction ratings while managing high-volume support tickets</li>
-												<li>• Demonstrated remote collaboration skills and asynchronous communication with distributed team</li>
-												<li>• Explained technical policy concepts to non-technical users with clarity and patience</li>
-											</ul>
-										</div>
-										
-                                    </div>
-                                </div>
-
-                                {/* Selected Projects */}
-                                <div className="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
-                                    <h3 className="text-xl font-bold text-slate-900 mb-6">Selected Projects</h3>
-
-                                    <div className="space-y-4">
-                                        <div className="border-l-4 border-purple-500 pl-4">
-                                            <h4 className="font-bold text-slate-900 mb-1">Final (MVP)</h4>
-                                            <p className="text-slate-600 text-sm mb-2">End-of-life planning application for secure document storage with role-based access control for trusted contacts.</p>
-                                            <p className="text-slate-600 text-sm"><em>Python, Flask, Django, PostgreSQL</em></p>
-                                        </div>
-
-                                        <div className="border-l-4 border-blue-500 pl-4">
-                                            <h4 className="font-bold text-slate-900 mb-1">Custom Flask CMS</h4>
-                                            <p className="text-slate-600 text-sm mb-2">Content management system architected and built from scratch through mentored development with ChatGPT. Deliberately implemented each component independently to demonstrate understanding of full-stack architecture, CRUD operations, authentication, and database design.</p>
-                                            <p className="text-slate-600 text-sm"><em>Python, Flask, SQLite/PostgreSQL</em></p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Education */}
-                                <div className="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
-                                    <h3 className="text-xl font-bold text-slate-900 mb-6">Education</h3>
-
-                                    <div className="space-y-4">
-                                        <div>
-                                            <h4 className="font-bold text-slate-900">MBA</h4>
-                                            <p className="text-slate-600">Universidad Isabel I, Spain</p>
-                                        </div>
-
-                                        <div>
-                                            <h4 className="font-bold text-slate-900">Master of International Trade</h4>
-                                            <p className="text-slate-600">Universidad Isabel I, Spain</p>
-                                        </div>
-
-                                        <div>
-                                            <h4 className="font-bold text-slate-900">BS, Sociology</h4>
-                                            <p className="text-slate-600">The State University of New York at Oneonta</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Download Link */}
-                                <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-200 text-center">
-                                    <p className="text-slate-700">
-                                        <a href="/resume/Rosalind_Gash_Resume.pdf" download className="text-blue-600 hover:text-blue-700 font-medium">Download My Résumé (PDF)</a>
-                                    </p>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* Contact Section */}
-                        {activeSection === 'contact' && (
-                            <div className="space-y-8">
-                                <div>
-                                    <h2 className="text-3xl font-bold text-slate-900 mb-2">Get in Touch</h2>
-                                    <p className="text-slate-600">
-                                        Interested in collaboration, speaking engagements, or discussing research?
-                                    </p>
-                                </div>
-
-                                <div className="grid md:grid-cols-2 gap-8">
-                                    <div className="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
-                                        <h3 className="text-xl font-bold text-slate-900 mb-4">Connect</h3>
-                                        <div className="space-y-4">
-                                            <a
-                                                href="mailto:rrgash@protonmail.com"
-                                                className="w-full flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors"
-                                                aria-label="Email Rosalind Gash"
-                                            >
-                                                <Mail className="w-5 h-5 text-slate-600" aria-hidden="true" />
-                                                <div>
-                                                    <div className="font-medium text-slate-900">Email</div>
-                                                    <div className="text-sm text-slate-600">rrgash@protonmail.com</div>
-                                                </div>
-                                            </a>
-                                            <a
-                                                href="https://www.linkedin.com/in/rosalindgash"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="w-full flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors"
-                                                aria-label="Connect with Rosalind Gash on LinkedIn (opens in new tab)"
-                                            >
-                                                <Linkedin className="w-5 h-5 text-slate-600" aria-hidden="true" />
-                                                <div>
-                                                    <div className="font-medium text-slate-900">LinkedIn</div>
-                                                    <div className="text-sm text-slate-600">Connect professionally</div>
-                                                </div>
-                                            </a>
-                                            <a
-                                                href="https://github.com/rosalindgash"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="w-full flex items-center gap-3 p-4 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors"
-                                                aria-label="View Rosalind Gash's code on GitHub (opens in new tab)"
-                                            >
-                                                <Github className="w-5 h-5 text-slate-600" aria-hidden="true" />
-                                                <div>
-                                                    <div className="font-medium text-slate-900">GitHub</div>
-                                                    <div className="text-sm text-slate-600">View my code</div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                    <div className="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
-                                        <h3 className="text-xl font-bold text-slate-900 mb-4">Areas of Interest</h3>
-                                        <ul className="space-y-3 text-slate-600">
-                                            <li className="flex items-start gap-2">
-                                                <span className="text-blue-700 mt-1">•</span>
-                                                <span>Research collaboration in adaptive technologies</span>
-                                            </li>
-                                            <li className="flex items-start gap-2">
-                                                <span className="text-blue-700 mt-1">•</span>
-                                                <span>Speaking engagements on AI-assisted development</span>
-                                            </li>
-                                            <li className="flex items-start gap-2">
-                                                <span className="text-blue-700 mt-1">•</span>
-                                                <span>Disability studies and accessibility consulting</span>
-                                            </li>
-                                            <li className="flex items-start gap-2">
-                                                <span className="text-blue-700 mt-1">•</span>
-                                                <span>SaaS development for underserved markets</span>
-                                            </li>
-                                            <li className="flex items-start gap-2">
-                                                <span className="text-blue-700 mt-1">•</span>
-                                                <span>Academic-entrepreneurship intersections</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-8 border border-blue-200 text-center">
-                                    <h3 className="text-xl font-bold text-slate-900 mb-3">
-                                        Building at the intersection of research and technology
-                                    </h3>
-                                    <p className="text-slate-700 max-w-2xl mx-auto">
-                                        Whether you're interested in discussing adaptive technologies, exploring AI-assisted
-                                        development methodologies, or collaborating on accessible software solutions, I'd love
-                                        to hear from you.
-                                    </p>
-                                </div>
-                            </div>
-                        )}
-                    </main>
-
-                    {/* Footer */}
-                    <footer className="bg-white border-t border-slate-200 mt-16">
-                        <div className="max-w-6xl mx-auto px-6 py-8 text-center text-slate-600 text-sm">
-                            <p>© 2025 Rosalind Gash.</p>
-                        </div>
-                    </footer>
+                <div>
+                    <div class="hero-tagline">Prospective doctoral applicant · software developer</div>
+                    <h1>Rosalind R. Gash</h1>
+                    <a href="mailto:rrgash@protonmail.com" class="hero-email">rrgash@protonmail.com</a>
+                    <div class="lead">
+                        <p>
+                            I am a full-stack software engineer exploring doctoral study at the intersection of learning sciences, critical disability studies, human-directed artificial intelligence, and higher education access.
+                        </p>
+                        <p>
+                            My current self-directed project, <em>Adaptive Digital Academic Practice</em>, examines how chronically ill, invisibly disabled, and energy-limited scholars use AI tools, automation, and digital workflows to sustain research while preserving interpretive control.
+                        </p>
+                    </div>
                 </div>
-            );
-        }
+            </div>
+        </section>
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<PersonalBrandPage />);
+        <section class="content-section" id="research">
+            <div class="container">
+                <h2 class="section-heading">Research Interests</h2>
+                <p class="section-intro">
+                    My interests focus on how higher education might better support academic work under conditions of fluctuating capacity, chronic illness, invisible disability, and limited physical energy.
+                </p>
+
+                <div class="framework-box">
+                    <h3>The ADAP Framework</h3>
+                    <p>
+                        <strong>Adaptive Digital Academic Practice</strong> is a preliminary framework for thinking about AI-supported academic workflows as adaptive scaffolds for energy-limited research, writing, coding, and qualitative analysis. The framework is self-directed and unpublished; I hope to refine it through doctoral study.
+                    </p>
+                </div>
+
+                <h3>Guiding questions</h3>
+                <ul class="question-list">
+                    <li>How do chronically ill and invisibly disabled scholars adapt academic work around fluctuating capacity?</li>
+                    <li>How can human-directed AI workflows reduce procedural cognitive demand without replacing scholarly judgment?</li>
+                    <li>What kinds of digital scaffolding make advanced research more physically sustainable?</li>
+                    <li>How might higher education move beyond static accommodation models toward more adaptive forms of participation?</li>
+                </ul>
+
+                <div class="grid" aria-label="Thematic research areas">
+                    <article class="card">
+                        <h3>Higher Education Access</h3>
+                        <p>Doctoral participation, academic labor, institutional constraint, and support for scholars with episodic or invisible disabilities.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Learning Sciences</h3>
+                        <p>Technology-mediated learning, adaptive scaffolding, distributed cognition, and knowledge production under constraint.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Critical Disability Studies</h3>
+                        <p>Chronic illness, fluctuating access needs, energy limitation, and accessibility beyond compliance-centered models.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Human-Directed AI</h3>
+                        <p>AI-supported research workflows that preserve interpretation, authorship, accountability, and human control.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section" id="work">
+            <div class="container">
+                <h2 class="section-heading">Current Project</h2>
+                <p class="section-intro">
+                    The following work is self-directed, unpublished, and not yet peer reviewed. I present it here as evidence of research preparation and as the foundation for the doctoral questions I hope to pursue.
+                </p>
+
+                <article class="work-item">
+                    <div class="eyebrow">Unpublished working manuscript</div>
+                    <h3 class="work-title">Adaptive Digital Academic Practice: Disability, Structural Constraint, and Epistemic Entrepreneurship in Graduate Research</h3>
+                    <div class="work-meta">Five-chapter working manuscript · Self-directed project</div>
+                    <p>
+                        This manuscript combines disability studies, higher education access, qualitative methodology, and human-AI workflow design. It began as a thought experiment and developed into a practice-based research agenda about how digital tools may support energy-limited academic work.
+                    </p>
+                </article>
+
+                <article class="work-item">
+                    <div class="eyebrow">Preliminary internal analysis</div>
+                    <h3 class="work-title">Human-in-the-loop qualitative workflow</h3>
+                    <div class="work-meta">Python pipeline · Public disabled-scholar narratives · Approximately 232,000 words</div>
+                    <p>
+                        As part of the ADAP project, I built a modular Python pipeline that uses LLMs to extract structural themes from qualitative text while keeping human interpretation at the center of the process. In an internal comparison, the workflow suggested reduced procedural cognitive demand while preserving substantial agreement with traditional manual coding.
+                    </p>
+                </article>
+
+                <div class="status-note">
+                    <strong>Status note:</strong> This project has not been submitted for peer review. I am using it to clarify research fit, identify appropriate doctoral programs, and develop a supervised dissertation direction.
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section" id="background">
+            <div class="container">
+                <h2 class="section-heading">Academic Preparation</h2>
+
+                <h3>Education & Coursework</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <strong>Computer Science & Mathematics Studies</strong>
+                        <span class="date">Rust College, Holly Springs, MS · GPA: 3.4 / 4.0</span>
+                        <p>Completed 1.5 years of foundational computer science and advanced mathematics coursework as a non-traditional post-baccalaureate student.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <strong>MBA & Master in International Trade</strong>
+                        <span class="date">Universidad Isabel I, Spain · ENEB, Spain · Graduated 2023</span>
+                        <p>Joint postgraduate programs focusing on strategic management, international trade frameworks, and data-driven operational logic.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <strong>BS in Sociology</strong>
+                        <span class="date">The State University of New York at Oneonta · Graduated 2000</span>
+                        <p>Focused on qualitative research methodologies, social stratification, and structural institutional barriers.</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2.5rem;">Applied Systems Work</h3>
+                <p class="section-intro">
+                    My software background includes building and operating production web applications, including education administration, trade finance, and website monitoring systems. This practical systems-building experience informs my developing interest in human-AI collaboration and academic workflow design.
+                </p>
+
+                <div class="grid">
+                    <article class="card">
+                        <h3>Software Development</h3>
+                        <p>Full-stack development, production web applications, database-backed systems, and AI-assisted coding workflows.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Research Preparation</h3>
+                        <p>Qualitative research interests, thematic analysis, literature synthesis, disability studies, and higher education access.</p>
+                    </article>
+                </div>
+
+                <h3 style="margin-top: 2.5rem;">Honors & Distinctions</h3>
+                <ul class="small-list">
+                    <li>Academic Distinction Award, ENEB MBA program</li>
+                    <li>Honors Residential Scholar, Rust College</li>
+                    <li>Merit-based institutional scholarship, Rust College</li>
+                    <li>Performance scholarship, Rust College A'Cappella Choir</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="container">
+            <p>© 2026 Rosalind R. Gash.</p>
+            <div class="footer-links">
+                <a href="mailto:rrgash@protonmail.com">Email</a>
+                <a href="/resume/Rosalind_Gash_Resume.pdf">Résumé</a>
+                <a href="https://blog.rosalindgash.org">Blog</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function runSmokeTests() {
+            var requiredSelectors = [
+                "#main-content",
+                "#about",
+                "#research",
+                "#work",
+                "#background",
+                "img[src='headshot.png']",
+                "a[href='mailto:rrgash@protonmail.com']",
+                "a[href='https://blog.rosalindgash.org']",
+                "a[href='/resume/Rosalind_Gash_Resume.pdf']"
+            ];
+
+            var missingSelectors = requiredSelectors.filter(function(selector) {
+                return !document.querySelector(selector);
+            });
+
+            if (missingSelectors.length > 0) {
+                console.error("Homepage smoke test failed. Missing selectors:", missingSelectors);
+            } else {
+                console.info("Homepage smoke test passed.");
+            }
+        })();
     </script>
 </body>
 </html>
