@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rosalind R. Gash | Academic Profile</title>
+    <meta name="description" content="Rosalind R. Gash — Product Engineer and doctoral candidate building and researching practical, human-directed technology systems." />
+    <title>Rosalind R. Gash | Product Engineer & Researcher</title>
     <style>
         :root {
             --text-primary: #1f2937;
@@ -108,9 +109,10 @@
             width: 100%;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
+            justify-content: center;
+            gap: 1rem 1.35rem;
             text-align: center;
+            flex-wrap: wrap;
         }
 
         nav a {
@@ -126,7 +128,7 @@
         }
 
         section {
-            scroll-margin-top: 5rem;
+            scroll-margin-top: 6rem;
         }
 
         .hero {
@@ -169,12 +171,6 @@
             color: var(--text-primary);
         }
 
-        .subtitle {
-            margin-bottom: 1.35rem;
-            color: var(--text-secondary);
-            font-size: 1.05rem;
-        }
-
         .hero-email {
             display: inline-block;
             margin: 0 0 1.25rem;
@@ -193,15 +189,6 @@
             margin-top: 1rem;
         }
 
-        .contact-line {
-            margin-top: 1.35rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.45rem 0.8rem;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
         .content-section {
             padding: 2.75rem 0;
             border-bottom: 1px solid var(--border-color);
@@ -217,7 +204,7 @@
         }
 
         .section-intro {
-            max-width: 720px;
+            max-width: 760px;
             margin-bottom: 1.5rem;
             color: var(--text-secondary);
             font-size: 1.02rem;
@@ -281,6 +268,16 @@
         .card p {
             color: var(--text-secondary);
             font-size: 0.96rem;
+        }
+
+        .card p + p {
+            margin-top: 0.7rem;
+        }
+
+        .project-link {
+            display: inline-block;
+            margin-top: 0.75rem;
+            font-weight: 600;
         }
 
         .work-item {
@@ -402,17 +399,6 @@
         }
 
         @media (max-width: 760px) {
-            .header-inner {
-                align-items: center;
-            }
-
-            nav {
-                justify-content: center;
-                text-align: center;
-                gap: 0.9rem;
-                flex-wrap: wrap;
-            }
-
             .hero-layout {
                 grid-template-columns: 1fr;
             }
@@ -448,11 +434,11 @@
         <div class="container header-inner">
             <nav role="navigation" aria-label="Main navigation">
                 <a href="#about">About</a>
+                <a href="#products">Product Engineering</a>
                 <a href="#research">Research Interests</a>
                 <a href="#work">Current Project</a>
                 <a href="#background">Academic Preparation</a>
-           <!-- <a href="/resume/Rosalind_Gash_Resume.pdf">Resume</a> -->
-           <!-- <a href="https://blog.rosalindgash.org">Blog</a> -->
+                <a href="/resume/Rosalind_Gash_Resume.pdf">Résumé</a>
             </nav>
         </div>
     </header>
@@ -463,17 +449,78 @@
                 <img src="assets/images/headshot.png" alt="Professional headshot of Rosalind R. Gash" class="portrait" />
 
                 <div>
-                    <div class="hero-tagline">Prospective doctoral applicant · software developer</div>
+                    <div class="hero-tagline">Doctoral candidate · Product Engineer</div>
                     <h1>Rosalind R. Gash</h1>
                     <a href="mailto:rrgash@protonmail.com" class="hero-email">rrgash@protonmail.com</a>
                     <div class="lead">
                         <p>
-                            I am a full-stack software engineer exploring doctoral study at the intersection of learning sciences, critical disability studies, human-directed artificial intelligence, and higher education access.
+                            I am a Product Engineer and doctoral candidate whose work spans software product development, learning sciences, critical disability studies, human-directed artificial intelligence, and higher education access.
+                        </p>
+                        <p>
+                            In software, I take ambiguous business problems from concept through product decisions, UX, architecture, full-stack implementation, integrations, testing, deployment, and production hardening.
                         </p>
                         <p>
                             My current self-directed project, <em>Adaptive Digital Academic Practice</em>, examines how chronically ill, invisibly disabled, and energy-limited scholars use AI tools, automation, and digital workflows to sustain research while preserving interpretive control.
                         </p>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section" id="products">
+            <div class="container">
+                <h2 class="section-heading">Product Engineering</h2>
+                <p class="section-intro">
+                    I build and ship complete software products rather than working only from predefined tickets. My strongest work starts with the underlying user or business problem, turns it into a practical product and technical plan, and carries that solution through production.
+                </p>
+
+                <div class="grid" aria-label="Selected software products">
+                    <article class="card">
+                        <div class="eyebrow">Education SaaS</div>
+                        <h3>Scholium</h3>
+                        <p>
+                            A multi-tenant platform for homeschool co-ops, microschools, course providers, and learning centers. It connects enrollment, attendance, grades, records, progress reports, transcripts, billing, parent access, payments, imports, and administrative workflows.
+                        </p>
+                        <p>
+                            I designed, built, launched, and production-hardened the product end to end, including product decisions, workflow design, architecture, full-stack implementation, Stripe integration, testing, deployment, and ongoing iteration.
+                        </p>
+                        <a class="project-link" href="https://scholium.academy/" target="_blank" rel="noopener noreferrer">View Scholium</a>
+                    </article>
+
+                    <article class="card">
+                        <div class="eyebrow">Trade & finance SaaS</div>
+                        <h3>Qorva Global Trade</h3>
+                        <p>
+                            A workflow platform for solo and small import/export operators, with landed-cost planning, shipment tracking, duty estimates, HS-code reference and search, purchase orders, document workflows, reconciliation, reporting, and accounting-oriented exports.
+                        </p>
+                        <p>
+                            The product combines my International Business background with hands-on product engineering, including domain modeling, UX and workflow decisions, search behavior, financial tooling, integrations, and production deployment.
+                        </p>
+                        <a class="project-link" href="https://qorvaglobaltrade.com/" target="_blank" rel="noopener noreferrer">View Qorva Global Trade</a>
+                    </article>
+
+                    <article class="card">
+                        <div class="eyebrow">Monitoring SaaS</div>
+                        <h3>PingBuoy</h3>
+                        <p>
+                            A website-monitoring product covering uptime checks, dead-link detection, SSL certificate expiration, alerts, analytics, status information, and subscription workflows.
+                        </p>
+                        <p>
+                            I took PingBuoy from product planning through architecture, implementation, security work, payment integration, deployment, debugging, and production readiness.
+                        </p>
+                        <a class="project-link" href="https://pingbuoy.com/" target="_blank" rel="noopener noreferrer">View PingBuoy</a>
+                    </article>
+
+                    <article class="card">
+                        <div class="eyebrow">How I work</div>
+                        <h3>End-to-end product ownership</h3>
+                        <p>
+                            My work spans React, Next.js, TypeScript, JavaScript, PHP, Python, PostgreSQL, MySQL, REST APIs, Docker, Git, Stripe integrations, deployment, and AI-assisted engineering workflows.
+                        </p>
+                        <p>
+                            I use AI as an engineering tool while retaining responsibility for architecture, review, verification, debugging, security, and final product decisions.
+                        </p>
+                    </article>
                 </div>
             </div>
         </section>
@@ -488,7 +535,7 @@
                 <div class="framework-box">
                     <h3>The ADAP Framework</h3>
                     <p>
-                        <strong>Adaptive Digital Academic Practice</strong> is a preliminary framework for thinking about AI-supported academic workflows as adaptive scaffolds for energy-limited research, writing, coding, and qualitative analysis. The framework is self-directed and unpublished; I hope to refine it through doctoral study.
+                        <strong>Adaptive Digital Academic Practice</strong> is a preliminary framework for thinking about AI-supported academic workflows as adaptive scaffolds for energy-limited research, writing, coding, and qualitative analysis. I am continuing to refine the framework through doctoral study.
                     </p>
                 </div>
 
@@ -525,7 +572,7 @@
             <div class="container">
                 <h2 class="section-heading">Current Project</h2>
                 <p class="section-intro">
-                    The following work is self-directed, unpublished, and not yet peer reviewed. I present it here as evidence of research preparation and as the foundation for the doctoral questions I hope to pursue.
+                    The following work is self-directed and has not been submitted for peer review. It serves as a foundation for my continuing doctoral research and methodological development.
                 </p>
 
                 <article class="work-item">
@@ -552,7 +599,7 @@
                 </article>
 
                 <div class="status-note">
-                    <strong>Status note:</strong> This project has not been submitted for peer review. I am using it to clarify research fit, identify appropriate doctoral programs, and develop a supervised dissertation direction.
+                    <strong>Status note:</strong> This project has not been submitted for peer review. I am continuing to develop it within my doctoral work while keeping its claims appropriately bounded to the evidence and methods used.
                 </div>
             </div>
         </section>
@@ -566,13 +613,13 @@
                     <div class="timeline-item">
                         <strong>Computer Science & Mathematics Studies</strong>
                         <span class="date">Rust College, Holly Springs, MS · GPA: 3.4 / 4.0</span>
-                        <p>Completed 2 years of foundational computer science and advanced mathematics coursework as a non-traditional post-baccalaureate student.</p>
+                        <p>Completed 2 years of foundational computer science and mathematics coursework as a non-traditional post-baccalaureate student.</p>
                     </div>
 
                     <div class="timeline-item">
                         <strong>MBA & Master in International Trade</strong>
                         <span class="date">ENEB / Universidad Isabel I, Spain · Graduated 2023</span>
-                        <p>Joint postgraduate programs focusing on strategic management, international trade frameworks, and data-driven operational logic.</p>
+                        <p>Postgraduate programs focused on strategic management, international business, trade frameworks, finance, and data-driven operational logic.</p>
                     </div>
 
                     <div class="timeline-item">
@@ -583,13 +630,13 @@
 
                 <h3 style="margin-top: 2.5rem;">Applied Systems Work</h3>
                 <p class="section-intro">
-                    My software background includes building and operating production web applications, including education administration, trade finance, and website monitoring systems. This practical systems-building experience informs my developing interest in human-AI collaboration and academic workflow design.
+                    My software background centers on end-to-end product engineering. I translate business and user problems into production systems across education administration, international trade and finance, website monitoring, and internal business operations. I typically own product decisions and workflow design as well as architecture, implementation, integrations, testing, deployment, and production hardening.
                 </p>
 
                 <div class="grid">
                     <article class="card">
-                        <h3>Software Development</h3>
-                        <p>Full-stack development, production web applications, database-backed systems, and AI-assisted coding workflows.</p>
+                        <h3>Product Engineering</h3>
+                        <p>0→1 SaaS development, full-stack applications, database-backed systems, REST APIs, payments, third-party integrations, deployment, production debugging, and AI-assisted engineering workflows.</p>
                     </article>
                     <article class="card">
                         <h3>Research Preparation</h3>
@@ -615,6 +662,8 @@
             <div class="footer-links">
                 <a href="mailto:rrgash@protonmail.com">Email</a>
                 <a href="/resume/Rosalind_Gash_Resume.pdf">Résumé</a>
+                <a href="https://www.linkedin.com/in/rosalindgash" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="https://github.com/rosalindgash" target="_blank" rel="noopener noreferrer">GitHub</a>
                 <a href="https://blog.rosalindgash.org">Blog</a>
             </div>
         </div>
@@ -625,11 +674,15 @@
             var requiredSelectors = [
                 "#main-content",
                 "#about",
+                "#products",
                 "#research",
                 "#work",
                 "#background",
                 "img[src='assets/images/headshot.png']",
                 "a[href='mailto:rrgash@protonmail.com']",
+                "a[href='https://scholium.academy/']",
+                "a[href='https://qorvaglobaltrade.com/']",
+                "a[href='https://pingbuoy.com/']",
                 "a[href='https://blog.rosalindgash.org']",
                 "a[href='/resume/Rosalind_Gash_Resume.pdf']"
             ];
