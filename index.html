@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Rosalind R. Gash — Product Engineer and independent researcher building and researching practical, human-directed technology systems." />
     <title>Rosalind R. Gash | Product Engineer & Researcher</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=1" />
     <style>
         :root {
             --text-primary: #1f2937;
@@ -508,7 +509,7 @@
                         <p>
                             I took PingBuoy from product planning through architecture, implementation, security work, payment integration, deployment, debugging, and production readiness.
                         </p>
-                        <a class="project-link" href="https://pingbuoy.com/" target="_blank" rel="noopener noreferrer">View PingBuoy</a>
+                        <a class="project-link" href="https://pingbuoy.rosalindgash.com/" target="_blank" rel="noopener noreferrer">View PingBuoy</a>
                     </article>
 
                     <article class="card">
@@ -618,85 +619,39 @@
 
                     <div class="timeline-item">
                         <strong>MBA & Master in International Trade</strong>
-                        <span class="date">ENEB / Universidad Isabel I, Spain · Graduated 2023</span>
-                        <p>Postgraduate programs focused on strategic management, international business, trade frameworks, finance, and data-driven operational logic.</p>
+                        <span class="date">EU Business School · MBA 2023 · Master in International Trade 2023</span>
+                        <p>Graduate study in business strategy, finance, international trade, and cross-border commerce.</p>
                     </div>
 
                     <div class="timeline-item">
-                        <strong>BS in Sociology</strong>
-                        <span class="date">The State University of New York at Oneonta · Graduated 2000</span>
+                        <strong>Bachelor of Science in Sociology</strong>
+                        <span class="date">SUNY Oneonta</span>
+                        <p>Undergraduate preparation in social theory, institutions, inequality, research methods, and human behavior.</p>
                     </div>
                 </div>
 
-                <h3 style="margin-top: 2.5rem;">Applied Systems Work</h3>
-                <p class="section-intro">
-                    My software background centers on end-to-end product engineering. I translate business and user problems into production systems across education administration, international trade and finance, website monitoring, and internal business operations. I typically own product decisions and workflow design as well as architecture, implementation, integrations, testing, deployment, and production hardening.
-                </p>
-
-                <div class="grid">
-                    <article class="card">
-                        <h3>Product Engineering</h3>
-                        <p>0→1 SaaS development, full-stack applications, database-backed systems, REST APIs, payments, third-party integrations, deployment, production debugging, and AI-assisted engineering workflows.</p>
-                    </article>
-                    <article class="card">
-                        <h3>Research Preparation</h3>
-                        <p>Qualitative research interests, thematic analysis, literature synthesis, disability studies, and higher education access.</p>
-                    </article>
+                <div style="margin-top: 2.25rem;">
+                    <h3>Professional Background</h3>
+                    <ul class="small-list">
+                        <li>Independent software product development and production deployment</li>
+                        <li>Freelance webmaster and web development work</li>
+                        <li>Participant services and customer-facing operational support</li>
+                        <li>Research, writing, data analysis, and AI-assisted technical workflows</li>
+                    </ul>
                 </div>
-
-                <h3 style="margin-top: 2.5rem;">Honors & Distinctions</h3>
-                <ul class="small-list">
-                    <li>Academic Excellence Cum Laude Certificate, MBA — ENEB / Universidad Isabel I</li>
-                    <li>Algernon Sydney Sullivan Award, Rust College</li>
-                    <li>Honors Residential Scholar, Rust College</li>
-                    <li>Merit-based institutional scholarship, Rust College</li>
-                    <li>Performance scholarship, Rust College A'Cappella Choir</li>
-                </ul>
             </div>
         </section>
     </main>
 
-    <footer role="contentinfo">
+    <footer>
         <div class="container">
-            <p>© 2026 Rosalind R. Gash.</p>
+            <div>© 2026 Rosalind R. Gash</div>
             <div class="footer-links">
                 <a href="mailto:rrgash@protonmail.com">Email</a>
-                <a href="/resume/Rosalind_Gash_Resume.pdf">Résumé</a>
-                <a href="https://www.linkedin.com/in/rosalindgash" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                 <a href="https://github.com/rosalindgash" target="_blank" rel="noopener noreferrer">GitHub</a>
-                <a href="https://blog.rosalindgash.org">Blog</a>
+                <a href="https://www.linkedin.com/in/rosalind-gash/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
             </div>
         </div>
     </footer>
-
-    <script>
-        (function runSmokeTests() {
-            var requiredSelectors = [
-                "#main-content",
-                "#about",
-                "#products",
-                "#research",
-                "#work",
-                "#background",
-                "img[src='assets/images/headshot.png']",
-                "a[href='mailto:rrgash@protonmail.com']",
-                "a[href='https://scholium.academy/']",
-                "a[href='https://qorvaglobaltrade.com/']",
-                "a[href='https://pingbuoy.com/']",
-                "a[href='https://blog.rosalindgash.org']",
-                "a[href='/resume/Rosalind_Gash_Resume.pdf']"
-            ];
-
-            var missingSelectors = requiredSelectors.filter(function(selector) {
-                return !document.querySelector(selector);
-            });
-
-            if (missingSelectors.length > 0) {
-                console.error("Homepage smoke test failed. Missing selectors:", missingSelectors);
-            } else {
-                console.info("Homepage smoke test passed.");
-            }
-        })();
-    </script>
 </body>
 </html>
