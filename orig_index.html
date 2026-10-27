@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Rosalind R. Gash — Product Engineer and independent researcher building and researching practical, human-directed technology systems." />
+    <title>Rosalind R. Gash | Product Engineer & Researcher</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3" />
+    <style>
+        :root {
+            --text-primary: #1f2937;
+            --text-secondary: #5f6b76;
+            --text-light: #8a95a1;
+            --bg-primary: #ffffff;
+            --bg-secondary: #fafaf9;
+            --bg-tertiary: #f4f1ec;
+            --border-color: #e7dfd5;
+            --accent-primary: #7c3f58;
+            --accent-secondary: #0f766e;
+            --accent-light: #f3e9ee;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--accent-secondary);
+            border-color: var(--accent-secondary);
+        }
+
+        .skip-link {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .skip-link:focus {
+            width: auto;
+            height: auto;
+            margin: 0;
+            padding: 0.65rem 0.85rem;
+            clip: auto;
+            overflow: visible;
+            top: 0;
+            left: 0;
+            background: var(--text-primary);
+            color: #ffffff;
+            z-index: 100;
+        }
+
+        *:focus-visible {
+            outline: 3px solid rgba(15, 118, 110, 0.55);
+            outline-offset: 3px;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.96);
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+        }
+
+        .container {
+            width: min(100% - 3rem, 900px);
+            margin: 0 auto;
+        }
+
+        .header-inner {
+            padding: 1rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        nav {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem 1.35rem;
+            text-align: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            border: none;
+            font-size: 0.93rem;
+            font-weight: 500;
+        }
+
+        main {
+            flex: 1;
+            padding: 2rem 0 0;
+        }
+
+        section {
+            scroll-margin-top: 6rem;
+        }
+
+        .hero {
+            padding: 2.75rem 0 2.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero-layout {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .portrait {
+            width: 150px;
+            aspect-ratio: 4 / 5;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-primary);
+        }
+
+        .hero-tagline,
+        .eyebrow {
+            color: var(--accent-primary);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin-top: 0.45rem;
+            margin-bottom: 0.35rem;
+            font-size: clamp(2rem, 5vw, 2.65rem);
+            line-height: 1.1;
+            font-weight: 720;
+            letter-spacing: -0.035em;
+            color: var(--text-primary);
+        }
+
+        .hero-email {
+            display: inline-block;
+            margin: 0 0 1.25rem;
+            color: var(--accent-primary);
+            font-size: 0.98rem;
+        }
+
+        .lead {
+            max-width: 650px;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .lead p + p {
+            margin-top: 1rem;
+        }
+
+        .content-section {
+            padding: 2.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-heading {
+            margin-bottom: 1.35rem;
+            font-size: 1.7rem;
+            line-height: 1.2;
+            font-weight: 720;
+            letter-spacing: -0.025em;
+            color: var(--text-primary);
+        }
+
+        .section-intro {
+            max-width: 760px;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 1.02rem;
+            line-height: 1.8;
+        }
+
+        .framework-box {
+            margin: 1.4rem 0 1.8rem;
+            padding: 1.25rem 1.35rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-primary);
+            border-radius: 8px;
+        }
+
+        .framework-box h3 {
+            margin-bottom: 0.45rem;
+            color: var(--accent-primary);
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .framework-box p {
+            color: var(--text-secondary);
+        }
+
+        .question-list {
+            margin: 0.75rem 0 0;
+            padding-left: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        .question-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+            margin-top: 1.25rem;
+        }
+
+        .card {
+            padding: 1.15rem 1.2rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        .card h3 {
+            margin-bottom: 0.45rem;
+            color: var(--text-primary);
+            font-size: 1rem;
+            line-height: 1.35;
+            font-weight: 700;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.96rem;
+        }
+
+        .card p + p {
+            margin-top: 0.7rem;
+        }
+
+        .project-link {
+            display: inline-block;
+            margin-top: 0.75rem;
+            font-weight: 600;
+        }
+
+        .work-item {
+            padding-bottom: 1.4rem;
+            margin-bottom: 1.4rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .work-item:last-child {
+            padding-bottom: 0;
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+
+        .work-title {
+            margin-bottom: 0.25rem;
+            color: var(--text-primary);
+            font-size: 1.08rem;
+            line-height: 1.45;
+            font-weight: 700;
+        }
+
+        .work-meta {
+            margin-bottom: 0.65rem;
+            color: var(--text-light);
+            font-size: 0.92rem;
+        }
+
+        .work-item p {
+            color: var(--text-secondary);
+        }
+
+        .status-note {
+            margin-top: 1rem;
+            padding: 1rem 1.1rem;
+            border-radius: 8px;
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .timeline {
+            position: relative;
+            margin-top: 0.5rem;
+            padding-left: 1.6rem;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 1.7rem;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -1.6rem;
+            top: 0.45rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: var(--accent-primary);
+            border: 3px solid var(--bg-secondary);
+        }
+
+        .timeline-item:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            left: -1.31rem;
+            top: 1.45rem;
+            width: 2px;
+            height: calc(100% - 1.2rem);
+            background: var(--border-color);
+        }
+
+        .timeline-item strong {
+            display: block;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .timeline-item .date {
+            display: block;
+            margin: 0.15rem 0 0.4rem;
+            color: var(--text-light);
+            font-size: 0.92rem;
+        }
+
+        .timeline-item p {
+            color: var(--text-secondary);
+        }
+
+        .small-list {
+            margin: 0.75rem 0 0;
+            padding-left: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        .small-list li {
+            margin-bottom: 0.45rem;
+        }
+
+        footer {
+            padding: 2rem 0;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .footer-links {
+            margin-top: 0.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 760px) {
+            .hero-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .portrait {
+                width: 140px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .container {
+                width: min(100% - 2rem, 900px);
+            }
+
+            main {
+                padding-top: 1rem;
+            }
+
+            .hero {
+                padding-top: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header role="banner">
+        <div class="container header-inner">
+            <nav role="navigation" aria-label="Main navigation">
+                <a href="#about">About</a>
+                <a href="#products">Product Engineering</a>
+                <a href="#research">Research Interests</a>
+                <a href="#work">Current Project</a>
+                <a href="#background">Academic Preparation</a>
+                <a href="/resume/Rosalind_Gash_Resume.pdf">Résumé</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content" role="main">
+        <section class="hero" id="about">
+            <div class="container hero-layout">
+                <img src="assets/images/rrgash_sm.png" alt="Professional headshot of Rosalind R. Gash" class="portrait" />
+
+                <div>
+                    <div class="hero-tagline">Product Engineer · Independent Researcher</div>
+                    <h1>Rosalind R. Gash</h1>
+                    <a href="mailto:rrgash@protonmail.com" class="hero-email">rrgash@protonmail.com</a>
+                    <div class="lead">
+                        <p>
+                            I am a Product Engineer and independent researcher whose work spans software product development, learning sciences, critical disability studies, human-directed artificial intelligence, and higher education access.
+                        </p>
+                        <p>
+                            In software, I take ambiguous business problems from concept through product decisions, UX, architecture, full-stack implementation, integrations, testing, deployment, and production hardening.
+                        </p>
+                        <p>
+                            My current self-directed project, <em>Adaptive Digital Academic Practice</em>, examines how chronically ill, invisibly disabled, and energy-limited scholars use AI tools, automation, and digital workflows to sustain research while preserving interpretive control.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section" id="products">
+            <div class="container">
+                <h2 class="section-heading">Product Engineering</h2>
+                <p class="section-intro">
+                    I build and ship complete software products rather than working only from predefined tickets. My strongest work starts with the underlying user or business problem, turns it into a practical product and technical plan, and carries that solution through production.
+                </p>
+
+                <div class="grid" aria-label="Selected software products">
+                    <article class="card">
+                        <div class="eyebrow">Education SaaS</div>
+                        <h3>Scholium</h3>
+                        <p>
+                            A multi-tenant platform for homeschool co-ops, microschools, course providers, and learning centers. It connects enrollment, attendance, grades, records, progress reports, transcripts, billing, parent access, payments, imports, and administrative workflows.
+                        </p>
+                        <p>
+                            I designed, built, launched, and production-hardened the product end to end, including product decisions, workflow design, architecture, full-stack implementation, Stripe integration, testing, deployment, and ongoing iteration.
+                        </p>
+                    </article>
+
+                    <article class="card">
+                        <div class="eyebrow">Trade & finance SaaS</div>
+                        <h3>Qorva Global Trade</h3>
+                        <p>
+                            A workflow platform for solo and small import/export operators, with landed-cost planning, shipment tracking, duty estimates, HS-code reference and search, purchase orders, document workflows, reconciliation, reporting, and accounting-oriented exports.
+                        </p>
+                        <p>
+                            The product combines my International Business background with hands-on product engineering, including domain modeling, UX and workflow decisions, search behavior, financial tooling, integrations, and production deployment.
+                        </p>
+                    </article>
+
+                    <article class="card">
+                        <div class="eyebrow">Monitoring SaaS</div>
+                        <h3>PingBuoy</h3>
+                        <p>
+                            A website-monitoring product covering uptime checks, dead-link detection, SSL certificate expiration, alerts, analytics, status information, and subscription workflows.
+                        </p>
+                        <p>
+                            I took PingBuoy from product planning through architecture, implementation, security work, payment integration, deployment, debugging, and production readiness.
+                        </p>
+                        <a class="project-link" href="https://pingbuoy-demo.rrgash.chatgpt.site/" target="_blank" rel="noopener noreferrer">View PingBuoy Demo</a>
+                    </article>
+
+                    <article class="card">
+                        <div class="eyebrow">How I work</div>
+                        <h3>End-to-end product ownership</h3>
+                        <p>
+                            My work spans React, Next.js, TypeScript, JavaScript, PHP, Python, PostgreSQL, MySQL, REST APIs, Docker, Git, Stripe integrations, deployment, and AI-assisted engineering workflows.
+                        </p>
+                        <p>
+                            I use AI as an engineering tool while retaining responsibility for architecture, review, verification, debugging, security, and final product decisions.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section" id="research">
+            <div class="container">
+                <h2 class="section-heading">Research Interests</h2>
+                <p class="section-intro">
+                    My interests focus on how higher education might better support academic work under conditions of fluctuating capacity, chronic illness, invisible disability, and limited physical energy.
+                </p>
+
+                <div class="framework-box">
+                    <h3>The ADAP Framework</h3>
+                    <p>
+                        <strong>Adaptive Digital Academic Practice</strong> is a preliminary framework for thinking about AI-supported academic workflows as adaptive scaffolds for energy-limited research, writing, coding, and qualitative analysis. I am continuing to refine the framework through ongoing research.
+                    </p>
+                </div>
+
+                <h3>Guiding questions</h3>
+                <ul class="question-list">
+                    <li>How do chronically ill and invisibly disabled scholars adapt academic work around fluctuating capacity?</li>
+                    <li>How can human-directed AI workflows reduce procedural cognitive demand without replacing scholarly judgment?</li>
+                    <li>What kinds of digital scaffolding make advanced research more physically sustainable?</li>
+                    <li>How might higher education move beyond static accommodation models toward more adaptive forms of participation?</li>
+                </ul>
+
+                <div class="grid" aria-label="Thematic research areas">
+                    <article class="card">
+                        <h3>Higher Education Access</h3>
+                        <p>Doctoral participation, academic labor, institutional constraint, and support for scholars with episodic or invisible disabilities.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Learning Sciences</h3>
+                        <p>Technology-mediated learning, adaptive scaffolding, distributed cognition, and knowledge production under constraint.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Critical Disability Studies</h3>
+                        <p>Chronic illness, fluctuating access needs, energy limitation, and accessibility beyond compliance-centered models.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Human-Directed AI</h3>
+                        <p>AI-supported research workflows that preserve interpretation, authorship, accountability, and human control.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section" id="work">
+            <div class="container">
+                <h2 class="section-heading">Current Project</h2>
+                <p class="section-intro">
+                    The following work is self-directed and has not been submitted for peer review. It serves as a foundation for my continuing research and methodological development.
+                </p>
+
+                <article class="work-item">
+                    <div class="eyebrow">Unpublished working manuscript</div>
+                    <h3 class="work-title">Adaptive Digital Academic Practice: Disability, Structural Constraint, and Epistemic Entrepreneurship in Graduate Research</h3>
+                    <div class="work-meta">Five-chapter working manuscript · Self-directed project</div>
+                    <p>
+                        This manuscript combines disability studies, higher education access, qualitative methodology, and human-AI workflow design. It began as a thought experiment and developed into a practice-based research agenda about how digital tools may support energy-limited academic work.
+                    </p>
+                </article>
+
+                <article class="work-item">
+                    <div class="eyebrow">Preliminary internal analysis</div>
+                    <h3 class="work-title">Human-in-the-loop qualitative workflow</h3>
+                    <div class="work-meta">Python pipeline · Public disabled-scholar narratives · Approximately 232,000 words</div>
+                    <p>
+                        As part of the ADAP project, I built a modular Python pipeline that uses LLMs to extract structural themes from qualitative text while keeping human interpretation at the center of the process. In an internal comparison, the workflow suggested reduced procedural cognitive demand while preserving substantial agreement with traditional manual coding.
+                    </p>
+                    <div class="work-badge" style="margin-top: 15px;">
+                        <a href="https://doi.org/10.5281/zenodo.19076676" target="_blank" rel="noopener noreferrer">
+                            <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.19076676.svg" alt="DOI: 10.5281/zenodo.19076676">
+                        </a>
+                    </div>
+                </article>
+
+                <div class="status-note">
+                    <strong>Status note:</strong> This project has not been submitted for peer review. I am continuing to develop it while keeping its claims appropriately bounded to the evidence and methods used.
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section" id="background">
+            <div class="container">
+                <h2 class="section-heading">Academic Preparation</h2>
+
+                <h3>Education & Coursework</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <strong>Computer Science & Mathematics Studies</strong>
+                        <span class="date">Rust College, Holly Springs, MS · GPA: 3.4 / 4.0</span>
+                        <p>Completed 2 years of foundational computer science and mathematics coursework as a non-traditional post-baccalaureate student.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <strong>MBA & Master in International Trade</strong>
+                        <span class="date">ENEB / Universidad Isabel I, Spain · Graduated 2023</span>
+                        <p>Postgraduate programs focused on strategic management, international business, trade frameworks, finance, and data-driven operational logic.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <strong>BS in Sociology</strong>
+                        <span class="date">The State University of New York at Oneonta · Graduated 2000</span>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2.5rem;">Applied Systems Work</h3>
+                <p class="section-intro">
+                    My software background centers on end-to-end product engineering. I translate business and user problems into production systems across education administration, international trade and finance, website monitoring, and internal business operations. I typically own product decisions and workflow design as well as architecture, implementation, integrations, testing, deployment, and production hardening.
+                </p>
+
+                <div class="grid">
+                    <article class="card">
+                        <h3>Product Engineering</h3>
+                        <p>0→1 SaaS development, full-stack applications, database-backed systems, REST APIs, payments, third-party integrations, deployment, production debugging, and AI-assisted engineering workflows.</p>
+                    </article>
+                    <article class="card">
+                        <h3>Research Preparation</h3>
+                        <p>Qualitative research interests, thematic analysis, literature synthesis, disability studies, and higher education access.</p>
+                    </article>
+                </div>
+
+                <h3 style="margin-top: 2.5rem;">Honors & Distinctions</h3>
+                <ul class="small-list">
+                    <li>Academic Excellence Cum Laude Certificate, MBA — ENEB / Universidad Isabel I</li>
+                    <li>Algernon Sydney Sullivan Award, Rust College</li>
+                    <li>Honors Residential Scholar, Rust College</li>
+                    <li>Merit-based institutional scholarship, Rust College</li>
+                    <li>Performance scholarship, Rust College A'Cappella Choir</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="container">
+            <p>© 2026 Rosalind R. Gash.</p>
+            <div class="footer-links">
+                <a href="mailto:rrgash@protonmail.com">Email</a>
+                <a href="/resume/Rosalind_Gash_Resume.pdf">Résumé</a>
+                <a href="https://www.linkedin.com/in/rosalindgash" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="https://github.com/rosalindgash" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://blog.rosalindgash.org">Blog</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function runSmokeTests() {
+            var requiredSelectors = [
+                "#main-content",
+                "#about",
+                "#products",
+                "#research",
+                "#work",
+                "#background",
+                "img[src='assets/images/headshot.png']",
+                "a[href='mailto:rrgash@protonmail.com']",
+                "a[href='https://pingbuoy-demo.rrgash.chatgpt.site/']",
+                "a[href='https://blog.rosalindgash.org']",
+                "a[href='/resume/Rosalind_Gash_Resume.pdf']"
+            ];
+
+            var missingSelectors = requiredSelectors.filter(function(selector) {
+                return !document.querySelector(selector);
+            });
+
+            if (missingSelectors.length > 0) {
+                console.error("Homepage smoke test failed. Missing selectors:", missingSelectors);
+            } else {
+                console.info("Homepage smoke test passed.");
+            }
+        })();
+    </script>
+</body>
+</html>

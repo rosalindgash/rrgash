@@ -1,0 +1,1440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Rosalind R. Gash — Software Projects</title>
+<meta name="description" content="A record of the software Rosalind R. Gash conceives and builds herself: Scholium, Qorva Global Trade, the SaaS Financial Decision Suite, Ops, RosalindCam Studio, RosalindCam, and PingBuoy." />
+<meta name="color-scheme" content="light dark" />
+<meta name="theme-color" content="#f7f7f5" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0a0a0c" media="(prefers-color-scheme: dark)" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Rosalind R. Gash — Software Projects" />
+<meta property="og:description" content="Software I conceive and build end to end — from the underlying problem through architecture, payments, deployment, and production hardening." />
+<meta property="og:url" content="https://rosalindgash.org/" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script>
+  /* Runs before paint: enable scroll-reveal only when motion is welcome. */
+  (function () {
+    var d = document.documentElement;
+    try {
+      if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        d.classList.add('js-reveal');
+      }
+    } catch (e) {}
+  })();
+  /* Video fallback: called from <source onerror> so it works even if the error fires early. */
+  function videoFallback(el) {
+    var box = el.closest ? el.closest('.ratio') : null;
+    if (!box || box.classList.contains('is-missing')) return;
+    box.classList.add('is-missing');
+    var v = box.querySelector('video');
+    if (v) { v.removeAttribute('controls'); v.setAttribute('aria-hidden', 'true'); v.setAttribute('tabindex', '-1'); }
+    var f = box.querySelector('.vfallback');
+    if (f) f.hidden = false;
+    var media = box.closest('.case-media');
+    var note = media ? media.querySelector('.case-media-note') : null;
+    if (note) note.hidden = true;
+  }
+</script>
+<style>
+  :root {
+    --bg: #f7f7f5;
+    --bg-2: #f0f0ed;
+    --surface: #ffffff;
+    --surface-2: #f6f6f4;
+    --text: #0e0f12;
+    --text-2: #2c2e34;
+    --muted: #5a5d66;
+    --faint: #6a6d75;
+    --line: rgba(14, 15, 18, 0.09);
+    --line-2: rgba(14, 15, 18, 0.15);
+    --accent: #4f46e5;
+    --accent-ink: #3b33c4;
+    --accent-soft: #eeefff;
+    --accent-line: rgba(79, 70, 229, 0.28);
+    --on-accent: #ffffff;
+    --glow: rgba(99, 102, 241, 0.20);
+    --glow-2: rgba(56, 189, 248, 0.12);
+    --ok: #157f3c;
+    --ok-soft: #e6f4ea;
+    --warn: #9a5b00;
+    --warn-soft: #fbf1df;
+    --neutral-soft: #efefec;
+    --rose: #b0245a;
+    --rose-soft: #fbe8ef;
+    --shadow: 0 1px 2px rgba(14, 15, 18, 0.04), 0 8px 24px -12px rgba(14, 15, 18, 0.10);
+    --shadow-lg: 0 1px 2px rgba(14, 15, 18, 0.04), 0 24px 48px -24px rgba(30, 27, 75, 0.22);
+    --video-bg: #0e0f12;
+    --grain-opacity: 0.035;
+
+    --font-display: "Inter Tight", "Inter Display", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+
+    --radius: 14px;
+    --radius-sm: 9px;
+    --wrap: 1180px;
+    --gutter: clamp(16px, 4vw, 40px);
+    --header-h: 60px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0a0a0c;
+      --bg-2: #0e0e11;
+      --surface: #111114;
+      --surface-2: #16161a;
+      --text: #ededef;
+      --text-2: #d4d5da;
+      --muted: #a3a5ad;
+      --faint: #8d9098;
+      --line: rgba(255, 255, 255, 0.08);
+      --line-2: rgba(255, 255, 255, 0.14);
+      --accent: #8f97ff;
+      --accent-ink: #aab0ff;
+      --accent-soft: rgba(143, 151, 255, 0.12);
+      --accent-line: rgba(143, 151, 255, 0.32);
+      --on-accent: #0a0a0c;
+      --glow: rgba(99, 102, 241, 0.22);
+      --glow-2: rgba(56, 189, 248, 0.08);
+      --ok: #5fd68a;
+      --ok-soft: rgba(95, 214, 138, 0.12);
+      --warn: #f0b860;
+      --warn-soft: rgba(240, 184, 96, 0.12);
+      --neutral-soft: rgba(255, 255, 255, 0.06);
+      --rose: #f48fb4;
+      --rose-soft: rgba(244, 143, 180, 0.12);
+      --shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+      --shadow-lg: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+      --video-bg: #050506;
+      --grain-opacity: 0.05;
+    }
+  }
+
+  /* ---------- Base ---------- */
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 16px); }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    font-feature-settings: "cv11", "ss01", "ss03";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  body::after {
+    /* subtle grain */
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  @media (prefers-color-scheme: dark) {
+    body::after { filter: invert(1); }
+  }
+  img, video, svg { display: block; max-width: 100%; }
+  a { color: inherit; }
+  p { margin: 0; text-wrap: pretty; }
+  h1, h2, h3, h4 { margin: 0; font-family: var(--font-display); font-weight: 600; color: var(--text); text-wrap: balance; }
+  ul, ol { margin: 0; padding: 0; list-style: none; }
+  ::selection { background: var(--accent); color: var(--on-accent); }
+
+  :focus { outline: none; }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  .wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
+  .mono { font-family: var(--font-mono); font-feature-settings: normal; }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+
+  .skip-link {
+    position: absolute; left: 16px; top: -100px; z-index: 200;
+    background: var(--text); color: var(--bg);
+    padding: 10px 16px; border-radius: 10px; font-weight: 600; font-size: 14px;
+    text-decoration: none; transition: top .15s ease;
+  }
+  .skip-link:focus, .skip-link:focus-visible { top: 12px; }
+
+  /* ---------- Header ---------- */
+  .site-header {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid transparent;
+    transition: border-color .2s ease, background-color .2s ease;
+  }
+  .site-header.is-scrolled { border-bottom-color: var(--line); }
+  .header-inner { height: var(--header-h); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
+  .brand-mark {
+    width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center;
+    background: var(--text); color: var(--bg);
+    font-family: var(--font-display); font-weight: 700; font-size: 13px; letter-spacing: -0.02em;
+  }
+  .nav { display: flex; align-items: center; gap: 4px; }
+  .nav a {
+    text-decoration: none; font-size: 14px; color: var(--muted); font-weight: 500;
+    padding: 6px 10px; border-radius: 8px; transition: color .15s ease, background-color .15s ease;
+  }
+  .nav a:hover { color: var(--text); background: var(--neutral-soft); }
+  .nav a[aria-current="true"] { color: var(--text); }
+  .nav .nav-cta {
+    margin-left: 8px; color: var(--text); border: 1px solid var(--line-2); padding: 5px 12px;
+  }
+  .nav .nav-cta:hover { border-color: var(--text); background: transparent; }
+
+  /* ---------- Buttons / chips / pills ---------- */
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    height: 42px; padding: 0 18px; border-radius: 10px;
+    font-size: 15px; font-weight: 500; text-decoration: none; letter-spacing: -0.005em;
+    border: 1px solid transparent; transition: transform .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease;
+    white-space: nowrap;
+  }
+  .btn svg { width: 16px; height: 16px; flex: none; }
+  .btn-primary { background: var(--text); color: var(--bg); box-shadow: var(--shadow); }
+  .btn-primary:hover { transform: translateY(-1px); }
+  .btn-accent { background: var(--accent); color: var(--on-accent); }
+  .btn-accent:hover { background: var(--accent-ink); transform: translateY(-1px); }
+  .btn-ghost { color: var(--text); border-color: var(--line-2); background: var(--surface); }
+  .btn-ghost:hover { border-color: var(--text); }
+  @media (prefers-reduced-motion: reduce) { .btn:hover { transform: none !important; } }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    display: inline-flex; align-items: center; height: 28px; padding: 0 10px;
+    border: 1px solid var(--line-2); border-radius: 999px;
+    font-size: 13px; color: var(--text-2); background: var(--surface);
+    white-space: nowrap;
+  }
+  .pill {
+    display: inline-flex; align-items: center; gap: 7px; height: 26px; padding: 0 10px 0 9px;
+    border-radius: 999px; font-size: 12.5px; font-weight: 500; letter-spacing: 0.01em;
+    background: var(--neutral-soft); color: var(--text-2); border: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  .pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .75; }
+  .pill--ok { background: var(--ok-soft); color: var(--ok); border-color: transparent; }
+  .pill--warn { background: var(--warn-soft); color: var(--warn); border-color: transparent; }
+  .pill--accent { background: var(--accent-soft); color: var(--accent-ink); border-color: transparent; }
+  .pill--offline { background: var(--warn-soft); color: var(--warn); border-color: transparent; }
+  .pill--archived { background: var(--neutral-soft); color: var(--text-2); border-color: var(--line-2); }
+  .pill--personal { background: var(--rose-soft); color: var(--rose); border-color: transparent; }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-mono); font-size: 12.5px; letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--faint);
+  }
+  .eyebrow::before { content: ""; width: 18px; height: 1px; background: currentColor; opacity: .6; }
+
+  /* ---------- Hero ---------- */
+  .hero { position: relative; isolation: isolate; padding: clamp(56px, 9vw, 112px) 0 clamp(64px, 8vw, 104px); }
+  .hero::before {
+    content: ""; position: absolute; z-index: -1; pointer-events: none;
+    inset: -60px 0 0 0;
+    background:
+      radial-gradient(42% 52% at 78% 18%, var(--glow), transparent 70%),
+      radial-gradient(30% 40% at 96% 60%, var(--glow-2), transparent 70%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 50%, transparent 92%);
+            mask-image: linear-gradient(to bottom, #000 50%, transparent 92%);
+  }
+  .hero::after {
+    /* hairline grid fading out */
+    content: ""; position: absolute; z-index: -1; inset: -60px 0 0 0; pointer-events: none;
+    background-image:
+      linear-gradient(to right, var(--line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    -webkit-mask-image: radial-gradient(50% 55% at 75% 14%, #000 0%, transparent 75%);
+            mask-image: radial-gradient(50% 55% at 75% 14%, #000 0%, transparent 75%);
+    opacity: .7;
+  }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .85fr); gap: clamp(40px, 6vw, 88px); align-items: center; }
+  .byline { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+  .avatar {
+    width: 60px; height: 60px; border-radius: 50%; object-fit: cover; object-position: 50% 18%;
+    background: #e9e9e6; flex: none;
+    box-shadow: 0 0 0 1px var(--line-2), 0 0 0 5px var(--bg), 0 0 0 6px var(--accent-line);
+  }
+  .byline-text { line-height: 1.35; }
+  .byline-role { font-size: 14.5px; color: var(--text-2); font-weight: 500; }
+  .byline-org { font-size: 13.5px; color: var(--faint); }
+  .hero h1 {
+    font-size: clamp(44px, 7.2vw, 92px);
+    line-height: 0.96; letter-spacing: -0.045em; font-weight: 600;
+    margin-bottom: 22px;
+  }
+  .statement {
+    font-family: var(--font-display);
+    font-size: clamp(21px, 2.3vw, 28px); line-height: 1.28; letter-spacing: -0.022em;
+    color: var(--muted); font-weight: 500; max-width: 30ch;
+  }
+  .statement strong { color: var(--text); font-weight: 500; }
+  .hero-sub { margin-top: 20px; color: var(--muted); font-size: 16.5px; max-width: 52ch; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+
+  .facts {
+    margin-top: clamp(40px, 5vw, 56px);
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: 1px solid var(--line);
+  }
+  .fact { padding: 16px 16px 0 0; }
+  .fact + .fact { padding-left: 16px; border-left: 1px solid var(--line); }
+  .fact dt { font-family: var(--font-display); font-size: 22px; font-weight: 600; letter-spacing: -0.03em; color: var(--text); line-height: 1.2; }
+  .fact dd { margin: 4px 0 0; font-size: 13.5px; color: var(--faint); line-height: 1.4; }
+
+  .scope {
+    background: color-mix(in srgb, var(--surface) 88%, transparent);
+    border: 1px solid var(--line-2); border-radius: 18px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+  .scope-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+  .scope-title { font-size: 13.5px; font-weight: 600; color: var(--text); }
+  .scope-tag { font-family: var(--font-mono); font-size: 11.5px; color: var(--faint); letter-spacing: .03em; }
+  .scope ol { counter-reset: s; padding: 6px 0; }
+  .scope li {
+    counter-increment: s;
+    display: grid; grid-template-columns: 30px 1fr auto; align-items: center; gap: 8px;
+    padding: 8px 18px; font-size: 14.5px; color: var(--text-2); position: relative;
+  }
+  .scope li::before { content: counter(s, decimal-leading-zero); font-family: var(--font-mono); font-size: 11.5px; color: var(--faint); }
+  .scope li::after {
+    content: ""; width: 16px; height: 16px; border-radius: 50%;
+    background: var(--accent-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%234f46e5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 8.2l2.3 2.3 4.7-5'/%3E%3C/svg%3E") center / 12px no-repeat;
+  }
+  @media (prefers-color-scheme: dark) {
+    .scope li::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%238f97ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 8.2l2.3 2.3 4.7-5'/%3E%3C/svg%3E"); }
+  }
+  .scope li + li { border-top: 1px dashed var(--line); }
+  .scope-foot {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 14px 18px 16px; border-top: 1px solid var(--line); background: var(--surface-2);
+    font-size: 13.5px; line-height: 1.5; color: var(--muted);
+  }
+  .scope-foot svg { width: 18px; height: 18px; flex: none; margin-top: 1px; color: var(--accent); }
+  .scope-foot strong { color: var(--text); font-weight: 600; }
+
+  /* ---------- Sections ---------- */
+  .section { padding: clamp(72px, 10vw, 128px) 0; border-top: 1px solid var(--line); position: relative; }
+  .section-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px 64px; align-items: end; margin-bottom: clamp(48px, 6vw, 80px); }
+  .section-head h2 { font-size: clamp(32px, 4.4vw, 54px); line-height: 1.02; letter-spacing: -0.038em; margin-top: 16px; max-width: 16ch; }
+  .section-head p { color: var(--muted); font-size: 16.5px; max-width: 48ch; justify-self: end; }
+
+  /* ---------- Case studies ---------- */
+  .cases { --case-gap: clamp(72px, 9vw, 128px); display: grid; gap: var(--case-gap); }
+  .case { display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: start; }
+  .case.flip .case-media { order: 2; }
+  .case-media { position: sticky; top: calc(var(--header-h) + 28px); }
+  .case-media-note[hidden] { display: none; }
+  .case-media-note { margin-top: 12px; font-size: 13px; color: var(--faint); display: flex; gap: 8px; align-items: center; }
+  .case-media-note svg { width: 14px; height: 14px; flex: none; }
+
+  .frame {
+    border: 1px solid var(--line-2); border-radius: var(--radius); overflow: hidden;
+    background: var(--surface); box-shadow: var(--shadow-lg);
+  }
+  .frame-bar {
+    display: flex; align-items: center; gap: 12px; height: 38px; padding: 0 14px;
+    border-bottom: 1px solid var(--line); background: var(--surface-2);
+  }
+  .dots { display: flex; gap: 6px; flex: none; }
+  .dots span { width: 10px; height: 10px; border-radius: 50%; background: var(--line-2); }
+  .frame-url {
+    flex: 1; min-width: 0; text-align: center; font-family: var(--font-mono); font-size: 12px; color: var(--faint);
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .frame-bar .spacer { width: 42px; flex: none; }
+
+  .ratio { position: relative; aspect-ratio: 16 / 9; background: var(--video-bg); }
+  @supports not (aspect-ratio: 16 / 9) {
+    .ratio { height: 0; padding-top: 56.25%; }
+  }
+  .ratio > video, .ratio > .vfallback, .ratio > .preview { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .ratio > video { object-fit: contain; background: var(--video-bg); }
+  .ratio.is-missing > video { display: none; }
+  .vfallback {
+    display: grid; place-items: center; text-align: center; padding: 24px;
+    background:
+      radial-gradient(60% 80% at 50% 0%, var(--accent-soft), transparent 70%),
+      var(--surface-2);
+    color: var(--muted);
+  }
+  .vfallback[hidden] { display: none; }
+  .vfallback-inner { display: grid; justify-items: center; gap: 10px; }
+  .vfallback-icon {
+    width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center;
+    border: 1px solid var(--line-2); background: var(--surface); color: var(--accent);
+  }
+  .vfallback-icon svg { width: 20px; height: 20px; }
+  .vfallback strong { font-family: var(--font-display); font-size: 18px; letter-spacing: -0.02em; color: var(--text); font-weight: 600; }
+  .vfallback span { font-size: 13.5px; }
+
+  /* Preview panels (PingBuoy, Ops) */
+  .preview { background: var(--surface-2); overflow: hidden; }
+  .preview-link { display: block; text-decoration: none; color: inherit; border-radius: var(--radius); }
+  .preview-link .frame { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+  .preview-link:hover .frame { transform: translateY(-3px); border-color: var(--accent-line); }
+  @media (prefers-reduced-motion: reduce) { .preview-link:hover .frame { transform: none; } }
+
+  .pb { display: grid; grid-template-columns: 26% 1fr; height: 100%; }
+  .pb-side { border-right: 1px solid var(--line); padding: 7% 10%; display: grid; align-content: start; gap: 9%; background: var(--surface); }
+  .pb-logo { display: flex; align-items: center; gap: 6px; font-family: var(--font-display); font-weight: 600; font-size: clamp(9px, 1vw, 13px); color: var(--text); letter-spacing: -0.02em; }
+  .pb-logo i { width: 1.1em; height: 1.1em; border-radius: 50%; border: 2px solid var(--accent); display: block; position: relative; }
+  .pb-logo i::after { content: ""; position: absolute; inset: 22%; border-radius: 50%; background: var(--accent); }
+  .pb-nav { display: grid; gap: 7px; }
+  .pb-nav b { display: block; height: 7px; border-radius: 4px; background: var(--line-2); }
+  .pb-nav b:nth-child(1) { width: 80%; background: var(--accent-line); }
+  .pb-nav b:nth-child(2) { width: 64%; }
+  .pb-nav b:nth-child(3) { width: 72%; }
+  .pb-nav b:nth-child(4) { width: 52%; }
+  .pb-nav b:nth-child(5) { width: 60%; }
+  .pb-main { padding: 5% 6%; display: grid; grid-template-rows: auto auto 1fr; gap: 5%; min-width: 0; }
+  .pb-tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+  .pb-tile { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8% 10%; display: grid; gap: 6px; }
+  .pb-tile small { font-size: clamp(7px, .72vw, 10.5px); color: var(--faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-family: var(--font-mono); }
+  .pb-tile b { display: block; height: 9px; width: 60%; border-radius: 4px; background: var(--line-2); }
+  .pb-tile.ok b { background: color-mix(in srgb, var(--ok) 55%, transparent); }
+  .pb-strip { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 3.5% 4%; display: grid; gap: 8px; }
+  .pb-strip-head { display: flex; justify-content: space-between; font-size: clamp(7px, .72vw, 10.5px); color: var(--faint); font-family: var(--font-mono); }
+  .pb-bars { display: grid; grid-template-columns: repeat(40, 1fr); gap: 2px; height: clamp(14px, 2vw, 26px); }
+  .pb-bars span { border-radius: 2px; background: color-mix(in srgb, var(--ok) 70%, transparent); }
+  .pb-bars span.w { background: color-mix(in srgb, var(--warn) 75%, transparent); }
+  .pb-rows { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; display: grid; align-content: start; overflow: hidden; }
+  .pb-row { display: grid; grid-template-columns: 10px 1fr auto; gap: 10px; align-items: center; padding: 2.6% 4%; }
+  .pb-row + .pb-row { border-top: 1px solid var(--line); }
+  .pb-row i { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 3px var(--ok-soft); }
+  .pb-row i.w { background: var(--warn); box-shadow: 0 0 0 3px var(--warn-soft); }
+  .pb-row b { display: block; height: 7px; border-radius: 4px; background: var(--line-2); }
+  .pb-row em { font-style: normal; font-family: var(--font-mono); font-size: clamp(7px, .72vw, 10.5px); color: var(--faint); }
+  .preview-cta {
+    position: absolute; right: 14px; bottom: 14px;
+    display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 12px 0 14px;
+    border-radius: 999px; background: var(--text); color: var(--bg); font-size: 13px; font-weight: 500;
+    box-shadow: 0 10px 24px -10px rgba(0, 0, 0, .45);
+  }
+  .preview-cta svg { width: 14px; height: 14px; }
+
+  .ops { height: 100%; padding: 5.5% 6%; display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, .5fr); gap: 4%; align-items: stretch; }
+  .ops-zone { border: 1px dashed var(--line-2); border-radius: 12px; padding: 6% 6% 7%; display: grid; grid-template-rows: auto 1fr; gap: 8%; min-width: 0; position: relative; }
+  .ops-zone-label { font-family: var(--font-mono); font-size: clamp(8px, .8vw, 11px); letter-spacing: .05em; text-transform: uppercase; color: var(--faint); display: flex; align-items: center; gap: 6px; }
+  .ops-zone-label svg { width: 1.2em; height: 1.2em; }
+  .ops-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; align-content: center; }
+  .ops-mod {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 7px;
+    padding: 0 9%; height: clamp(20px, 2.6vw, 34px);
+    display: flex; align-items: center; gap: 7px; min-width: 0;
+    font-size: clamp(8px, .86vw, 12px); color: var(--text-2); font-weight: 500;
+  }
+  .ops-mod::before { content: ""; width: 6px; height: 6px; border-radius: 2px; background: var(--accent); opacity: .7; flex: none; }
+  .ops-mod span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ops-link { display: grid; align-content: center; justify-items: center; gap: 6px; color: var(--faint); }
+  .ops-link svg { width: clamp(28px, 3.4vw, 46px); height: auto; }
+  .ops-link small { font-family: var(--font-mono); font-size: clamp(7px, .7vw, 10px); letter-spacing: .04em; text-transform: uppercase; }
+  .ops-portal { border-style: solid; border-color: var(--accent-line); background: var(--accent-soft); }
+  .ops-portal .ops-zone-label { color: var(--accent-ink); }
+  .ops-doc { display: grid; gap: 6px; align-content: center; }
+  .ops-doc div { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; height: clamp(18px, 2.2vw, 30px); display: flex; align-items: center; gap: 6px; padding: 0 8%; }
+  .ops-doc div::before { content: ""; width: 8px; height: 10px; border-radius: 2px; border: 1.5px solid var(--faint); flex: none; }
+  .ops-doc div b { display: block; height: 5px; flex: 1; border-radius: 3px; background: var(--line-2); }
+  .ops-ro { font-family: var(--font-mono); font-size: clamp(7px, .7vw, 10px); color: var(--accent-ink); text-align: center; letter-spacing: .03em; }
+
+  /* Write-up */
+  .case-body { min-width: 0; }
+  .case-kicker { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+  .case-index { font-family: var(--font-mono); font-size: 12.5px; color: var(--accent-ink); letter-spacing: .04em; }
+  .case-cat { font-family: var(--font-mono); font-size: 12.5px; color: var(--faint); letter-spacing: .04em; text-transform: uppercase; }
+  .case h3 { font-size: clamp(32px, 3.6vw, 46px); letter-spacing: -0.038em; line-height: 1.02; }
+  .case-lede { margin-top: 14px; font-size: clamp(17px, 1.5vw, 19px); line-height: 1.5; color: var(--text-2); letter-spacing: -0.01em; }
+  .case-block { margin-top: 28px; }
+  .case-block h4 {
+    font-family: var(--font-mono); font-weight: 500; font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
+    color: var(--faint); margin-bottom: 12px;
+  }
+  .case-block p { color: var(--muted); font-size: 15.5px; }
+  .ticks { display: grid; gap: 9px; }
+  .ticks li { position: relative; padding-left: 22px; color: var(--muted); font-size: 15.5px; line-height: 1.55; }
+  .ticks li::before {
+    content: ""; position: absolute; left: 2px; top: .62em; width: 8px; height: 8px; border-radius: 2px;
+    border: 1.5px solid var(--accent); transform: rotate(45deg);
+  }
+  .ticks li strong { color: var(--text); font-weight: 600; }
+  .decision {
+    border: 1px solid var(--line-2); border-radius: 12px; background: var(--surface);
+    padding: 16px 18px; display: grid; gap: 14px;
+  }
+  .decision-item { display: grid; grid-template-columns: 22px 1fr; gap: 10px; }
+  .decision-item + .decision-item { padding-top: 14px; border-top: 1px solid var(--line); }
+  .decision-item svg { width: 18px; height: 18px; color: var(--accent); margin-top: 2px; }
+  .decision-item p { font-size: 15px; color: var(--muted); line-height: 1.55; }
+  .decision-item p strong { display: block; color: var(--text); font-weight: 600; margin-bottom: 2px; font-size: 15px; }
+  .num { font-variant-numeric: tabular-nums; color: var(--text); font-weight: 600; }
+
+  .flow { display: grid; grid-template-columns: minmax(0, 1fr) 14px minmax(0, 1fr) 14px minmax(0, 1.25fr); align-items: stretch; gap: 6px; margin-top: 14px; }
+  .flow span {
+    font-family: var(--font-mono); font-size: 11.5px; line-height: 1.35; color: var(--text-2);
+    border: 1px solid var(--line-2); background: var(--surface-2); border-radius: 7px; padding: 7px 9px;
+    display: grid; gap: 2px; align-content: start;
+  }
+  .flow span em { font-style: normal; color: var(--accent-ink); font-size: 10.5px; }
+  .flow i { width: 14px; height: 1px; background: var(--line-2); position: relative; flex: none; align-self: center; }
+  .flow i::after { content: ""; position: absolute; right: -1px; top: -3px; border: 3.5px solid transparent; border-left: 5px solid var(--line-2); border-right: 0; }
+
+  .case-meta { margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--line); display: grid; gap: 16px; }
+  .meta-row { display: grid; grid-template-columns: 72px 1fr; gap: 12px; align-items: start; }
+  .meta-row > span { font-family: var(--font-mono); font-size: 12px; color: var(--faint); letter-spacing: .05em; text-transform: uppercase; line-height: 28px; }
+  .status-line { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; min-height: 28px; }
+  .status-line small { font-size: 14px; color: var(--muted); }
+  .case-actions { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px; }
+
+  /* Project index */
+  .case-index-list {
+    display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 1px;
+    background: var(--line); border: 1px solid var(--line-2); border-radius: 12px; overflow: hidden;
+    margin: calc(-1 * clamp(16px, 3vw, 40px)) 0 clamp(56px, 7vw, 96px);
+  }
+  .case-index-list a {
+    display: grid; gap: 4px; height: 100%; padding: 12px 14px; background: var(--surface);
+    text-decoration: none; font-size: 13.5px; font-weight: 500; color: var(--text-2); line-height: 1.3;
+    transition: background-color .15s ease, color .15s ease;
+  }
+  .case-index-list a span { font-family: var(--font-mono); font-size: 11.5px; color: var(--accent-ink); font-weight: 400; }
+  .case-index-list a:hover { background: var(--surface-2); color: var(--text); }
+  .case-index-list a:focus-visible { outline-offset: -3px; border-radius: 0; }
+
+  /* Groups of related cases */
+  .case-group { display: grid; gap: var(--case-gap); }
+  .group-label {
+    display: flex; align-items: center; gap: 12px; margin-bottom: calc(24px - var(--case-gap));
+    font-family: var(--font-mono); font-size: 12px; letter-spacing: .05em; text-transform: uppercase; color: var(--faint);
+  }
+  .group-label span { color: var(--accent-ink); flex: none; }
+  .group-label::after { content: ""; flex: 1; min-width: 24px; height: 1px; background: var(--line-2); }
+
+  /* Screenshots */
+  .shot { position: relative; background: var(--surface-2); overflow: hidden; }
+  .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+  .shot--crop { aspect-ratio: 16 / 10; }
+  .shot--ultrawide { aspect-ratio: 1720 / 720; background: #0b0f14; }
+  .shot--rc { aspect-ratio: 1280 / 760; background: #000; }
+
+  /* Wide case (media full width, write-up split) */
+  .case--wide { grid-template-columns: minmax(0, 1fr); gap: clamp(28px, 4vw, 48px); }
+  .case--wide .case-media { position: static; }
+  .case-body--split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: start; }
+  .split-b > .case-block:first-child { margin-top: 0; }
+
+  .title-row { display: flex; align-items: center; gap: 14px; }
+  .app-icon { width: 52px; height: 52px; border-radius: 12px; flex: none; box-shadow: 0 0 0 1px var(--line), 0 6px 16px -8px rgba(0, 0, 0, .35); }
+  .case-note {
+    margin-top: 14px; padding: 10px 14px; border-radius: 10px; font-size: 14px; line-height: 1.5;
+    background: var(--warn-soft); color: var(--text-2);
+  }
+  .case-note strong { font-weight: 600; color: var(--text); }
+  .why { margin: 24px 0 0; padding: 4px 0 4px 18px; border-left: 2px solid var(--accent); }
+  .why figcaption { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px; }
+  .why blockquote { margin: 0; }
+  .why p { font-family: var(--font-display); font-size: 18px; line-height: 1.45; letter-spacing: -0.012em; color: var(--text-2); }
+  .mini-stats { margin: 26px 0 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); padding-top: 14px; gap: 12px 0; }
+  .mini-stats > div { padding-right: 14px; }
+  .mini-stats > div + div { padding-left: 14px; border-left: 1px solid var(--line); }
+  .mini-stats dt { font-family: var(--font-display); font-size: 20px; font-weight: 600; letter-spacing: -0.03em; color: var(--text); line-height: 1.2; }
+  .mini-stats dd { margin: 3px 0 0; font-size: 13px; color: var(--faint); line-height: 1.4; }
+
+  /* ---------- Toolbox ---------- */
+  .tool-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; border: 1px solid var(--line-2); border-radius: 16px; overflow: hidden; background: var(--line); }
+  .tool-group { padding: 24px 22px 26px; background: var(--surface); }
+  .tool-group h3 { font-size: 15px; letter-spacing: -0.01em; font-weight: 600; display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .tool-group h3 .mono { font-size: 11.5px; color: var(--faint); font-weight: 400; }
+  .tool-group .chip { background: var(--surface-2); }
+
+  /* ---------- Principles ---------- */
+  .principles { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; counter-reset: p; }
+  .principle {
+    grid-column: span 2; counter-increment: p;
+    border: 1px solid var(--line-2); border-radius: 16px; background: var(--surface);
+    padding: 26px 26px 28px; display: grid; align-content: start; gap: 12px; position: relative;
+  }
+  .principle::before { content: counter(p, decimal-leading-zero); font-family: var(--font-mono); font-size: 12px; color: var(--accent-ink); letter-spacing: .04em; }
+  .principle h3 { font-size: 21px; letter-spacing: -0.025em; line-height: 1.2; }
+  .principle p { color: var(--muted); font-size: 15.5px; }
+
+  /* ---------- Contact / footer ---------- */
+  .contact { padding: clamp(80px, 11vw, 140px) 0 40px; border-top: 1px solid var(--line); position: relative; isolation: isolate; overflow: hidden; }
+  .contact::before {
+    content: ""; position: absolute; z-index: -1; inset: 0; pointer-events: none;
+    background: radial-gradient(50% 60% at 50% 100%, var(--glow), transparent 70%);
+  }
+  .contact-inner { display: grid; justify-items: start; gap: 18px; }
+  .contact h2 { font-size: clamp(36px, 5.6vw, 68px); letter-spacing: -0.045em; line-height: 1; margin-top: 4px; }
+  .contact p { color: var(--muted); font-size: 17px; max-width: 50ch; }
+  .email-link {
+    margin-top: 10px; display: inline-flex; align-items: center; gap: 12px;
+    font-family: var(--font-display); font-size: clamp(22px, 3.2vw, 36px); font-weight: 500; letter-spacing: -0.03em;
+    text-decoration: none; color: var(--text);
+    border-bottom: 1px solid var(--line-2); padding-bottom: 6px; max-width: 100%;
+    transition: border-color .2s ease, color .2s ease;
+    overflow-wrap: anywhere;
+  }
+  .email-link svg { width: .8em; height: .8em; flex: none; color: var(--accent); transition: transform .2s ease; }
+  .email-link:hover { border-color: var(--accent); }
+  .email-link:hover svg { transform: translate(3px, -3px); }
+  @media (prefers-reduced-motion: reduce) { .email-link:hover svg { transform: none; } }
+  .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+  .footer-bottom {
+    margin-top: clamp(64px, 8vw, 104px); padding-top: 22px; border-top: 1px solid var(--line);
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px;
+    font-size: 13.5px; color: var(--faint);
+  }
+  .footer-bottom a { color: var(--faint); text-decoration: none; }
+  .footer-bottom a:hover { color: var(--text); }
+
+  /* ---------- Reveal motion ---------- */
+  .js-reveal .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0s); }
+  .js-reveal .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .js-reveal .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1080px) {
+    .hero-grid { grid-template-columns: minmax(0, 1fr); }
+    .scope { max-width: 560px; }
+    .tool-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .case-index-list { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .case-index-list li:last-child { grid-column: span 2; }
+  }
+  @media (max-width: 900px) {
+    .case, .case.flip { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+    .case.flip .case-media { order: 0; }
+    .case-media { position: static; }
+    .section-head { grid-template-columns: minmax(0, 1fr); align-items: start; }
+    .section-head p { justify-self: start; }
+    .principles { grid-template-columns: 1fr 1fr; }
+    .principle { grid-column: span 1; }
+    .case--wide .case-body--split { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  }
+  @media (max-width: 720px) {
+    .nav .nav-cta { display: none; }
+    .facts { grid-template-columns: 1fr 1fr; }
+    .fact:nth-child(3) { padding-left: 0; border-left: 0; }
+    .fact:nth-child(n+3) { border-top: 1px solid var(--line); margin-top: 16px; }
+  }
+  @media (max-width: 600px) {
+    :root { --header-h: 56px; }
+    .brand-name { display: none; }
+    .nav { gap: 0; }
+    .nav a { padding: 6px 8px; font-size: 13.5px; }
+    .tool-grid { grid-template-columns: 1fr; }
+    .tool-group { padding: 22px 20px 24px; }
+    .principles { grid-template-columns: 1fr; gap: 12px; }
+    .principle { grid-column: span 1; padding: 22px 20px 24px; }
+    .case-index-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .case-index-list li:last-child { grid-column: span 2; }
+    .mini-stats { grid-template-columns: minmax(0, 1fr); }
+    .mini-stats > div + div { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); padding-top: 12px; }
+    .app-icon { width: 44px; height: 44px; border-radius: 10px; }
+    .scope li { padding: 8px 14px; font-size: 14px; }
+    .scope-head, .scope-foot { padding-left: 14px; padding-right: 14px; }
+    .hero-actions .btn { flex: 1 1 auto; justify-content: center; }
+    .meta-row { grid-template-columns: 1fr; gap: 8px; }
+    .meta-row > span { line-height: 1.4; }
+    .frame-bar { height: 32px; padding: 0 10px; }
+    .dots span { width: 8px; height: 8px; }
+    .frame-bar .spacer { width: 34px; }
+    .preview-cta { right: 10px; bottom: 10px; height: 30px; font-size: 12px; padding: 0 10px 0 12px; }
+    .pb-tiles { gap: 4px; }
+    .pb-tile { border-radius: 5px; gap: 4px; }
+    .pb-tile b { height: 6px; }
+    .pb-strip, .pb-rows { border-radius: 5px; }
+    .pb-strip { gap: 5px; }
+    .pb-bars { grid-template-columns: repeat(28, 1fr); }
+    .pb-bars span:nth-child(n+29) { display: none; }
+    .pb-row { gap: 6px; }
+    .pb-row i { width: 6px; height: 6px; box-shadow: 0 0 0 2px var(--ok-soft); }
+    .pb-row b { height: 5px; }
+    .pb-nav { gap: 5px; }
+    .pb-nav b { height: 5px; }
+    .ops-grid { gap: 4px; }
+    .ops-mod { border-radius: 5px; gap: 4px; padding: 0 7%; }
+    .ops-mod::before { width: 4px; height: 4px; }
+    .ops-zone { border-radius: 8px; }
+    .ops-doc { gap: 4px; }
+    .ops-doc div { border-radius: 4px; }
+    .ops-doc div::before { width: 6px; height: 8px; border-width: 1px; }
+    .ops-link small { display: none; }
+  }
+  @media (max-width: 380px) {
+    .nav a { padding: 6px 6px; font-size: 13px; }
+    .brand-mark { width: 28px; height: 28px; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header" id="top">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top" aria-label="Rosalind R. Gash, back to top">
+      <span class="brand-mark" aria-hidden="true">RG</span>
+      <span class="brand-name">Rosalind R. Gash</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#work">Work</a>
+      <a href="#toolbox">Toolbox</a>
+      <a href="#approach">Approach</a>
+      <a href="#contact">Contact</a>
+      <a class="nav-cta" href="mailto:rrgash@protonmail.com">Email</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+
+  <!-- ===== Hero ===== -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="byline reveal">
+          <img class="avatar" src="assets/images/rrgash_sm.png" width="540" height="573" alt="Portrait of Rosalind R. Gash, smiling" />
+          <div class="byline-text">
+            <div class="byline-role">Rosalind R. Gash</div>
+          </div>
+        </div>
+        <h1 id="hero-title" class="reveal" style="--d:.05s">Rosalind R.&nbsp;Gash</h1>
+        <p class="statement reveal" style="--d:.1s"><strong>I take software from the underlying problem to production</strong> — and own every layer in between.</p>
+        <p class="hero-sub reveal" style="--d:.15s">This is a public record of the products I conceive and build myself, from personal productivity tools and Windows desktop apps to B2B and B2C SaaS.</p>
+        <div class="hero-actions reveal" style="--d:.2s">
+          <a class="btn btn-primary" href="#work">
+            See the work
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v10M3.5 8.5L8 13l4.5-4.5"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="mailto:rrgash@protonmail.com">Email me</a>
+        </div>
+        <dl class="facts reveal" style="--d:.25s">
+          <div class="fact"><dt>~25 yrs</dt><dd>writing code</dd></div>
+          <div class="fact"><dt>7–8</dt><dd>full-stack apps since 2025</dd></div>
+          <div class="fact"><dt>7</dt><dd>projects shown here</dd></div>
+          <div class="fact"><dt>Brookings</dt><dd>South Dakota</dd></div>
+        </dl>
+      </div>
+
+      <aside class="scope reveal" style="--d:.15s" aria-labelledby="scope-title">
+        <div class="scope-head">
+          <h2 class="scope-title" id="scope-title">What I own on every product</h2>
+          <span class="scope-tag">idea → production</span>
+        </div>
+        <ol>
+          <li>The underlying problem</li>
+          <li>Product decisions</li>
+          <li>UX</li>
+          <li>Architecture</li>
+          <li>Full-stack implementation</li>
+          <li>Payments &amp; integrations</li>
+          <li>Testing</li>
+          <li>Deployment</li>
+          <li>Production hardening</li>
+        </ol>
+        <div class="scope-foot">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2.5l6 2.2v4.6c0 3.9-2.6 6.8-6 8.2-3.4-1.4-6-4.3-6-8.2V4.7l6-2.2z"/><path d="M7.3 10.1l1.9 1.9 3.6-3.8"/></svg>
+          <p>I use AI as an engineering tool. <strong>I delegate architecture and implementation, but responsibility for requirements, review, verification, security, and final product decisions stays with me.</strong></p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ===== Work ===== -->
+  <section class="section" id="work" aria-labelledby="work-title">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="reveal">
+          <span class="eyebrow">Selected work</span>
+          <h2 id="work-title">Seven projects, conceived and built by me.</h2>
+        </div>
+        <p class="reveal" style="--d:.08s">Web SaaS, the systems behind a planned consulting practice, and Windows desktop apps I built for my own use. Each write-up covers what it is, what I built, and the decisions that shaped it.</p>
+      </div>
+
+      <ol class="case-index-list reveal" aria-label="Projects on this page">
+        <li><a href="#scholium"><span>01</span>Scholium</a></li>
+        <li><a href="#qorva"><span>02</span>Qorva Global Trade</a></li>
+        <li><a href="#decision-suite"><span>03</span>Decision Suite</a></li>
+        <li><a href="#ops"><span>04</span>Ops</a></li>
+        <li><a href="#rosalindcam-studio"><span>05</span>RosalindCam Studio</a></li>
+        <li><a href="#rosalindcam"><span>06</span>RosalindCam</a></li>
+        <li><a href="#pingbuoy"><span>07</span>PingBuoy</a></li>
+      </ol>
+
+      <div class="cases">
+
+        <!-- 01 Scholium -->
+        <article class="case" id="scholium" aria-labelledby="scholium-title">
+          <div class="case-media reveal">
+            <div class="frame">
+              <div class="frame-bar" aria-hidden="true">
+                <div class="dots"><span></span><span></span><span></span></div>
+                <div class="frame-url">scholium — highlight reel</div>
+                <div class="spacer"></div>
+              </div>
+              <div class="ratio">
+                <video controls preload="metadata" playsinline aria-label="Scholium highlight reel" onerror="videoFallback(this)">
+                  <source src="assets/videos/scholium-highlight-reel.mp4" type="video/mp4" onerror="videoFallback(this)" />
+                </video>
+                <div class="vfallback" hidden>
+                  <div class="vfallback-inner">
+                    <div class="vfallback-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="15" height="11" rx="2.5"/><path d="M8.5 7.8v4.4l3.8-2.2-3.8-2.2z" fill="currentColor"/></svg></div>
+                    <strong>Demo video coming soon</strong>
+                    <span>The Scholium highlight reel will appear here.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="case-media-note"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M8 4.8V8l2.2 1.4" stroke-linecap="round"/></svg>1080p highlight reel, about a minute.</p>
+          </div>
+
+          <div class="case-body reveal" style="--d:.08s">
+            <div class="case-kicker"><span class="case-index">01</span><span class="case-cat">Education SaaS</span></div>
+            <h3 id="scholium-title">Scholium</h3>
+            <p class="case-lede">A multi-tenant platform for homeschool co&#8209;ops, microschools, course providers, and learning centers.</p>
+
+            <div class="case-block">
+              <h4>What I built</h4>
+              <ul class="ticks">
+                <li>One system connecting enrollment, attendance, grades, records, progress reports, transcripts, billing, parent access, payments, imports, and administrative workflows.</li>
+                <li><strong>AI-assisted progress reports</strong> through the Anthropic API.</li>
+                <li><strong>Five CSV export types.</strong></li>
+                <li>Two plans, Co-Op and Learning Center, at flat monthly or yearly pricing.</li>
+              </ul>
+            </div>
+
+            <div class="case-block">
+              <h4>Notable decisions</h4>
+              <div class="decision">
+                <div class="decision-item">
+                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M4 10l4-4M4 10l4 4"/></svg>
+                  <p><strong>Rolled back the accounting integrations.</strong> I removed planned Xero and QuickBooks integrations, <span class="num">13</span> files and <span class="num">4</span> database tables, in favor of comprehensive CSV exports. Simpler, and it works with any accounting tool.</p>
+                </div>
+                <div class="decision-item">
+                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2.5l6 2.2v4.6c0 3.9-2.6 6.8-6 8.2-3.4-1.4-6-4.3-6-8.2V4.7l6-2.2z"/><path d="M7.3 10.1l1.9 1.9 3.6-3.8"/></svg>
+                  <p><strong>A dedicated security phase, tested live.</strong> Session rotation, login lockout, CSRF rejection, and auth flows were verified against the running app.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="case-meta">
+              <div class="meta-row"><span>Stack</span>
+                <ul class="chips" aria-label="Scholium stack">
+                  <li class="chip">Laravel 13</li><li class="chip">PHP</li><li class="chip">PostgreSQL</li><li class="chip">Bootstrap 5</li><li class="chip">Stripe</li><li class="chip">Anthropic API</li>
+                </ul>
+              </div>
+              <div class="meta-row"><span>Status</span>
+                <div class="status-line"><span class="pill pill--offline">Offline</span><small>Ran in production for about four months; offline for now. Watch the highlight reel.</small></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 02 Qorva -->
+        <article class="case flip" id="qorva" aria-labelledby="qorva-title">
+          <div class="case-media reveal">
+            <div class="frame">
+              <div class="frame-bar" aria-hidden="true">
+                <div class="dots"><span></span><span></span><span></span></div>
+                <div class="frame-url">qorva — highlight reel</div>
+                <div class="spacer"></div>
+              </div>
+              <div class="ratio">
+                <video controls preload="metadata" playsinline aria-label="Qorva Global Trade highlight reel" onerror="videoFallback(this)">
+                  <source src="assets/videos/qorva-highlight-web.mp4" type="video/mp4" onerror="videoFallback(this)" />
+                </video>
+                <div class="vfallback" hidden>
+                  <div class="vfallback-inner">
+                    <div class="vfallback-icon"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="15" height="11" rx="2.5"/><path d="M8.5 7.8v4.4l3.8-2.2-3.8-2.2z" fill="currentColor"/></svg></div>
+                    <strong>Demo video coming soon</strong>
+                    <span>The Qorva highlight reel will appear here.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="case-media-note"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M8 4.8V8l2.2 1.4" stroke-linecap="round"/></svg>1080p highlight reel, about a minute.</p>
+          </div>
+
+          <div class="case-body reveal" style="--d:.08s">
+            <div class="case-kicker"><span class="case-index">02</span><span class="case-cat">Trade &amp; finance SaaS</span></div>
+            <h3 id="qorva-title">Qorva Global Trade</h3>
+            <p class="case-lede">A workflow platform for solo and small import/export operators.</p>
+
+            <div class="case-block">
+              <h4>What I built</h4>
+              <ul class="ticks">
+                <li><strong>Landed-cost planning</strong> from FOB to DDP, with duty estimates that include Section 301 and 232 additional duties.</li>
+                <li>Shipment tracking, HS-code reference and search, purchase orders, and document workflows.</li>
+                <li>Reconciliation, reporting, and accounting-oriented exports.</li>
+                <li>Live FX rates through a REST integration with frankfurter.app.</li>
+                <li>Two plans, Standard and Pro, at flat monthly or yearly pricing.</li>
+              </ul>
+            </div>
+
+            <div class="case-block">
+              <h4>Notable decisions</h4>
+              <div class="decision">
+                <div class="decision-item">
+                  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 6.5a7 7 0 0 1 12.4-1.8M16.5 13.5a7 7 0 0 1-12.4 1.8"/><path d="M16 2.5v2.8h-2.8M4 17.5v-2.8h2.8"/></svg>
+                  <div>
+                    <p><strong>A tariff data pipeline instead of static rates.</strong> It fetches each new revision of the U.S. Harmonized Tariff Schedule, diffs it against the prior revision, and updates base rates, Chapter 99 additional duties, and preference-program data to match.</p>
+                    <div class="flow" aria-hidden="true">
+                      <span><em>01</em>fetch new HTS revision</span><i></i><span><em>02</em>diff against prior</span><i></i><span><em>03</em>update base rates, Ch.&nbsp;99, preferences</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="case-meta">
+              <div class="meta-row"><span>Stack</span>
+                <ul class="chips" aria-label="Qorva stack">
+                  <li class="chip">Laravel</li><li class="chip">PHP</li><li class="chip">REST integrations</li><li class="chip">frankfurter.app FX</li><li class="chip">HTS data pipeline</li>
+                </ul>
+              </div>
+              <div class="meta-row"><span>Status</span>
+                <div class="status-line"><span class="pill pill--offline">Offline</span><small>Reached production; offline for now. Watch the highlight reel.</small></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 03 + 04: one venture -->
+        <div class="case-group" role="group" aria-labelledby="venture-label">
+          <p class="group-label reveal" id="venture-label"><span>03–04</span>One venture: a planned consulting practice at rosalindgash.com</p>
+
+          <!-- 03 Decision Suite -->
+          <article class="case" id="decision-suite" aria-labelledby="ds-title">
+            <div class="case-media reveal">
+              <div class="frame">
+                <div class="frame-bar" aria-hidden="true">
+                  <div class="dots"><span></span><span></span><span></span></div>
+                  <div class="frame-url">decision suite — executive overview</div>
+                  <div class="spacer"></div>
+                </div>
+                <div class="shot shot--crop">
+                  <img src="assets/images/projects/decision-suite.jpg" width="1440" height="1307" loading="lazy" decoding="async" alt="Executive overview of the SaaS Financial Decision Suite for the fictional company Havenpoint Workflow: tabs for the four modules, scenario sliders for churn, new-customer pricing and new-business strength, checkboxes for a hire and UK market entry, KPI cards for MRR, gross margin, cash and runway, and charts of trailing 12-month MRR and a 12-month cash forecast." />
+                </div>
+              </div>
+              <p class="case-media-note"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2.5" y="3" width="11" height="10" rx="2"/><path d="M2.5 6h11"/></svg>Screenshot. Fictional company, synthetic data.</p>
+            </div>
+
+            <div class="case-body reveal" style="--d:.08s">
+              <div class="case-kicker"><span class="case-index">03</span><span class="case-cat">Financial decision system · Web</span></div>
+              <h3 id="ds-title">SaaS Financial Decision Suite</h3>
+              <p class="case-lede">The flagship demonstration for a planned fixed-scope consulting practice at rosalindgash.com: financial decision systems for founder-led SaaS companies.</p>
+              <p class="case-note">It runs on <strong>Havenpoint Workflow</strong>, a fictional SaaS company with 24&nbsp;months of synthetic data. The company and its data are not real.</p>
+
+              <div class="case-block">
+                <h4>What I built</h4>
+                <ul class="ticks">
+                  <li><strong>Four connected modules on one dataset:</strong> Performance &amp; Cash, Accounting &amp; Assets, Workforce &amp; Hiring, and Tax Readiness &amp; Expansion, plus an executive overview, the Founder Decision Center.</li>
+                  <li><strong>Scenario controls</strong> for churn, new-customer pricing, new-business strength, a hire, and UK market entry. They flow through the 12-month forecast where they are financially relevant: a hire changes burn and runway; churn moves ending MRR and cash.</li>
+                  <li>Accessible charts with data-table alternatives (WCAG 2.1 AA work), a SaaS Financial Visibility Scorecard, and a fail-closed contact form (server action, honeypot).</li>
+                </ul>
+              </div>
+
+              <div class="case-block">
+                <h4>Notable decisions</h4>
+                <div class="decision">
+                  <div class="decision-item">
+                    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2.5l6 2.2v4.6c0 3.9-2.6 6.8-6 8.2-3.4-1.4-6-4.3-6-8.2V4.7l6-2.2z"/><path d="M7.3 10.1l1.9 1.9 3.6-3.8"/></svg>
+                    <p><strong><span class="num">49</span> automated validation checks.</strong> A 24-month MRR bridge, cash reconciliation, assets = liabilities + equity, NPV/IRR recomputation, a book-to-tax bridge, and scenario propagation.</p>
+                  </div>
+                  <div class="decision-item">
+                    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="14" height="14" rx="2.5"/><path d="M7 7.5h6M7 10h6M7 12.5h3.5"/></svg>
+                    <p><strong>One calculation library.</strong> Every formula lives in a central library and is never computed in components, backed by a metric dictionary and an assumptions register.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="case-meta">
+                <div class="meta-row"><span>Stack</span>
+                  <ul class="chips" aria-label="Decision Suite stack">
+                    <li class="chip">Next.js 16</li><li class="chip">React 19</li><li class="chip">TypeScript (strict)</li><li class="chip">Tailwind CSS</li><li class="chip">Recharts</li>
+                  </ul>
+                </div>
+                <div class="meta-row"><span>Status</span>
+                  <div class="status-line"><span class="pill pill--offline">Offline</span><small>rosalindgash.com is offline for now.</small></div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 04 Ops -->
+          <article class="case flip" id="ops" aria-labelledby="ops-title">
+            <div class="case-media reveal">
+              <div class="frame">
+                <div class="frame-bar" aria-hidden="true">
+                  <div class="dots"><span></span><span></span><span></span></div>
+                  <div class="frame-url">ops — internal</div>
+                  <div class="spacer"></div>
+                </div>
+                <div class="ratio">
+                  <div class="preview" role="img" aria-label="Diagram of Ops: internal modules for CRM, pipeline, proposals, contracts, projects, activities, and appointments, connected to a token-scoped, read-only client portal for documents.">
+                    <div class="ops">
+                      <div class="ops-zone">
+                        <div class="ops-zone-label">
+                          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="7" width="9" height="6.5" rx="1.5"/><path d="M5.5 7V5.2a2.5 2.5 0 0 1 5 0V7"/></svg>
+                          Internal
+                        </div>
+                        <div class="ops-grid">
+                          <div class="ops-mod"><span>CRM</span></div>
+                          <div class="ops-mod"><span>Pipeline</span></div>
+                          <div class="ops-mod"><span>Proposals</span></div>
+                          <div class="ops-mod"><span>Contracts</span></div>
+                          <div class="ops-mod"><span>Projects</span></div>
+                          <div class="ops-mod"><span>Activities</span></div>
+                          <div class="ops-mod" style="grid-column: span 2"><span>Recurring appointments</span></div>
+                        </div>
+                      </div>
+                      <div class="ops-link">
+                        <svg viewBox="0 0 48 12" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M2 6h40" stroke-dasharray="3 3"/><path d="M40 2.5L45 6l-5 3.5"/></svg>
+                        <small>token</small>
+                      </div>
+                      <div class="ops-zone ops-portal">
+                        <div class="ops-zone-label">Client portal</div>
+                        <div class="ops-doc">
+                          <div><b></b></div>
+                          <div><b></b></div>
+                          <div><b></b></div>
+                          <p class="ops-ro">read-only</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="case-media-note"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="7" width="9" height="6.5" rx="1.5"/><path d="M5.5 7V5.2a2.5 2.5 0 0 1 5 0V7"/></svg>Diagram. Internal tool, no public link.</p>
+            </div>
+
+            <div class="case-body reveal" style="--d:.08s">
+              <div class="case-kicker"><span class="case-index">04</span><span class="case-cat">CRM &amp; client portal</span></div>
+              <h3 id="ops-title">Ops</h3>
+              <p class="case-lede">The backend for rosalindgash.com, the site for my planned consulting practice around the SaaS Financial Decision Suite.</p>
+
+              <div class="case-block">
+                <h4>What I built</h4>
+                <ul class="ticks">
+                  <li>The practice's CRM, sales pipeline, proposals, contracts, projects, activities, and recurring appointments.</li>
+                  <li>A <strong>token-scoped, read-only client portal</strong> for document exchange.</li>
+                </ul>
+              </div>
+
+              <div class="case-meta">
+                <div class="meta-row"><span>Stack</span>
+                  <ul class="chips" aria-label="Ops stack">
+                    <li class="chip">FastAPI</li><li class="chip">MongoDB (Motor)</li><li class="chip">React</li>
+                  </ul>
+                </div>
+                <div class="meta-row"><span>Status</span>
+                  <div class="status-line"><span class="pill pill--accent">Internal</span></div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- 05 + 06: Windows desktop -->
+        <div class="case-group" role="group" aria-labelledby="desktop-label">
+          <p class="group-label reveal" id="desktop-label"><span>05–06</span>Windows desktop apps I built for my own videos</p>
+
+          <!-- 05 RosalindCam Studio (wide) -->
+          <article class="case case--wide" id="rosalindcam-studio" aria-labelledby="rcs-title">
+            <div class="case-media reveal">
+              <div class="frame">
+                <div class="frame-bar" aria-hidden="true">
+                  <div class="dots"><span></span><span></span><span></span></div>
+                  <div class="frame-url">rosalindcam studio — rehearsal workspace</div>
+                  <div class="spacer"></div>
+                </div>
+                <div class="shot shot--ultrawide">
+                  <img src="assets/images/projects/rosalindcam-studio.jpg" width="1720" height="720" loading="lazy" decoding="async" alt="RosalindCam Studio's dark ultrawide workspace: Preview and Program monitors side by side with a TAKE button between them, and panels below for scenes, show sources, run of show, YouTube chat, a four-channel audio mixer, and record and go-live controls." />
+                </div>
+              </div>
+              <p class="case-media-note"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2.5" y="3" width="11" height="10" rx="2"/><path d="M2.5 6h11"/></svg>From an automated rehearsal with synthetic test guests.</p>
+            </div>
+
+            <div class="case-body case-body--split reveal" style="--d:.08s">
+              <div class="split-a">
+                <div class="case-kicker"><span class="case-index">05</span><span class="case-cat">Video podcast production · Windows desktop</span></div>
+                <div class="title-row">
+                  <img class="app-icon" src="assets/images/projects/rosalindcam-studio-icon.png" width="256" height="256" alt="" loading="lazy" decoding="async" />
+                  <h3 id="rcs-title">RosalindCam Studio</h3>
+                </div>
+                <p class="case-lede">A live-production app for video podcasts. I built it to produce my own show.</p>
+
+                <figure class="why">
+                  <figcaption>Why I built it</figcaption>
+                  <blockquote><p>I wanted one app instead of five, with no subscription costs. I have more time than money, so it's more cost-efficient to build my own apps than pay someone else to use theirs.</p></blockquote>
+                </figure>
+
+                <dl class="mini-stats">
+                  <div><dt>837</dt><dd>automated checks in the full Studio suite</dd></div>
+                  <div><dt>22 pages</dt><dd>printable user guide</dd></div>
+                  <div><dt>Core</dt><dd>library shared with RosalindCam</dd></div>
+                </dl>
+
+                <div class="case-meta">
+                  <div class="meta-row"><span>Stack</span>
+                    <ul class="chips" aria-label="RosalindCam Studio stack">
+                      <li class="chip">C#</li><li class="chip">.NET 8</li><li class="chip">WPF</li><li class="chip">WebRTC (WebView2)</li><li class="chip">FFmpeg</li><li class="chip">NAudio</li><li class="chip">OpenCvSharp</li><li class="chip">ONNX Runtime (DirectML)</li><li class="chip">whisper.cpp</li><li class="chip">llama.cpp</li>
+                    </ul>
+                  </div>
+                  <div class="meta-row"><span>Status</span>
+                    <div class="status-line"><span class="pill pill--personal">Personal build · v0.12</span><small>Real-device acceptance of the guest features is still in progress.</small></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="split-b">
+                <div class="case-block">
+                  <h4>Live production</h4>
+                  <ul class="ticks">
+                    <li>Separate <strong>Preview and Program</strong> with a deliberate TAKE; scenes, run of show, preflight checks, autosave, and recovery.</li>
+                    <li>A <strong>four-channel audio mixer</strong> (mic, media, system, master) with mix-minus.</li>
+                    <li>Records up to 4K (MKV first, remuxed to MP4) with seven separate stereo tracks. Streams to YouTube at 1080p30 over RTMPS with an automatic safety recording and bounded reconnects.</li>
+                    <li>A YouTube chat panel with a Q&amp;A queue and on-screen comment cards; lower-thirds and ticker graphics.</li>
+                    <li>Up to <strong>three remote guests over WebRTC</strong>, with a green room and private join links.</li>
+                  </ul>
+                </div>
+                <div class="case-block">
+                  <h4>On-device post-production</h4>
+                  <div class="decision">
+                    <div class="decision-item">
+                      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="14" height="10" rx="2"/><path d="M7 17h6M10 14v3"/></svg>
+                      <p><strong>No cloud, no per-use fees.</strong> Dialogue isolation; a transcript editor (Whisper); an episode producer that drafts titles, descriptions, chapters, and show notes with inspectable citations (local LLM via llama.cpp); clip drafts with 9:16 framing and captions; and thumbnail concepts from a local image model.</p>
+                    </div>
+                    <div class="decision-item">
+                      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 10s2.7-5 7.5-5 7.5 5 7.5 5-2.7 5-7.5 5-7.5-5-7.5-5z"/><circle cx="10" cy="10" r="2.2"/></svg>
+                      <p><strong>Everything is reviewed before export.</strong> The local models draft; I check and approve what ships.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- 06 RosalindCam -->
+          <article class="case" id="rosalindcam" aria-labelledby="rc-title">
+            <div class="case-media reveal">
+              <div class="frame">
+                <div class="frame-bar" aria-hidden="true">
+                  <div class="dots"><span></span><span></span><span></span></div>
+                  <div class="frame-url">rosalindcam — ui review</div>
+                  <div class="spacer"></div>
+                </div>
+                <div class="shot shot--rc">
+                  <img src="assets/images/projects/rosalindcam.jpg" width="1280" height="760" loading="lazy" decoding="async" alt="RosalindCam's main window: capture, device, and recording controls on the left, including record mode, webcam layout, frame rate, and Start and Stop recording buttons; on the right, a preview of the screen with a floating webcam picture-in-picture." />
+                </div>
+              </div>
+              <p class="case-media-note"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2.5" y="3" width="11" height="10" rx="2"/><path d="M2.5 6h11"/></svg>From the automated UI review: controls on the left, screen and webcam preview on the right.</p>
+            </div>
+
+            <div class="case-body reveal" style="--d:.08s">
+              <div class="case-kicker"><span class="case-index">06</span><span class="case-cat">Screen &amp; webcam recorder · Windows desktop</span></div>
+              <div class="title-row">
+                <img class="app-icon" src="assets/images/projects/rosalindcam-icon.png" width="256" height="256" alt="" loading="lazy" decoding="async" />
+                <h3 id="rc-title">RosalindCam</h3>
+              </div>
+              <p class="case-lede">A focused recorder for talking-head and screen videos.</p>
+
+              <figure class="why">
+                <figcaption>Why I built it</figcaption>
+                <blockquote><p>OBS was confusing for me to use. I tried to like it, but I couldn't. I wanted to hide my room on camera without a green screen, with no subscription, watermark, account, or cloud.</p></blockquote>
+              </figure>
+
+              <div class="case-block">
+                <h4>What I built</h4>
+                <ul class="ticks">
+                  <li>Records screen only, webcam only, or screen + webcam, with microphone audio, to 1080p MP4. The webcam can be a movable, resizable picture-in-picture (adjustable while recording) or side by side.</li>
+                  <li><strong>Real-time background replacement</strong> (color or image) or blur without a green screen, using the RobustVideoMatting model on the GPU (ONNX Runtime + DirectML, CPU fallback), with edge controls.</li>
+                </ul>
+              </div>
+
+              <div class="case-block">
+                <h4>Notable decisions</h4>
+                <div class="decision">
+                  <div class="decision-item">
+                    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2.5l6 2.2v4.6c0 3.9-2.6 6.8-6 8.2-3.4-1.4-6-4.3-6-8.2V4.7l6-2.2z"/><path d="M7.3 10.1l1.9 1.9 3.6-3.8"/></svg>
+                    <p><strong>Crash-safe recording.</strong> It writes MKV first, then remuxes to MP4, using AMD hardware H.264 with a software fallback.</p>
+                  </div>
+                  <div class="decision-item">
+                    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2.5l7 3.8v7.4l-7 3.8-7-3.8V6.3z"/><path d="M3 6.3l7 3.8 7-3.8M10 10.1v7.4"/></svg>
+                    <p><strong>A portable, self-contained .exe.</strong> Backed by a <span class="num">99</span>-check native smoke suite.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="case-meta">
+                <div class="meta-row"><span>Stack</span>
+                  <ul class="chips" aria-label="RosalindCam stack">
+                    <li class="chip">C#</li><li class="chip">.NET 8</li><li class="chip">WPF</li><li class="chip">OpenCvSharp</li><li class="chip">ONNX Runtime (DirectML)</li><li class="chip">NAudio (WASAPI)</li><li class="chip">FFmpeg</li>
+                  </ul>
+                </div>
+                <div class="meta-row"><span>Status</span>
+                  <div class="status-line"><span class="pill pill--personal">Personal build</span></div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- 07 PingBuoy -->
+        <article class="case flip" id="pingbuoy" aria-labelledby="pingbuoy-title">
+          <div class="case-media reveal">
+            <a class="preview-link" href="https://pingbuoy-demo.rrgash.chatgpt.site/" target="_blank" rel="noopener noreferrer" aria-label="Open the PingBuoy live demo with sample data (opens in a new tab)">
+              <div class="frame">
+                <div class="frame-bar" aria-hidden="true">
+                  <div class="dots"><span></span><span></span><span></span></div>
+                  <div class="frame-url">pingbuoy-demo.rrgash.chatgpt.site</div>
+                  <div class="spacer"></div>
+                </div>
+                <div class="ratio" aria-hidden="true">
+                  <div class="preview">
+                    <div class="pb">
+                      <div class="pb-side">
+                        <div class="pb-logo"><i></i>PingBuoy</div>
+                        <div class="pb-nav"><b></b><b></b><b></b><b></b><b></b></div>
+                      </div>
+                      <div class="pb-main">
+                        <div class="pb-tiles">
+                          <div class="pb-tile ok"><small>Uptime</small><b></b></div>
+                          <div class="pb-tile ok"><small>SSL</small><b></b></div>
+                          <div class="pb-tile"><small>Links</small><b></b></div>
+                          <div class="pb-tile"><small>Alerts</small><b></b></div>
+                        </div>
+                        <div class="pb-strip">
+                          <div class="pb-strip-head"><span>checks</span><span>status</span></div>
+                          <div class="pb-bars">
+                            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span class="w"></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                          </div>
+                        </div>
+                        <div class="pb-rows">
+                          <div class="pb-row"><i></i><b style="width:58%"></b><em>up</em></div>
+                          <div class="pb-row"><i></i><b style="width:44%"></b><em>up</em></div>
+                          <div class="pb-row"><i class="w"></i><b style="width:66%"></b><em>ssl</em></div>
+                          <div class="pb-row"><i></i><b style="width:38%"></b><em>up</em></div>
+                        </div>
+                      </div>
+                    </div>
+                    <span class="preview-cta">Open live demo
+                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 10.5l5-5M6 5.5h4.5V10"/></svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <p class="case-media-note"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2.5" y="3" width="11" height="10" rx="2"/><path d="M2.5 6h11"/></svg>Illustration. The live demo runs on sample data.</p>
+          </div>
+
+          <div class="case-body reveal" style="--d:.08s">
+            <div class="case-kicker"><span class="case-index">07</span><span class="case-cat">Website monitoring SaaS</span></div>
+            <h3 id="pingbuoy-title">PingBuoy</h3>
+            <p class="case-lede">Monitoring for websites: uptime checks, dead-link detection, SSL certificate expiration tracking, alerts, analytics, status information, and subscription workflows.</p>
+
+            <div class="case-block">
+              <h4>What I built</h4>
+              <p>My first major AI-assisted SaaS. I took it from product planning through architecture, implementation, security work, payment integration, deployment, and debugging.</p>
+            </div>
+
+            <div class="case-meta">
+              <div class="meta-row"><span>Scope</span>
+                <ul class="chips" aria-label="PingBuoy features">
+                  <li class="chip">Uptime checks</li><li class="chip">Dead-link detection</li><li class="chip">SSL expiry</li><li class="chip">Alerts</li><li class="chip">Analytics</li><li class="chip">Status info</li><li class="chip">Subscriptions</li>
+                </ul>
+              </div>
+              <div class="meta-row"><span>Status</span>
+                <div class="status-line"><span class="pill pill--archived">Archived · live demo</span><small>The demo runs on sample data.</small></div>
+              </div>
+            </div>
+            <div class="case-actions">
+              <a class="btn btn-accent" href="https://pingbuoy-demo.rrgash.chatgpt.site/" target="_blank" rel="noopener noreferrer">
+                Open the live demo
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 10.5l5-5M6 5.5h4.5V10"/></svg>
+                <span class="sr-only">(opens in a new tab)</span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Toolbox ===== -->
+  <section class="section" id="toolbox" aria-labelledby="toolbox-title">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="reveal">
+          <span class="eyebrow">Toolbox</span>
+          <h2 id="toolbox-title">What I work with.</h2>
+        </div>
+        <p class="reveal" style="--d:.08s">Laravel is my usual home base for web SaaS, and C#/.NET for Windows desktop. I reach for the rest when the product calls for it, and I deploy and run what I build.</p>
+      </div>
+
+      <div class="tool-grid reveal">
+        <div class="tool-group">
+          <h3>Languages <span class="mono">01</span></h3>
+          <ul class="chips"><li class="chip">PHP</li><li class="chip">Python</li><li class="chip">JavaScript</li><li class="chip">TypeScript</li><li class="chip">C#</li></ul>
+        </div>
+        <div class="tool-group">
+          <h3>Web &amp; UI <span class="mono">02</span></h3>
+          <ul class="chips"><li class="chip">Laravel</li><li class="chip">FastAPI</li><li class="chip">React</li><li class="chip">Next.js</li><li class="chip">Tailwind CSS</li><li class="chip">Bootstrap</li><li class="chip">Recharts</li></ul>
+        </div>
+        <div class="tool-group">
+          <h3>Desktop <span class="mono">03</span></h3>
+          <ul class="chips"><li class="chip">.NET 8</li><li class="chip">WPF</li></ul>
+        </div>
+        <div class="tool-group">
+          <h3>Data <span class="mono">04</span></h3>
+          <ul class="chips"><li class="chip">PostgreSQL</li><li class="chip">MySQL</li><li class="chip">MongoDB</li></ul>
+        </div>
+        <div class="tool-group">
+          <h3>Media &amp; AI <span class="mono">05</span></h3>
+          <ul class="chips"><li class="chip">FFmpeg</li><li class="chip">ONNX Runtime / DirectML</li><li class="chip">OpenCV (OpenCvSharp)</li><li class="chip">NAudio</li><li class="chip">whisper.cpp</li><li class="chip">llama.cpp</li></ul>
+        </div>
+        <div class="tool-group">
+          <h3>Integrations <span class="mono">06</span></h3>
+          <ul class="chips"><li class="chip">REST APIs</li><li class="chip">Stripe</li><li class="chip">Anthropic API</li><li class="chip">WebRTC</li></ul>
+        </div>
+        <div class="tool-group">
+          <h3>Infrastructure <span class="mono">07</span></h3>
+          <ul class="chips"><li class="chip">Docker</li><li class="chip">Git</li><li class="chip">Linux VPS deployment</li></ul>
+        </div>
+        <div class="tool-group">
+          <h3>Practice <span class="mono">08</span></h3>
+          <ul class="chips"><li class="chip">AI-assisted engineering</li><li class="chip">Local AI models</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Approach ===== -->
+  <section class="section" id="approach" aria-labelledby="approach-title">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="reveal">
+          <span class="eyebrow">How I work</span>
+          <h2 id="approach-title">Six principles behind the work.</h2>
+        </div>
+        <p class="reveal" style="--d:.08s">Grounded in how the projects above were actually built.</p>
+      </div>
+
+      <ol class="principles">
+        <li class="principle reveal">
+          <h3>Start from the problem, not the ticket.</h3>
+          <p>I begin with what the people running the operation actually have to get done, then decide what the software should be.</p>
+        </li>
+        <li class="principle reveal" style="--d:.06s">
+          <h3>Own the whole stack.</h3>
+          <p>Product decisions, UX, architecture, implementation, payments, deployment, and hardening sit with one accountable owner: me.</p>
+        </li>
+        <li class="principle reveal" style="--d:.12s">
+          <h3>AI is a tool; accountability is mine.</h3>
+          <p>I use AI as an engineering tool. I delegate architecture and implementation, but responsibility for requirements, review, verification, security, and final product decisions stays with me.</p>
+        </li>
+        <li class="principle reveal">
+          <h3>Verify live, not just on paper.</h3>
+          <p>Scholium's security phase was tested against the running app. The Decision Suite carries 49 validation checks; RosalindCam Studio, 837.</p>
+        </li>
+        <li class="principle reveal" style="--d:.06s">
+          <h3>Right-size the solution.</h3>
+          <p>Scholium dropped 13 files and 4 tables of planned accounting integrations for CSV exports that work with any accounting tool.</p>
+        </li>
+        <li class="principle reveal" style="--d:.12s">
+          <h3>Build the tool I need.</h3>
+          <p>I have more time than money. When the tools on offer don't fit, I build my own, which is how both RosalindCam apps started.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<!-- ===== Contact / footer ===== -->
+<footer class="contact" id="contact" aria-labelledby="contact-title">
+  <div class="wrap">
+    <div class="contact-inner reveal">
+      <span class="eyebrow">Contact</span>
+      <h2 id="contact-title">Get in touch.</h2>
+      <p>Questions about a project, or want to compare notes on building products end to end? Email is the best way to reach me.</p>
+      <a class="email-link" href="mailto:rrgash@protonmail.com">
+        rrgash@protonmail.com
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 11.5l7-7M5.5 4.5h6v6"/></svg>
+      </a>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Rosalind R. Gash</span>
+      <span>Brookings, South Dakota</span>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var d = document.documentElement;
+
+    /* Header hairline on scroll */
+    var header = document.querySelector('.site-header');
+    var onScroll = function () { header.classList.toggle('is-scrolled', window.scrollY > 8); };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    if (!('IntersectionObserver' in window)) return;
+
+    /* Scroll reveal (only when the head script enabled it) */
+    if (d.classList.contains('js-reveal')) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+      document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+    }
+
+    /* Current-section highlight in nav */
+    var links = {};
+    document.querySelectorAll('.nav a[href^="#"]').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var a = links[e.target.id];
+        if (!a) return;
+        if (e.isIntersecting) {
+          Object.keys(links).forEach(function (k) { links[k].removeAttribute('aria-current'); });
+          a.setAttribute('aria-current', 'true');
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    Object.keys(links).forEach(function (id) { var s = document.getElementById(id); if (s) spy.observe(s); });
+  })();
+</script>
+</body>
+</html>

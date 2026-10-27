@@ -1,0 +1,1254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Rosalind R. Gash — Software Projects</title>
+<meta name="description" content="A public record of seven products she conceived and built herself, from web SaaS and a financial decision system to Windows desktop apps for recording and video podcast production." />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Rosalind R. Gash — Software Projects" />
+<meta property="og:description" content="A public record of the products Rosalind R. Gash conceives and builds herself, from the underlying problem through production." />
+<meta property="og:url" content="https://rosalindgash.org/" />
+<meta name="color-scheme" content="light dark" />
+<meta name="theme-color" content="#f3f2ee" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0c0d10" media="(prefers-color-scheme: dark)" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<script>
+  document.documentElement.classList.add('js');
+  /* Video fallback: called from each <source onerror> so it works even before the main script runs. */
+  window.videoMissing = function (el) {
+    var frame = el.closest ? el.closest('.video') : null;
+    if (frame) frame.classList.add('is-missing');
+  };
+</script>
+<style>
+  :root {
+    --bg: #f3f2ee;
+    --tile: #ffffff;
+    --tile-2: #f7f6f3;
+    --ink: #16161a;
+    --muted: #56565f;
+    --line: rgba(22, 22, 26, 0.08);
+    --line-strong: rgba(22, 22, 26, 0.14);
+    --chip: #f1f0ec;
+    --chip-on-tint: rgba(255, 255, 255, 0.62);
+    --btn: #16161a;
+    --btn-ink: #ffffff;
+    --focus: #1f46b5;
+    --shadow: 0 1px 2px rgba(20, 20, 30, 0.04), 0 10px 30px -18px rgba(20, 20, 30, 0.18);
+    --shadow-lg: 0 2px 4px rgba(20, 20, 30, 0.05), 0 22px 44px -22px rgba(20, 20, 30, 0.28);
+    --header-bg: rgba(255, 255, 255, 0.78);
+
+    /* Project accents: tint background / text on tint / solid / text on solid */
+    --sch-bg: #e2f3ec; --sch-ink: #0a5c49; --sch-solid: #0e7a61; --sch-on: #ffffff;
+    --qor-bg: #e5ebfb; --qor-ink: #1b3a8f; --qor-solid: #1f46b5; --qor-on: #ffffff;
+    --png-bg: #fde8df; --png-ink: #9e3412; --png-solid: #b93d0c; --png-on: #ffffff;
+    --ops-bg: #e0f1f6; --ops-ink: #0b5568; --ops-solid: #0e6e86; --ops-on: #ffffff;
+    --dss-bg: #e9ecf1; --dss-ink: #262f3d; --dss-solid: #2b3445; --dss-on: #ffffff;
+    --rcs-bg: #f6efd6; --rcs-ink: #0f5c43; --rcs-solid: #0f6b4e; --rcs-on: #ffffff;
+    --rc-bg: #f6e8f4; --rc-ink: #7b2569; --rc-solid: #8e2c8a; --rc-on: #ffffff;
+
+    /* Status dots */
+    --st-offline: #b7791f; --st-archived: #c2410c; --st-internal: #0e6e86; --st-personal: #0f8a5f;
+
+    --radius: 24px;
+    --radius-sm: 16px;
+    --gap: 16px;
+    --pad: clamp(20px, 2.2vw, 30px);
+    --maxw: 1280px;
+    --gutter: clamp(16px, 4vw, 48px);
+    --font: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0c0d10;
+      --tile: #16171c;
+      --tile-2: #1b1c22;
+      --ink: #ededf2;
+      --muted: #a4a4af;
+      --line: rgba(255, 255, 255, 0.08);
+      --line-strong: rgba(255, 255, 255, 0.16);
+      --chip: #23242b;
+      --chip-on-tint: rgba(255, 255, 255, 0.07);
+      --btn: #ededf2;
+      --btn-ink: #0c0d10;
+      --focus: #9db7ff;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 10px 30px -18px rgba(0, 0, 0, 0.7);
+      --shadow-lg: 0 2px 4px rgba(0, 0, 0, 0.45), 0 22px 44px -20px rgba(0, 0, 0, 0.85);
+      --header-bg: rgba(22, 23, 28, 0.78);
+
+      --sch-bg: #0f2620; --sch-ink: #6fdcbc; --sch-solid: #2fb592; --sch-on: #04130f;
+      --qor-bg: #111a33; --qor-ink: #9db7ff; --qor-solid: #7d9cf5; --qor-on: #050b1f;
+      --png-bg: #2b1610; --png-ink: #ffa27f; --png-solid: #ff8a5c; --png-on: #2a0e04;
+      --ops-bg: #0d2229; --ops-ink: #74d3ea; --ops-solid: #3fb8d6; --ops-on: #04151b;
+      --dss-bg: #1a1f29; --dss-ink: #c3cee0; --dss-solid: #c3cee0; --dss-on: #10141b;
+      --rcs-bg: #102a20; --rcs-ink: #e9c46a; --rcs-solid: #e9c46a; --rcs-on: #1a1405;
+      --rc-bg: #26132a; --rc-ink: #f2a6dd; --rc-solid: #e48ad0; --rc-on: #2a0a24;
+      --st-offline: #f0b54a; --st-archived: #ff8a5c; --st-internal: #3fb8d6; --st-personal: #4fd1a1;
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 96px; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  img, video { max-width: 100%; display: block; }
+  h1, h2, h3, h4, p, ul, ol, figure { margin: 0; }
+  ul, ol { padding: 0; list-style: none; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
+
+  .skip-link {
+    position: absolute; left: 16px; top: -100px; z-index: 100;
+    background: var(--btn); color: var(--btn-ink);
+    padding: 10px 16px; border-radius: 12px; font-weight: 600; text-decoration: none;
+  }
+  .skip-link:focus { top: 16px; }
+
+  .wrap { width: 100%; max-width: calc(var(--maxw) + var(--gutter) * 2); margin: 0 auto; padding-inline: var(--gutter); }
+
+  /* ---------- Header ---------- */
+  .site-header { position: sticky; top: 0; z-index: 50; padding-top: 14px; }
+  .site-header .bar {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    background: var(--header-bg);
+    -webkit-backdrop-filter: saturate(160%) blur(14px);
+    backdrop-filter: saturate(160%) blur(14px);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 8px 8px 8px 10px;
+    box-shadow: var(--shadow);
+  }
+  .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 700; letter-spacing: -0.01em; }
+  .mono {
+    width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
+    background: var(--btn); color: var(--btn-ink);
+    font-family: Georgia, "Times New Roman", serif; font-weight: 700; font-size: 20px; line-height: 1;
+  }
+  .site-nav ul { display: flex; gap: 2px; }
+  .site-nav a {
+    display: inline-block; padding: 8px 14px; border-radius: 12px;
+    text-decoration: none; font-weight: 600; font-size: 0.9375rem; color: var(--muted);
+    transition: background-color .2s, color .2s;
+  }
+  .site-nav a:hover { color: var(--ink); background: var(--chip); }
+
+  /* ---------- Bento grid ---------- */
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--gap);
+  }
+  .tile {
+    grid-column: span var(--c, 12);
+    grid-row: span var(--r, 1);
+    position: relative;
+    background: var(--tile);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: var(--pad);
+    box-shadow: var(--shadow);
+    min-width: 0;
+    display: flex; flex-direction: column;
+  }
+  .tile.tint { background: var(--a-bg); border-color: transparent; }
+  .tile.solid { background: var(--a-solid); color: var(--a-on); border-color: transparent; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .tile { transition: translate .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease, opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+  }
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .tile:hover { translate: 0 -3px; box-shadow: var(--shadow-lg); }
+  }
+
+  /* Reveal (only when JS is on and motion is allowed) */
+  @media (prefers-reduced-motion: no-preference) {
+    .js .tile.reveal { opacity: 0; transform: translateY(16px); }
+    .js .tile.reveal.is-in { opacity: 1; transform: none; }
+  }
+
+  /* ---------- Shared type ---------- */
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .label { font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--a-ink, var(--muted)); }
+  .muted { color: var(--muted); }
+  .tile p + p { margin-top: 10px; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    display: inline-flex; align-items: center;
+    font-size: 0.8125rem; font-weight: 600; line-height: 1.2;
+    padding: 7px 11px; border-radius: 999px;
+    background: var(--chip); color: var(--ink);
+    border: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  .tint .chip { background: var(--chip-on-tint); }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 0.8125rem; font-weight: 700; line-height: 1;
+    padding: 7px 11px 7px 9px; border-radius: 999px;
+    background: var(--chip); color: var(--ink); border: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  .badge::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--dot, var(--muted)); box-shadow: 0 0 0 3px color-mix(in srgb, var(--dot, var(--muted)) 22%, transparent); }
+  .badge.offline { --dot: var(--st-offline); }
+  .badge.archived { --dot: var(--st-archived); }
+  .badge.internal { --dot: var(--st-internal); }
+  .badge.personal { --dot: var(--st-personal); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 18px; border-radius: 14px;
+    font-weight: 700; font-size: 0.9375rem; text-decoration: none; line-height: 1.2;
+    background: var(--btn); color: var(--btn-ink); border: 1px solid transparent;
+    transition: transform .2s, background-color .2s;
+  }
+  .btn.ghost { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+  .btn.ghost:hover { background: var(--chip); }
+  @media (prefers-reduced-motion: no-preference) { .btn:hover { transform: translateY(-1px); } }
+
+  .ico { width: 18px; height: 18px; flex: none; }
+
+  /* ---------- Intro ---------- */
+  .intro { padding-top: clamp(20px, 3vw, 36px); }
+  .t-hello { --c: 8; --r: 2; justify-content: space-between; gap: 28px; padding: clamp(24px, 3.4vw, 48px); }
+  .t-hello h1 {
+    font-size: clamp(2.5rem, 5.4vw, 4.5rem);
+    line-height: 1; font-weight: 800; letter-spacing: -0.04em;
+    margin-top: 16px;
+  }
+  .t-hello .lead {
+    margin-top: 22px; max-width: 40ch;
+    font-size: clamp(1.125rem, 1.7vw, 1.4rem); line-height: 1.5; font-weight: 500; letter-spacing: -0.01em;
+  }
+  .t-hello .sub { margin-top: 14px; max-width: 58ch; color: var(--muted); }
+  .t-hello .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  .t-photo { --c: 4; --r: 2; padding: 0; overflow: hidden; min-height: 420px; background: #e9e9e7; }
+  .t-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+  .t-photo .place {
+    position: absolute; left: 14px; bottom: 14px; right: 14px;
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .t-photo .place span {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 12px; border-radius: 999px;
+    background: rgba(255, 255, 255, 0.88); color: #16161a;
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    font-size: 0.8125rem; font-weight: 700; line-height: 1; white-space: nowrap;
+  }
+
+  .t-stat { --c: 3; justify-content: space-between; gap: 18px; min-height: 180px; }
+  .t-stat .big { font-size: clamp(2.75rem, 4.4vw, 3.75rem); line-height: 1; font-weight: 800; letter-spacing: -0.05em; }
+  .t-stat .what { font-weight: 600; line-height: 1.4; }
+  .t-stat .what span { display: block; font-weight: 500; color: var(--muted); font-size: 0.9375rem; margin-top: 4px; }
+  .t-stat.a1 { --a-bg: var(--sch-bg); --a-ink: var(--sch-ink); }
+  .t-stat.a2 { --a-bg: var(--rc-bg); --a-ink: var(--rc-ink); }
+  .t-stat .big { color: var(--a-ink); }
+
+  .t-tools { --c: 6; --r: 2; gap: 18px; }
+  .t-tools h2, .t-own h2 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; }
+  .tool-groups { display: grid; gap: 14px; flex: 1; align-content: space-between; }
+  .tool-groups div { display: grid; grid-template-columns: 104px 1fr; gap: 12px; align-items: start; }
+  .tool-groups dt { font-size: 0.8125rem; font-weight: 700; color: var(--muted); padding-top: 7px; }
+  .tool-groups dd { margin: 0; }
+  dl { margin: 0; }
+
+  .t-own { --c: 6; gap: 16px; }
+  .flow { display: flex; flex-wrap: wrap; gap: 8px; counter-reset: f; }
+  .flow .chip { gap: 8px; padding-left: 6px; }
+  .flow .chip::before {
+    counter-increment: f; content: counter(f);
+    display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%;
+    background: var(--a-solid, var(--btn)); color: var(--a-on, var(--btn-ink));
+    font-size: 0.6875rem; font-weight: 800;
+  }
+
+  /* ---------- Sections ---------- */
+  section { scroll-margin-top: 96px; }
+  .section { padding-top: clamp(72px, 9vw, 120px); }
+  .section-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px 32px; margin-bottom: 24px; }
+  .section-head h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05; font-weight: 800; letter-spacing: -0.035em; }
+  .section-head p { max-width: 52ch; color: var(--muted); }
+
+  /* ---------- Projects ---------- */
+  .project + .project { margin-top: clamp(40px, 5vw, 64px); }
+  .p-sch { --a-bg: var(--sch-bg); --a-ink: var(--sch-ink); --a-solid: var(--sch-solid); --a-on: var(--sch-on); }
+  .p-qor { --a-bg: var(--qor-bg); --a-ink: var(--qor-ink); --a-solid: var(--qor-solid); --a-on: var(--qor-on); }
+  .p-png { --a-bg: var(--png-bg); --a-ink: var(--png-ink); --a-solid: var(--png-solid); --a-on: var(--png-on); }
+  .p-ops { --a-bg: var(--ops-bg); --a-ink: var(--ops-ink); --a-solid: var(--ops-solid); --a-on: var(--ops-on); }
+  .p-dss { --a-bg: var(--dss-bg); --a-ink: var(--dss-ink); --a-solid: var(--dss-solid); --a-on: var(--dss-on); }
+  .p-rcs { --a-bg: var(--rcs-bg); --a-ink: var(--rcs-ink); --a-solid: var(--rcs-solid); --a-on: var(--rcs-on); }
+  .p-rc  { --a-bg: var(--rc-bg); --a-ink: var(--rc-ink); --a-solid: var(--rc-solid); --a-on: var(--rc-on); }
+
+  /* Pairing connector between related projects */
+  .pairing { display: flex; align-items: center; gap: 12px; margin: 18px 0; color: var(--muted); font-size: 0.875rem; font-weight: 600; }
+  .pairing::before, .pairing::after { content: ""; height: 1px; flex: 1; background: var(--line-strong); }
+  .pairing span { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; border: 1px dashed var(--line-strong); background: var(--tile); text-align: center; }
+  .pairing + .project { margin-top: 0; }
+
+  /* Screenshots */
+  .shot { margin: 0; }
+  .shot .frame { border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--line); background: var(--tile-2); }
+  .shot img { width: 100%; height: auto; }
+  .shot figcaption { font-size: 0.875rem; color: var(--muted); margin-top: 10px; }
+  .shot.crop .frame { aspect-ratio: 16 / 10; }
+  .shot.crop img { height: 100%; object-fit: cover; object-position: top center; }
+  .app-head { display: flex; align-items: center; gap: 16px; margin-top: 8px; }
+  .app-head img { width: 60px; height: 60px; border-radius: 15px; flex: none; }
+  .feature .app-head h3 { margin-top: 0; }
+  .note {
+    display: flex; align-items: flex-start; gap: 8px; margin-top: 14px; max-width: max-content;
+    padding: 10px 14px; border-radius: 12px; font-size: 0.9375rem; font-weight: 600; line-height: 1.45;
+    background: var(--a-bg); color: var(--a-ink);
+  }
+  .note svg { width: 18px; height: 18px; flex: none; margin-top: 2px; }
+  .ticks { display: grid; gap: 10px; margin-top: 14px; }
+  .ticks li { display: grid; grid-template-columns: 16px 1fr; gap: 10px; line-height: 1.45; }
+  .ticks li::before { content: ""; width: 8px; height: 8px; margin: 8px 0 0 3px; border-radius: 50%; background: var(--a-solid); }
+  .ticks.cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 28px; }
+  .ticks strong { font-weight: 700; }
+  .quote { margin-top: 14px; font-size: clamp(1.125rem, 1.5vw, 1.3rem); line-height: 1.4; font-weight: 700; letter-spacing: -0.015em; color: var(--a-ink); }
+  .quote::before { content: "\201C"; }
+  .quote::after { content: "\201D"; }
+
+  /* Decision Suite layout */
+  .p-dss .feature { --c: 8; --r: 2; }
+  .p-dss .t-checks, .p-dss .t-scen { --c: 4; }
+  .p-dss .t-mods { --c: 6; }
+  .p-dss .t-calc, .p-dss .t-a11y { --c: 3; }
+
+  /* RosalindCam Studio layout */
+  .p-rcs .feature { --c: 12; }
+  .p-rcs .t-why { --c: 4; }
+  .p-rcs .t-live { --c: 8; }
+  .p-rcs .t-post { --c: 7; }
+  .p-rcs .t-eng { --c: 5; }
+
+  /* RosalindCam layout (feature on the right on desktop) */
+  .p-rc .feature { --c: 7; --r: 2; }
+  .p-rc .t-why, .p-rc .t-bg { --c: 5; }
+  .p-rc .t-modes, .p-rc .t-safe { --c: 6; }
+  @media (min-width: 1024px) {
+    .p-rc .feature { grid-column: 6 / -1; grid-row: 1 / span 2; }
+    .p-rc .t-why, .p-rc .t-bg { grid-column: 1 / span 5; }
+  }
+
+  .feature { gap: 20px; }
+  .feature .top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; }
+  .kicker { font-size: 0.875rem; font-weight: 700; color: var(--a-ink); letter-spacing: 0.01em; }
+  .feature h3 { font-size: clamp(2rem, 3.6vw, 2.875rem); line-height: 1.02; font-weight: 800; letter-spacing: -0.04em; margin-top: 6px; }
+  .feature .desc { margin-top: 12px; max-width: 60ch; color: var(--muted); font-size: 1.0625rem; }
+  .status-note { font-size: 0.875rem; color: var(--muted); font-weight: 500; }
+  .stack-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-top: auto; }
+  .stack-row .label { margin-right: 4px; color: var(--muted); }
+
+  .mini h4 { font-size: 1.1875rem; line-height: 1.25; font-weight: 700; letter-spacing: -0.02em; margin-top: 10px; }
+  .mini p:not(.label):not(.figure) { margin-top: 8px; color: var(--muted); }
+  .mini .foot { margin-top: auto; padding-top: 18px; }
+  .glyph {
+    position: absolute; top: var(--pad); right: var(--pad);
+    width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center;
+    background: var(--a-bg); color: var(--a-ink);
+  }
+  .tint .glyph { background: var(--chip-on-tint); }
+  .glyph svg { width: 26px; height: 26px; }
+  .mini:has(.glyph) > .label { padding-right: 64px; min-height: 52px; }
+  .mini .foot > :first-child { margin-top: 0; }
+  .mini .figure { font-size: clamp(1.625rem, 2.4vw, 2rem); line-height: 1.1; font-weight: 800; letter-spacing: -0.035em; color: var(--a-ink); margin-top: 12px; }
+
+  .checks { display: grid; gap: 8px; margin-top: 14px; }
+  .checks li { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+  .checks li svg { width: 20px; height: 20px; flex: none; color: var(--a-ink); }
+
+  .steps { display: grid; gap: 12px; margin-top: 14px; counter-reset: s; }
+  .steps li { display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: start; line-height: 1.45; }
+  .steps li::before {
+    counter-increment: s; content: counter(s);
+    width: 28px; height: 28px; border-radius: 9px; display: grid; place-items: center;
+    background: var(--a-solid); color: var(--a-on); font-weight: 800; font-size: 0.8125rem;
+  }
+
+  /* Video */
+  .video {
+    position: relative; aspect-ratio: 16 / 9; width: 100%;
+    border-radius: var(--radius-sm); overflow: hidden;
+    background: #0b0c0f;
+    box-shadow: 0 0 0 1px var(--line);
+  }
+  .video video { width: 100%; height: 100%; object-fit: contain; background: #0b0c0f; }
+  .video-fallback {
+    position: absolute; inset: 0; display: none; place-items: center; text-align: center;
+    padding: 24px;
+    background:
+      radial-gradient(120% 90% at 0% 0%, color-mix(in srgb, var(--a-solid) 22%, transparent), transparent 60%),
+      radial-gradient(100% 90% at 100% 100%, color-mix(in srgb, var(--a-solid) 16%, transparent), transparent 60%),
+      var(--a-bg);
+    color: var(--a-ink);
+  }
+  .video-fallback .inner { display: grid; justify-items: center; gap: 12px; }
+  .video-fallback .play {
+    width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--a-solid); color: var(--a-on);
+  }
+  .video-fallback strong { font-size: 1.25rem; letter-spacing: -0.02em; }
+  .video-fallback span { color: var(--muted); font-size: 0.9375rem; }
+  .video.is-missing { background: var(--a-bg); }
+  .video.is-missing video { visibility: hidden; }
+  .video.is-missing .video-fallback { display: grid; }
+  .video-cap { font-size: 0.875rem; color: var(--muted); margin-top: -8px; }
+
+  /* Scholium layout */
+  .p-sch .feature { --c: 8; --r: 2; }
+  .p-sch .t-dec, .p-sch .t-sec { --c: 4; }
+  .p-sch .t-scope { --c: 6; }
+  .p-sch .t-ai, .p-sch .t-plans { --c: 3; }
+
+  /* Qorva layout (feature on the right on desktop) */
+  .p-qor .feature { --c: 8; --r: 2; }
+  .p-qor .t-pipe, .p-qor .t-land { --c: 4; }
+  .p-qor .t-scope { --c: 6; }
+  .p-qor .t-fx, .p-qor .t-plans { --c: 3; }
+  @media (min-width: 1024px) {
+    .p-qor .feature { grid-column: 5 / -1; grid-row: 1 / span 2; }
+    .p-qor .t-pipe, .p-qor .t-land { grid-column: 1 / span 4; }
+  }
+
+  .plans { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .plans span {
+    font-weight: 700; padding: 8px 12px; border-radius: 12px;
+    background: var(--tile); border: 1px solid var(--line);
+  }
+  .tint .plans span { background: var(--chip-on-tint); }
+
+  /* PingBuoy */
+  .p-png .feature { --c: 7; }
+  .p-png .t-cta { --c: 5; --r: 2; }
+  .p-png .t-journey { --c: 7; }
+  .monitor {
+    border-radius: var(--radius-sm); border: 1px solid var(--line);
+    background: var(--tile-2); overflow: hidden;
+  }
+  .monitor .mhead {
+    display: flex; align-items: center; gap: 6px; padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .monitor .mhead i { width: 9px; height: 9px; border-radius: 50%; background: var(--line-strong); display: block; }
+  .monitor .mhead b { margin-left: 8px; font-size: 0.8125rem; font-weight: 600; color: var(--muted); }
+  .monitor ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .monitor li {
+    display: flex; align-items: center; gap: 10px; padding: 12px 14px; font-weight: 600; font-size: 0.9375rem;
+    border-top: 1px solid var(--line);
+  }
+  .monitor li:nth-child(-n+2) { border-top: 0; }
+  .monitor li:nth-child(odd) { border-right: 1px solid var(--line); }
+  .monitor li::before {
+    content: ""; width: 8px; height: 8px; border-radius: 50%; flex: none;
+    background: var(--a-solid);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--a-solid) 18%, transparent);
+  }
+
+  .t-cta {
+    text-decoration: none; justify-content: space-between; gap: 24px; overflow: hidden;
+    min-height: 300px;
+  }
+  .t-cta .label { color: inherit; opacity: .9; }
+  .t-cta .cta-title { font-size: clamp(2.25rem, 4vw, 3.25rem); line-height: 1; font-weight: 800; letter-spacing: -0.045em; }
+  .t-cta .cta-sub { margin-top: 12px; font-weight: 500; max-width: 30ch; opacity: .95; }
+  .t-cta .cta-btn {
+    display: inline-flex; align-items: center; justify-content: space-between; gap: 12px;
+    align-self: flex-start;
+    padding: 14px 18px 14px 20px; border-radius: 16px;
+    background: var(--a-on); color: var(--a-solid);
+    font-weight: 800; font-size: 1rem;
+  }
+  .t-cta .cta-btn .ico { transition: transform .25s; }
+  .t-cta:hover .cta-btn .ico { transform: translate(2px, -2px); }
+  .t-cta > span { position: relative; z-index: 1; }
+  .t-cta .rings {
+    position: absolute; z-index: 0; right: -150px; bottom: -150px; width: 460px; height: 460px; border-radius: 50%;
+    border: 1.5px solid currentColor; opacity: .18; pointer-events: none;
+  }
+  .t-cta .rings::before, .t-cta .rings::after {
+    content: ""; position: absolute; border-radius: 50%; border: 1.5px solid currentColor;
+  }
+  .t-cta .rings::before { inset: 70px; }
+  .t-cta .rings::after { inset: 140px; box-shadow: inset 0 0 0 40px currentColor; opacity: .55; }
+  .t-cta .cta-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
+  .t-cta .cta-note { font-size: 0.875rem; font-weight: 600; opacity: .95; }
+  @media (prefers-reduced-motion: no-preference) {
+    .t-cta .rings { transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+    .t-cta:hover .rings { transform: scale(1.06); }
+  }
+  .t-cta:focus-visible { outline-offset: 4px; border-radius: var(--radius); }
+
+  .t-journey .flow { margin-top: 14px; }
+
+  /* Ops */
+  .p-ops .feature { --c: 7; --r: 2; }
+  .p-ops .t-portal, .p-ops .t-why { --c: 5; }
+  .p-ops .t-why .stack-row { margin-top: auto; padding-top: 16px; }
+  .featlist { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: auto; }
+  .featlist li {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px; border-radius: 14px;
+    background: var(--tile-2); border: 1px solid var(--line);
+    font-weight: 600; line-height: 1.3;
+  }
+  .featlist li svg { width: 22px; height: 22px; flex: none; color: var(--a-ink); }
+
+  /* ---------- How I work ---------- */
+  .t-principle { --c: 4; gap: 10px; min-height: 220px; }
+    .t-principle .num {
+    width: 36px; height: 36px; border-radius: 11px; display: grid; place-items: center;
+    background: var(--a-bg); color: var(--a-ink); font-weight: 800; font-size: 0.9375rem;
+    margin-bottom: 6px;
+  }
+  .t-principle h3 { font-size: 1.25rem; line-height: 1.25; font-weight: 700; letter-spacing: -0.02em; }
+  .t-principle p { color: var(--muted); }
+  .pr1 { --a-bg: var(--sch-bg); --a-ink: var(--sch-ink); }
+  .pr2 { --a-bg: var(--qor-bg); --a-ink: var(--qor-ink); }
+  .pr3 { --a-bg: var(--png-bg); --a-ink: var(--png-ink); }
+  .pr4 { --a-bg: var(--ops-bg); --a-ink: var(--ops-ink); }
+  .pr5 { --a-bg: var(--dss-bg); --a-ink: var(--dss-ink); }
+  .pr6 { --a-bg: var(--rcs-bg); --a-ink: var(--rcs-ink); }
+
+  /* ---------- Contact ---------- */
+  .t-contact { --c: 12; flex-direction: row; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 28px 48px; padding: clamp(24px, 3.4vw, 48px); }
+  .t-contact h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05; font-weight: 800; letter-spacing: -0.035em; }
+  .t-contact p { margin-top: 12px; color: var(--muted); max-width: 46ch; }
+  .t-contact .mail {
+    display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    font-size: clamp(1.25rem, 3vw, 2.25rem); font-weight: 800; letter-spacing: -0.03em;
+    text-decoration: none; line-height: 1.15; word-break: break-word;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 100% 2px; background-repeat: no-repeat; background-position: 0 100%;
+    padding-bottom: 6px;
+  }
+  .site-footer { padding-top: 40px; padding-bottom: 48px; }
+  .site-footer .row {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px;
+    font-size: 0.875rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 24px;
+  }
+
+  /* ---------- Tablet ---------- */
+  @media (max-width: 1023px) {
+    .bento { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+    .tile { grid-column: span var(--t, 6); grid-row: span var(--tr, 1); }
+    .t-hello { --t: 6; }
+    .t-photo { --t: 2; min-height: 0; aspect-ratio: 1 / 1.05; }
+    .t-stat { --t: 2; }
+    .t-tools, .t-own { --t: 6; }
+    .p-sch .t-dec, .p-sch .t-sec, .p-qor .t-pipe, .p-qor .t-land { --t: 3; }
+    .p-sch .t-scope, .p-qor .t-scope { --t: 6; }
+    .p-sch .t-ai, .p-sch .t-plans, .p-qor .t-fx, .p-qor .t-plans { --t: 3; }
+    .p-png .t-cta { --t: 6; min-height: 240px; }
+    .p-ops .t-portal, .p-ops .t-why { --t: 3; }
+    .p-dss .t-checks, .p-dss .t-scen, .p-dss .t-calc, .p-dss .t-a11y { --t: 3; }
+    .p-dss .t-mods { --t: 6; }
+    .p-rcs .t-why, .p-rcs .t-eng { --t: 3; }
+    .p-rcs .t-live, .p-rcs .t-post { --t: 6; }
+    .p-rc .t-why, .p-rc .t-bg, .p-rc .t-modes, .p-rc .t-safe { --t: 3; }
+    .t-principle { --t: 3; }
+    .t-contact { --t: 6; }
+  }
+
+  @media (min-width: 640px) and (max-width: 1023px) {
+    .t-photo .place span + span { display: none; }
+  }
+
+  /* ---------- Phone ---------- */
+  @media (max-width: 639px) {
+    :root { --gap: 12px; --radius: 22px; }
+    .bento { grid-template-columns: minmax(0, 1fr); }
+    .tile { grid-column: 1 / -1; grid-row: auto; }
+    .t-photo { aspect-ratio: 1 / 1; min-height: 0; }
+    .t-photo img { object-position: 50% 28%; }
+    .t-stat { min-height: 0; flex-direction: row; align-items: center; gap: 18px; }
+    .t-stat .big { min-width: 3.1ch; }
+    .tool-groups div { grid-template-columns: 1fr; gap: 6px; }
+    .tool-groups dt { padding-top: 0; }
+    .monitor ul, .featlist { grid-template-columns: minmax(0, 1fr); }
+    .monitor li:nth-child(odd) { border-right: 0; }
+    .monitor li:nth-child(2) { border-top: 1px solid var(--line); }
+    .t-principle { min-height: 0; }
+    .ticks.cols { grid-template-columns: minmax(0, 1fr); }
+    .p-rcs .shot .frame { position: relative; aspect-ratio: 4 / 3; }
+    .p-rcs .shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: left top; }
+    .app-head img { width: 48px; height: 48px; border-radius: 12px; }
+    .t-contact { flex-direction: column; align-items: flex-start; }
+    .brand-name { display: none; }
+    .site-nav a { padding: 8px 10px; font-size: 0.875rem; }
+    .section-head { margin-bottom: 18px; }
+    .t-cta { min-height: 0; }
+  }
+  @media (max-width: 360px) {
+    .site-nav a { padding: 8px 7px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="bar">
+      <a class="brand" href="#top" aria-label="Rosalind R. Gash, back to top">
+        <span class="mono" aria-hidden="true">R</span>
+        <span class="brand-name">Rosalind R. Gash</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <ul>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#how-i-work">How I work</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+  <!-- ================= Intro ================= -->
+  <section class="intro wrap" id="top" aria-labelledby="intro-title">
+    <div class="bento">
+      <div class="tile t-hello">
+        <div>
+          <h1 id="intro-title">Rosalind R.&nbsp;Gash</h1>
+          <p class="lead">I take software from the underlying problem to production: product decisions, UX, architecture, full&#8209;stack code, payments and integrations, testing, deployment, and hardening. I own all of it.</p>
+          <p class="sub">I use AI as an engineering tool. <strong>I delegate architecture and implementation, but responsibility for requirements, review, verification, security, and final product decisions stays with me.</strong> This page is a record of products I've conceived and built myself.</p>
+        </div>
+        <div class="actions">
+          <a class="btn" href="#projects">See the work
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+          </a>
+          <a class="btn ghost" href="mailto:rrgash@protonmail.com">Email</a>
+        </div>
+      </div>
+
+      <figure class="tile t-photo">
+        <img src="assets/images/rrgash_sm.png" width="540" height="573" alt="Portrait of Rosalind R. Gash, smiling, wearing glasses and a blush-pink collared top." />
+        <figcaption class="place">
+          <span>Rosalind R. Gash</span>
+        </figcaption>
+      </figure>
+
+      <div class="tile t-stat a1">
+        <p class="big" aria-hidden="true">~25</p>
+        <p class="what"><span class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Nearly 25 </span>years writing code<span>Long before my first full&#8209;stack product.</span></p>
+      </div>
+
+      <div class="tile t-stat a2">
+        <p class="big" aria-hidden="true">7–8</p>
+        <p class="what"><span class="visually-hidden" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Seven or eight </span>full-stack apps since 2025<span>From personal productivity tools and Windows desktop apps to B2B and B2C SaaS.</span></p>
+      </div>
+
+      <div class="tile t-tools">
+        <h2>Toolbox</h2>
+        <dl class="tool-groups">
+          <div><dt>Back end</dt><dd class="chips"><span class="chip">Laravel</span><span class="chip">PHP</span><span class="chip">Python</span><span class="chip">FastAPI</span></dd></div>
+          <div><dt>Front end</dt><dd class="chips"><span class="chip">JavaScript</span><span class="chip">TypeScript</span><span class="chip">React</span><span class="chip">Next.js</span><span class="chip">Tailwind CSS</span><span class="chip">Recharts</span><span class="chip">Bootstrap</span></dd></div>
+          <div><dt>Desktop</dt><dd class="chips"><span class="chip">C#</span><span class="chip">.NET 8</span><span class="chip">WPF</span></dd></div>
+          <div><dt>Media &amp; AI</dt><dd class="chips"><span class="chip">FFmpeg</span><span class="chip">ONNX Runtime / DirectML</span><span class="chip">OpenCV (OpenCvSharp)</span><span class="chip">NAudio</span><span class="chip">WebRTC</span><span class="chip">whisper.cpp</span><span class="chip">llama.cpp</span></dd></div>
+          <div><dt>Data</dt><dd class="chips"><span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span class="chip">MongoDB</span></dd></div>
+          <div><dt>Integrations</dt><dd class="chips"><span class="chip">REST APIs</span><span class="chip">Stripe</span><span class="chip">Anthropic API</span></dd></div>
+          <div><dt>Ship &amp; run</dt><dd class="chips"><span class="chip">Docker</span><span class="chip">Git</span><span class="chip">Linux VPS deployment</span><span class="chip">AI-assisted engineering</span></dd></div>
+        </dl>
+      </div>
+
+      <div class="tile t-own">
+        <h2>What I own, end to end</h2>
+        <ol class="flow" aria-label="Product lifecycle">
+          <li><span class="chip">Problem</span></li>
+          <li><span class="chip">Product decisions</span></li>
+          <li><span class="chip">UX</span></li>
+          <li><span class="chip">Architecture</span></li>
+          <li><span class="chip">Full-stack build</span></li>
+          <li><span class="chip">Payments &amp; integrations</span></li>
+          <li><span class="chip">Testing</span></li>
+          <li><span class="chip">Deployment</span></li>
+          <li><span class="chip">Production hardening</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Projects ================= -->
+  <section class="section wrap" id="projects" aria-labelledby="projects-title">
+    <div class="section-head">
+      <h2 id="projects-title">Projects</h2>
+      <p>Seven products I conceived, designed, and built on my own: web SaaS, a financial decision system and the internal CRM behind it, and two Windows desktop apps. Each one is labeled with its current status.</p>
+    </div>
+
+    <!-- Scholium -->
+    <article class="project p-sch" aria-labelledby="sch-title">
+      <div class="bento">
+        <div class="tile feature">
+          <div>
+            <div class="top">
+              <p class="kicker">01 · Education SaaS</p>
+              <span class="badge offline">Offline</span>
+            </div>
+            <h3 id="sch-title">Scholium</h3>
+            <p class="desc">A multi-tenant platform for homeschool co-ops, microschools, course providers, and learning centers. It connects enrollment, records, billing, and parent access in one place. It ran in production for about four months and is offline for now.</p>
+          </div>
+          <div class="video">
+            <video controls preload="metadata" playsinline aria-label="Scholium highlight reel">
+              <source src="assets/videos/scholium-highlight-reel.mp4" type="video/mp4" onerror="videoMissing(this)" />
+            </video>
+            <div class="video-fallback" role="note">
+              <div class="inner">
+                <span class="play" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></span>
+                <strong>Demo video coming soon</strong>
+                <span>A highlight reel of Scholium will appear here.</span>
+              </div>
+            </div>
+          </div>
+          <p class="video-cap">1080p highlight reel, about a minute.</p>
+          <div class="stack-row">
+            <span class="label">Stack</span>
+            <span class="chip">Laravel 13</span><span class="chip">PHP</span><span class="chip">PostgreSQL</span><span class="chip">Bootstrap 5</span><span class="chip">Stripe</span><span class="chip">Anthropic API</span>
+          </div>
+        </div>
+
+        <div class="tile tint mini t-dec">
+          <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg></span>
+          <p class="label">Product decision</p>
+          <div class="foot">
+            <p class="figure">13 files and 4 tables removed</p>
+            <p>I rolled back the planned Xero and QuickBooks integrations and shipped five CSV export types instead. Simpler to maintain, and they work with any accounting tool.</p>
+          </div>
+        </div>
+
+        <div class="tile mini t-sec">
+          <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span>
+          <p class="label">Dedicated security phase</p>
+          <div class="foot">
+          <h4>Tested live, not just reviewed</h4>
+          <ul class="checks">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Session rotation</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Login lockout</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>CSRF rejection</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Authentication flows</li>
+          </ul>
+          </div>
+        </div>
+
+        <div class="tile mini t-scope">
+          <p class="label">What it connects</p>
+          <ul class="chips" style="margin-top:14px">
+            <li class="chip">Enrollment</li><li class="chip">Attendance</li><li class="chip">Grades</li><li class="chip">Records</li>
+            <li class="chip">Progress reports</li><li class="chip">Transcripts</li><li class="chip">Billing</li><li class="chip">Parent access</li>
+            <li class="chip">Payments</li><li class="chip">Imports</li><li class="chip">Admin workflows</li>
+          </ul>
+        </div>
+
+        <div class="tile tint mini t-ai">
+          <p class="label">Anthropic API</p>
+          <h4>AI-assisted progress reports</h4>
+          <p>Progress reports drafted with AI assistance through the Anthropic API.</p>
+        </div>
+
+        <div class="tile mini t-plans">
+          <p class="label">Pricing</p>
+          <div class="plans"><span>Co-Op</span><span>Learning Center</span></div>
+          <p>Two plans, flat monthly or yearly pricing.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Qorva -->
+    <article class="project p-qor" aria-labelledby="qor-title">
+      <div class="bento">
+        <div class="tile feature">
+          <div>
+            <div class="top">
+              <p class="kicker">02 · Trade &amp; finance SaaS</p>
+              <span class="badge offline">Offline</span>
+            </div>
+            <h3 id="qor-title">Qorva Global Trade</h3>
+            <p class="desc">A workflow platform for solo and small import/export operators: plan landed costs, estimate duties, track shipments, and keep purchase orders, documents, and reconciliation in one system. It reached production and is offline for now.</p>
+          </div>
+          <div class="video">
+            <video controls preload="metadata" playsinline aria-label="Qorva Global Trade highlight reel">
+              <source src="assets/videos/qorva-highlight-web.mp4" type="video/mp4" onerror="videoMissing(this)" />
+            </video>
+            <div class="video-fallback" role="note">
+              <div class="inner">
+                <span class="play" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg></span>
+                <strong>Demo video coming soon</strong>
+                <span>A highlight reel of Qorva will appear here.</span>
+              </div>
+            </div>
+          </div>
+          <p class="video-cap">1080p highlight reel, about a minute.</p>
+          <div class="stack-row">
+            <span class="label">Stack</span>
+            <span class="chip">Laravel</span><span class="chip">PHP</span><span class="chip">REST integrations</span><span class="chip">HTS data pipeline</span>
+          </div>
+        </div>
+
+        <div class="tile tint mini t-pipe">
+          <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h11M11 3l4 4-4 4M20 17H9M13 13l-4 4 4 4"/></svg></span>
+          <p class="label">Tariff data pipeline</p>
+          <h4>Keeps duty rates current</h4>
+          <ol class="steps foot">
+            <li>Fetch each new revision of the U.S. Harmonized Tariff Schedule.</li>
+            <li>Diff it against the prior revision.</li>
+            <li>Update base rates, Chapter 99 additional duties, and preference-program data.</li>
+          </ol>
+        </div>
+
+        <div class="tile mini t-land">
+          <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15l2 5h14l2-5zM6 15V9h5v6M11 11h7v4M8 9V5"/></svg></span>
+          <p class="label">Landed-cost planning</p>
+          <div class="foot">
+            <p class="figure">FOB → DDP</p>
+            <p>Duty estimates include Section 301 and Section 232 additional duties, backed by HS-code reference and search.</p>
+          </div>
+        </div>
+
+        <div class="tile mini t-scope">
+          <p class="label">Workflow coverage</p>
+          <ul class="chips" style="margin-top:14px">
+            <li class="chip">Shipment tracking</li><li class="chip">Duty estimates</li><li class="chip">HS-code search</li>
+            <li class="chip">Purchase orders</li><li class="chip">Document workflows</li><li class="chip">Reconciliation</li>
+            <li class="chip">Reporting</li><li class="chip">Accounting-oriented exports</li>
+          </ul>
+        </div>
+
+        <div class="tile tint mini t-fx">
+          <p class="label">REST integration</p>
+          <h4>Live FX rates</h4>
+          <p>Pulled from frankfurter.app.</p>
+        </div>
+
+        <div class="tile mini t-plans">
+          <p class="label">Pricing</p>
+          <div class="plans"><span>Standard</span><span>Pro</span></div>
+          <p>Two plans, flat monthly or yearly pricing.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- SaaS Financial Decision Suite -->
+    <article class="project p-dss" aria-labelledby="dss-title">
+      <div class="bento">
+        <div class="tile feature">
+          <div>
+            <div class="top">
+              <p class="kicker">03 · Financial decision system</p>
+              <span class="badge offline">Offline</span>
+            </div>
+            <h3 id="dss-title">SaaS Financial Decision Suite</h3>
+            <p class="desc">The flagship demonstration for a planned fixed-scope consulting practice at rosalindgash.com: financial decision systems for founder-led SaaS companies. Four connected modules and an executive overview run on one dataset. rosalindgash.com is offline for now.</p>
+            <p class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/></svg><span>Havenpoint Workflow is a fictional company, and its 24 months of data are synthetic.</span></p>
+          </div>
+          <figure class="shot crop">
+            <div class="frame"><img src="assets/images/projects/decision-suite.jpg" width="1440" height="1307" loading="lazy" decoding="async" alt="Executive overview of the SaaS Financial Decision Suite for the fictional company Havenpoint Workflow: module tabs, scenario sliders for churn, new-customer pricing and new-business strength, hire and UK-market toggles, KPI cards for MRR, gross margin, cash and runway, and charts of trailing MRR and a 12-month forecast." /></div>
+            <figcaption>Executive overview: scenario controls, KPI cards, and forecast charts.</figcaption>
+          </figure>
+          <div class="stack-row">
+            <span class="label">Stack</span>
+            <span class="chip">Next.js 16</span><span class="chip">React 19</span><span class="chip">TypeScript (strict)</span><span class="chip">Tailwind CSS</span><span class="chip">Recharts</span>
+          </div>
+        </div>
+
+        <div class="tile tint mini t-checks">
+          <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg></span>
+          <p class="label">Automated validation</p>
+          <div class="foot">
+            <p class="figure">49 checks</p>
+            <ul class="ticks">
+              <li>24-month MRR bridge and cash reconciliation</li>
+              <li>Assets = liabilities + equity</li>
+              <li>NPV/IRR recomputation and book-to-tax bridge</li>
+              <li>Scenario propagation</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tile mini t-scen">
+          <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg></span>
+          <p class="label">Scenario controls</p>
+          <div class="foot">
+            <h4>One change, followed through the forecast</h4>
+            <p>Churn, new-customer pricing, new-business strength, a hire, and UK market entry flow through the 12-month forecast where they matter: a hire changes burn and runway; churn moves ending MRR and cash.</p>
+          </div>
+        </div>
+
+        <div class="tile mini t-mods">
+          <p class="label">Four modules, one dataset</p>
+          <ul class="chips" style="margin-top:14px">
+            <li class="chip">Performance &amp; Cash</li><li class="chip">Accounting &amp; Assets</li><li class="chip">Workforce &amp; Hiring</li><li class="chip">Tax Readiness &amp; Expansion</li>
+          </ul>
+          <p>Plus an executive overview (the Founder Decision Center) and a SaaS Financial Visibility Scorecard.</p>
+        </div>
+
+        <div class="tile tint mini t-calc">
+          <p class="label">Architecture</p>
+          <h4>One calculation library</h4>
+          <p>Every formula lives there, never in components, alongside a metric dictionary and an assumptions register.</p>
+        </div>
+
+        <div class="tile mini t-a11y">
+          <p class="label">Accessibility &amp; safety</p>
+          <h4>Charts with data tables</h4>
+          <p>Accessible charts with data-table alternatives (WCAG 2.1 AA work), plus a fail-closed contact form (server action, honeypot).</p>
+        </div>
+      </div>
+    </article>
+
+    <p class="pairing"><span>Same venture · rosalindgash.com</span></p>
+
+    <!-- Ops -->
+    <article class="project p-ops" aria-labelledby="ops-title">
+      <div class="bento">
+        <div class="tile feature">
+          <div>
+            <div class="top">
+              <p class="kicker">04 · CRM &amp; client portal</p>
+              <span class="badge internal">Internal</span>
+            </div>
+            <h3 id="ops-title">Ops</h3>
+            <p class="desc">The back end for rosalindgash.com, the site for my planned consulting practice around the Decision Suite. It runs the practice behind the scenes, so it has no public link.</p>
+          </div>
+          <ul class="featlist">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M17 4.5a3.5 3.5 0 0 1 0 7M21.5 20a6.5 6.5 0 0 0-4-6"/></svg>CRM</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h18l-7 8.5V19l-4 2v-8.5z"/></svg>Sales pipeline</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>Proposals</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 17c1.5-2 2.5-2 3.5 0s2 2 4.5-1"/></svg>Contracts</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Projects</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>Activities</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M9 15.5l2 2 4-4"/></svg>Recurring appointments</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>Client portal</li>
+          </ul>
+        </div>
+
+        <div class="tile tint mini t-portal">
+          <p class="label">Client portal</p>
+          <h4>Token-scoped and read-only</h4>
+          <p>A portal for exchanging documents with clients. Access is scoped by token, and clients can view but not change anything.</p>
+        </div>
+
+        <div class="tile mini t-why">
+          <p class="label">Same venture</p>
+          <h4>The Decision Suite shows the work; Ops runs the practice</h4>
+          <p>Clients, pipeline, proposals, contracts, projects, and appointments for the planned rosalindgash.com practice, in one internal system.</p>
+          <div class="stack-row" style="margin-top:16px"><span class="label">Stack</span><span class="chip">FastAPI</span><span class="chip">MongoDB (Motor)</span><span class="chip">React</span></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- RosalindCam Studio -->
+    <article class="project p-rcs" aria-labelledby="rcs-title">
+      <div class="bento">
+        <div class="tile feature">
+          <div>
+            <div class="top">
+              <p class="kicker">05 · Video podcast production · Windows desktop</p>
+              <span class="badge personal">Personal build · v0.12</span>
+            </div>
+            <div class="app-head">
+              <img src="assets/images/projects/rosalindcam-studio-icon.png" width="256" height="256" alt="" loading="lazy" decoding="async" />
+              <h3 id="rcs-title">RosalindCam Studio</h3>
+            </div>
+            <p class="desc">A live-production app for video podcasts. I built it to produce my own show: one app instead of five, with on-device post-production and no subscription.</p>
+          </div>
+          <figure class="shot">
+            <div class="frame"><img src="assets/images/projects/rosalindcam-studio.jpg" width="1720" height="720" loading="lazy" decoding="async" alt="RosalindCam Studio's dark ultrawide workspace: Preview and Program monitors side by side with a TAKE button between them, scenes, show sources, run of show, a YouTube chat panel, and a four-channel audio mixer." /></div>
+            <figcaption>From an automated rehearsal with synthetic test guests.</figcaption>
+          </figure>
+          <div class="stack-row">
+            <span class="label">Stack</span>
+            <span class="chip">C#</span><span class="chip">.NET 8</span><span class="chip">WPF</span><span class="chip">WebRTC (WebView2)</span><span class="chip">FFmpeg</span><span class="chip">NAudio</span><span class="chip">OpenCvSharp</span><span class="chip">ONNX Runtime (DirectML)</span><span class="chip">whisper.cpp</span><span class="chip">llama.cpp</span>
+          </div>
+        </div>
+
+        <div class="tile tint mini t-why">
+          <p class="label">Why I built it</p>
+          <p class="quote">I have more time than money, so it's more cost-efficient to build my own apps than pay someone else to use theirs.</p>
+          <ul class="ticks foot">
+            <li>To produce my own show</li>
+            <li>One app instead of five</li>
+            <li>No subscription costs</li>
+          </ul>
+        </div>
+
+        <div class="tile mini t-live">
+          <p class="label">Live production</p>
+          <ul class="ticks cols">
+            <li><span>Separate <strong>Preview and Program</strong> with a deliberate TAKE; scenes, run of show, preflight checks, autosave and recovery</span></li>
+            <li><span><strong>Four-channel mixer</strong> (mic, media, system, master) with mix-minus</span></li>
+            <li><span>Records <strong>up to 4K</strong>, MKV first and remuxed to MP4, with seven separate stereo tracks</span></li>
+            <li><span>Streams to <strong>YouTube</strong> (1080p30 RTMPS) with an automatic safety recording and bounded reconnects</span></li>
+            <li><span>YouTube chat panel with a <strong>Q&amp;A queue</strong> and on-screen comment cards; lower-thirds and ticker graphics</span></li>
+            <li><span>Up to <strong>three remote guests</strong> over WebRTC, with a green room and private join links</span></li>
+          </ul>
+        </div>
+
+        <div class="tile mini t-post">
+          <p class="label">On-device post-production</p>
+          <h4>No cloud, no per-use fees</h4>
+          <ul class="ticks">
+            <li>Dialogue isolation and a transcript editor (Whisper)</li>
+            <li>An episode producer that drafts titles, descriptions, chapters, and show notes with inspectable citations (local LLM via llama.cpp)</li>
+            <li>Clip drafts with 9:16 framing and captions, and thumbnail concepts from a local image model</li>
+          </ul>
+          <p>I review everything before export.</p>
+        </div>
+
+        <div class="tile tint mini t-eng">
+          <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3"/><path d="M7.5 15h9"/></svg></span>
+          <p class="label">Engineering</p>
+          <div class="foot">
+            <p class="figure">837 automated checks</p>
+            <p>In the full Studio suite. It shares a Core library with RosalindCam and has a 22-page printable user guide.</p>
+            <p>Honest status: a personal build. Real-device acceptance of the guest features is still in progress.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <p class="pairing"><span>Shared Core library</span></p>
+
+    <!-- RosalindCam -->
+    <article class="project p-rc" aria-labelledby="rc-title">
+      <div class="bento">
+        <div class="tile feature">
+          <div>
+            <div class="top">
+              <p class="kicker">06 · Screen &amp; webcam recorder · Windows desktop</p>
+              <span class="badge personal">Personal build</span>
+            </div>
+            <div class="app-head">
+              <img src="assets/images/projects/rosalindcam-icon.png" width="256" height="256" alt="" loading="lazy" decoding="async" />
+              <h3 id="rc-title">RosalindCam</h3>
+            </div>
+            <p class="desc">A focused recorder for talking-head and screen videos. It records the screen, the webcam, or both with microphone audio to 1080p MP4, and ships as a portable, self-contained .exe.</p>
+          </div>
+          <figure class="shot">
+            <div class="frame"><img src="assets/images/projects/rosalindcam.jpg" width="1280" height="760" loading="lazy" decoding="async" alt="RosalindCam's recording window: capture, device, and recording controls on the left, and a screen-plus-webcam preview with a picture-in-picture webcam on the right." /></div>
+            <figcaption>From the automated UI review.</figcaption>
+          </figure>
+          <div class="stack-row">
+            <span class="label">Stack</span>
+            <span class="chip">C#</span><span class="chip">.NET 8</span><span class="chip">WPF</span><span class="chip">OpenCvSharp</span><span class="chip">ONNX Runtime (DirectML)</span><span class="chip">NAudio (WASAPI)</span><span class="chip">FFmpeg</span>
+          </div>
+        </div>
+
+        <div class="tile tint mini t-why">
+          <p class="label">Why I built it</p>
+          <p class="quote">OBS was confusing for me to use. I tried to like it, but I couldn't.</p>
+          <ul class="ticks foot">
+            <li>A focused recorder for talking-head and screen videos</li>
+            <li>Hide my room on camera without a green screen</li>
+            <li>No subscription, watermark, account, or cloud</li>
+          </ul>
+        </div>
+
+        <div class="tile mini t-bg">
+          <span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3.5"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0"/><path d="M3 7V3h4M21 7V3h-4M3 17v4h4M21 17v4h-4"/></svg></span>
+          <p class="label">Background replacement</p>
+          <div class="foot">
+            <h4>No green screen needed</h4>
+            <p>Real-time colour, image, or blur backgrounds using the RobustVideoMatting model on the GPU (ONNX Runtime + DirectML, CPU fallback), with edge controls.</p>
+          </div>
+        </div>
+
+        <div class="tile mini t-modes">
+          <p class="label">Recording modes</p>
+          <ul class="chips" style="margin-top:14px">
+            <li class="chip">Screen only</li><li class="chip">Webcam only</li><li class="chip">Screen + webcam</li><li class="chip">Picture-in-picture</li><li class="chip">Side-by-side</li>
+          </ul>
+          <p>The picture-in-picture webcam is movable and resizable, even while recording.</p>
+        </div>
+
+        <div class="tile tint mini t-safe">
+          <p class="label">Crash-safe recording</p>
+          <ul class="ticks">
+            <li>Writes MKV first, then remuxes to MP4</li>
+            <li>AMD hardware H.264 with a software fallback</li>
+            <li>99-check native smoke suite</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <!-- PingBuoy -->
+    <article class="project p-png" aria-labelledby="png-title">
+      <div class="bento">
+        <div class="tile feature">
+          <div>
+            <div class="top">
+              <p class="kicker">07 · Website monitoring SaaS</p>
+              <span class="badge archived">Archived · live demo</span>
+            </div>
+            <h3 id="png-title">PingBuoy</h3>
+            <p class="desc">Website monitoring with alerts, analytics, status information, and subscription workflows built in.</p>
+          </div>
+          <div class="monitor">
+            <div class="mhead" aria-hidden="true"><i></i><i></i><i></i><b>What it watches</b></div>
+            <ul aria-label="PingBuoy capabilities">
+              <li>Uptime checks</li>
+              <li>Dead-link detection</li>
+              <li>SSL expiration tracking</li>
+              <li>Alerts &amp; analytics</li>
+              <li>Status information</li>
+              <li>Subscription workflows</li>
+            </ul>
+          </div>
+        </div>
+
+        <a class="tile solid t-cta" href="https://pingbuoy-demo.rrgash.chatgpt.site/" target="_blank" rel="noopener noreferrer">
+          <span class="rings" aria-hidden="true"></span>
+          <span>
+            <span class="label">Try it yourself</span>
+            <span class="cta-title" style="display:block;margin-top:14px">Open the live demo</span>
+            <span class="cta-sub" style="display:block">PingBuoy is archived, but a demo with sample data is still running.</span>
+          </span>
+          <span class="cta-foot">
+          <span class="cta-btn">
+            Open live demo
+            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+            <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">(opens in a new tab)</span>
+          </span>
+          <span class="cta-note">Sample data · new tab</span>
+          </span>
+        </a>
+
+        <div class="tile tint mini t-journey">
+          <p class="label">Why it matters</p>
+          <h4>My first major AI-assisted SaaS, start to finish</h4>
+          <ol class="flow" aria-label="Phases I covered">
+            <li><span class="chip">Product planning</span></li>
+            <li><span class="chip">Architecture</span></li>
+            <li><span class="chip">Implementation</span></li>
+            <li><span class="chip">Security</span></li>
+            <li><span class="chip">Payments</span></li>
+            <li><span class="chip">Deployment</span></li>
+            <li><span class="chip">Debugging</span></li>
+          </ol>
+        </div>
+      </div>
+    </article>
+
+  </section>
+
+  <!-- ================= How I work ================= -->
+  <section class="section wrap" id="how-i-work" aria-labelledby="how-title">
+    <div class="section-head">
+      <h2 id="how-title">How I work</h2>
+      <p>Six habits that show up across these projects.</p>
+    </div>
+    <div class="bento">
+      <div class="tile t-principle pr1">
+        <span class="num" aria-hidden="true">1</span>
+        <h3>Start from the problem, not the ticket</h3>
+        <p>Each product started from a specific audience: homeschool co-ops and learning centers, small import/export operators, founder-led SaaS companies, website owners, and, for the desktop apps, me.</p>
+      </div>
+      <div class="tile t-principle pr2">
+        <span class="num" aria-hidden="true">2</span>
+        <h3>Own the whole stack</h3>
+        <p>Product decisions, UX, data model, back end, front end, payments, deployment, and hardening. One person accountable for all of it.</p>
+      </div>
+      <div class="tile t-principle pr3">
+        <span class="num" aria-hidden="true">3</span>
+        <h3>AI is a tool; accountability is mine</h3>
+        <p>I use AI to move faster. Architecture, code review, verification, security, and the final call are still my job.</p>
+      </div>
+      <div class="tile t-principle pr4">
+        <span class="num" aria-hidden="true">4</span>
+        <h3>Verify live, not just on paper</h3>
+        <p>Scholium got a dedicated security phase with live tests of session rotation, login lockout, CSRF rejection, and auth flows. The Decision Suite runs 49 validation checks; RosalindCam Studio's suite runs 837.</p>
+      </div>
+      <div class="tile t-principle pr5">
+        <span class="num" aria-hidden="true">5</span>
+        <h3>Right-size the solution</h3>
+        <p>I removed Scholium's planned Xero and QuickBooks integrations (13 files, 4 tables) and shipped five CSV exports that work with any accounting tool.</p>
+      </div>
+      <div class="tile t-principle pr6">
+        <span class="num" aria-hidden="true">6</span>
+        <h3>Build the tool I need</h3>
+        <p>I have more time than money, so building my own apps is more cost-efficient than paying to use someone else's. RosalindCam and RosalindCam Studio came from that.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Contact ================= -->
+  <section class="section wrap" id="contact" aria-labelledby="contact-title">
+    <div class="bento">
+      <div class="tile t-contact">
+        <div>
+          <p class="eyebrow">Contact</p>
+          <h2 id="contact-title" style="margin-top:12px">Questions about a project?</h2>
+          <p>Email is the way to reach me. I'm glad to walk through any of these builds in more detail.</p>
+        </div>
+        <a class="mail" href="mailto:rrgash@protonmail.com">rrgash@protonmail.com</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer wrap">
+  <div class="row">
+    <p>© 2026 Rosalind R. Gash</p>
+    <p>Brookings, South Dakota</p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    // Catch videos whose source failed before the inline handler could run.
+    document.querySelectorAll('.video video').forEach(function (v) {
+      // Capture phase also catches the non-bubbling error events fired on <source>.
+      v.addEventListener('error', function () { window.videoMissing(v); }, true);
+      if (v.error) window.videoMissing(v);
+    });
+
+    // Scroll reveal (skipped when reduced motion is requested or IO is unavailable).
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    document.querySelectorAll('.bento').forEach(function (grid) {
+      Array.prototype.forEach.call(grid.children, function (tile, i) {
+        if (!tile.classList.contains('tile')) return;
+        tile.style.transitionDelay = (i % 4) * 60 + 'ms';
+        tile.classList.add('reveal');
+        io.observe(tile);
+        tile.addEventListener('transitionend', function clear(ev) {
+          if (ev.propertyName === 'opacity') { tile.style.transitionDelay = ''; tile.removeEventListener('transitionend', clear); }
+        });
+      });
+    });
+  })();
+</script>
+</body>
+</html>
