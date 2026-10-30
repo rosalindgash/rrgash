@@ -485,6 +485,17 @@
   .toolbox div { display: grid; gap: 8px; padding: 20px 0; border-bottom: 1px solid var(--rule); }
   .toolbox dt { font-family: var(--serif); font-style: italic; font-size: 1.15rem; color: var(--ink); font-variation-settings: "opsz" 36; }
   .toolbox dd { margin: 0; }
+  .education { list-style: none; margin: 0; padding: 0; display: grid; border-top: 1px solid var(--rule-strong); }
+  .education li { display: grid; gap: 6px; padding: 22px 0; border-bottom: 1px solid var(--rule); }
+  .education__when { font-size: .74rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; color: var(--muted, var(--ink)); }
+  .education__what { font-family: var(--serif); font-size: clamp(1.3rem, 2.4vw, 1.7rem); line-height: 1.2; color: var(--ink); font-variation-settings: "opsz" 48; margin: 0; font-weight: 420; }
+  .education__where { margin: 0; }
+  .education__note { margin: 4px 0 0; max-width: 60ch; }
+  @media (min-width: 820px) {
+    .education li { grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: 4px 32px; align-items: baseline; padding: 26px 0; }
+    .education__when { grid-row: span 3; }
+    .education li > :not(.education__when) { grid-column: 2; }
+  }
   .toolbox .inline-list { font-size: .8rem; letter-spacing: .11em; text-transform: uppercase; font-weight: 600; color: var(--ink); line-height: 2; }
   @media (min-width: 820px) {
     .toolbox div { grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); gap: 32px; align-items: baseline; padding: 24px 0; }
@@ -546,6 +557,7 @@
           <li><a href="#work">Work</a></li>
           <li><a href="#method">Method</a></li>
           <li><a href="#toolbox">Toolbox</a></li>
+          <li><a href="#education">Education</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
@@ -979,6 +991,34 @@
         <div><dt>Services &amp; integrations</dt><dd><ul class="inline-list"><li>REST APIs</li><li>Stripe</li><li>Anthropic API</li></ul></dd></div>
         <div><dt>Infrastructure &amp; practice</dt><dd><ul class="inline-list"><li>Docker</li><li>Git</li><li>Linux VPS deployment</li><li>AI-assisted engineering</li></ul></dd></div>
       </dl>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section class="section" id="education" aria-labelledby="education-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="sc">Education</span>
+        <h2 id="education-title">Where I <em>studied.</em></h2>
+      </div>
+      <ol class="education reveal">
+        <li>
+          <span class="education__when">2023</span>
+          <h3 class="education__what">MBA &amp; Master in International Trade</h3>
+          <p class="education__where">ENEB / Universidad Isabel I, Spain</p>
+        </li>
+        <li>
+          <span class="education__when">2014–2017</span>
+          <h3 class="education__what">Computer Science &amp; Mathematics Studies</h3>
+          <p class="education__where">Rust College, Holly Springs, Mississippi</p>
+          <p class="education__note">Two years of foundational computer science and mathematics coursework as a non-traditional post-baccalaureate student.</p>
+        </li>
+        <li>
+          <span class="education__when">2000</span>
+          <h3 class="education__what">BS in Sociology</h3>
+          <p class="education__where">The State University of New York at Oneonta</p>
+        </li>
+      </ol>
     </div>
   </section>
 </main>

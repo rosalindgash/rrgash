@@ -547,6 +547,19 @@
   .matrix .tags li { font-size: 13px; padding: 8px 10px; background: var(--surface-2); color: var(--text); }
 
   /* ---------- Principles ---------- */
+  .edu { list-style: none; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
+  .edu li { display: grid; gap: 6px; padding: 20px 16px; border-top: 1px solid var(--line); }
+  .edu li:first-child { border-top: 0; }
+  .edu .when { font: 400 12.5px/1.6 var(--mono); color: var(--accent-text); }
+  .edu h3 { font-size: 1.15rem; letter-spacing: -0.02em; }
+  .edu .where { font: 400 13px/1.6 var(--mono); color: var(--text-2); }
+  .edu .note { color: var(--text-2); max-width: 60ch; margin-top: 4px; }
+  @media (min-width: 720px) {
+    .edu li { grid-template-columns: 200px minmax(0, 1fr); column-gap: 24px; padding: 24px; }
+    .edu .when { grid-row: span 3; padding-top: 3px; }
+    .edu li > :not(.when) { grid-column: 2; }
+  }
+  @media (min-width: 1000px) { .edu li { padding: 26px 32px; } }
   .principles { list-style: none; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
   .principles li { display: grid; gap: 8px; padding: 20px 16px; border-top: 1px solid var(--line); }
   .principles li:first-child { border-top: 0; }
@@ -614,7 +627,8 @@
         <li><a href="#projects"><span class="n">01</span>projects</a></li>
         <li><a href="#toolbox"><span class="n">02</span>toolbox</a></li>
         <li><a href="#how-i-work"><span class="n">03</span>how-i-work</a></li>
-        <li><a href="#contact"><span class="n">04</span>contact</a></li>
+        <li><a href="#education"><span class="n">04</span>education</a></li>
+        <li><a href="#contact"><span class="n">05</span>contact</a></li>
       </ul>
       <button class="theme-btn" type="button" id="theme-btn" aria-label="Toggle light and dark theme">
         <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
@@ -1230,6 +1244,34 @@
           <span class="num" aria-hidden="true">06</span>
           <h3>Build the tool I need</h3>
           <p>I have more time than money. When a subscription tool doesn't fit how I work, I build my own, as I did with RosalindCam and RosalindCam Studio.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section id="education" aria-labelledby="edu-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="sec-label"><span class="n">04</span><span>education</span></p>
+        <h2 id="edu-h">Education</h2>
+      </div>
+      <ol class="edu">
+        <li>
+          <span class="when">2023</span>
+          <h3>MBA &amp; Master in International Trade</h3>
+          <p class="where">ENEB / Universidad Isabel I, Spain</p>
+        </li>
+        <li>
+          <span class="when">2014–2017</span>
+          <h3>Computer Science &amp; Mathematics Studies</h3>
+          <p class="where">Rust College, Holly Springs, Mississippi</p>
+          <p class="note">Two years of foundational computer science and mathematics coursework as a non-traditional post-baccalaureate student.</p>
+        </li>
+        <li>
+          <span class="when">2000</span>
+          <h3>BS in Sociology</h3>
+          <p class="where">The State University of New York at Oneonta</p>
         </li>
       </ol>
     </div>

@@ -515,6 +515,12 @@
   }
   .featlist li svg { width: 22px; height: 22px; flex: none; color: var(--a-ink); }
 
+  /* ---------- Education ---------- */
+  .t-edu { --c: 4; --t: 2; gap: 8px; }
+  .t-edu .when { font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); }
+  .t-edu h3 { font-size: 1.25rem; line-height: 1.25; font-weight: 700; letter-spacing: -0.02em; }
+  .t-edu .where { color: var(--ink); font-weight: 500; }
+  .t-edu .edu-note { color: var(--muted); margin-top: 6px; }
   /* ---------- How I work ---------- */
   .t-principle { --c: 4; gap: 10px; min-height: 220px; }
     .t-principle .num {
@@ -596,12 +602,15 @@
     .app-head img { width: 48px; height: 48px; border-radius: 12px; }
     .t-contact { flex-direction: column; align-items: flex-start; }
     .brand-name { display: none; }
-    .site-nav a { padding: 8px 10px; font-size: 0.875rem; }
+    .site-nav a { padding: 8px 7px; font-size: 0.8125rem; white-space: nowrap; }
     .section-head { margin-bottom: 18px; }
     .t-cta { min-height: 0; }
   }
-  @media (max-width: 360px) {
-    .site-nav a { padding: 8px 7px; }
+  @media (max-width: 380px) {
+    .site-nav a { padding: 8px 5px; font-size: 0.78rem; }
+  }
+  @media (max-width: 345px) {
+    .site-nav li:has(a[href="#education"]) { display: none; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -624,6 +633,7 @@
         <ul>
           <li><a href="#projects">Projects</a></li>
           <li><a href="#how-i-work">How I work</a></li>
+          <li><a href="#education">Education</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
@@ -1178,7 +1188,7 @@
       <div class="tile t-principle pr3">
         <span class="num" aria-hidden="true">3</span>
         <h3>AI is a tool; accountability is mine</h3>
-        <p>I use AI to move faster. Architecture, code review, verification, security, and the final call are still my job.</p>
+        <p>I use AI as an engineering tool. I delegate architecture and implementation, but responsibility for requirements, review, verification, security, and final product decisions stays with me.</p>
       </div>
       <div class="tile t-principle pr4">
         <span class="num" aria-hidden="true">4</span>
@@ -1194,6 +1204,31 @@
         <span class="num" aria-hidden="true">6</span>
         <h3>Build the tool I need</h3>
         <p>I have more time than money, so building my own apps is more cost-efficient than paying to use someone else's. RosalindCam and RosalindCam Studio came from that.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Education ================= -->
+  <section class="section wrap" id="education" aria-labelledby="education-title">
+    <div class="section-head">
+      <h2 id="education-title">Education</h2>
+    </div>
+    <div class="bento">
+      <div class="tile t-edu reveal">
+        <span class="when">2023</span>
+        <h3>MBA &amp; Master in International Trade</h3>
+        <p class="where">ENEB / Universidad Isabel I, Spain</p>
+      </div>
+      <div class="tile t-edu reveal">
+        <span class="when">2014–2017</span>
+        <h3>Computer Science &amp; Mathematics Studies</h3>
+        <p class="where">Rust College, Holly Springs, Mississippi</p>
+        <p class="edu-note">Two years of foundational computer science and mathematics coursework as a non-traditional post-baccalaureate student.</p>
+      </div>
+      <div class="tile t-edu reveal">
+        <span class="when">2000</span>
+        <h3>BS in Sociology</h3>
+        <p class="where">The State University of New York at Oneonta</p>
       </div>
     </div>
   </section>
